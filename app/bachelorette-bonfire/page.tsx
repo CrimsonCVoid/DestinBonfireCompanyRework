@@ -37,25 +37,34 @@ export const metadata: Metadata = {
 };
 
 const INCLUDED = [
-  "Private permitted beach bonfire setup",
-  "2-hour fire with dedicated attendant",
-  "12 comfortable chairs with pillows",
-  "Custom bachelorette welcome sign",
-  "Bluetooth speaker for your playlist",
-  "Cornhole and group games",
-  "Tiki torches + ambient lighting",
-  "Complimentary s’mores",
-  "Full setup and cleanup",
-  "Walton County permit handled by us",
+  "12 pink beach chairs",
+  "2-hour private bonfire",
+  "Full setup with dedicated fire attendant",
+  "Pink blankets",
+  "Complete cleanup",
+  "Permit fees included",
+  "Welcome signage",
+  "Tiki torches",
+  "Two 6 ft tables with pink tablecloths",
+  "Glow-in-the-dark rings",
+  "Bluetooth speaker",
+  "Pink cornhole boards",
+  "S’mores",
+];
+
+const PHOTO_READY_EXTRAS = [
+  "Cocktail cups",
+  "Selfie station",
+  "Pink flower décor",
+  "Bride-to-be sunglasses",
+  "Sash",
 ];
 
 const ADDONS = [
-  { name: "Photographer", detail: "Capture the night with a local pro." },
-  { name: "Florals", detail: "Custom arrangements for tables and the sign." },
-  { name: "Champagne toast", detail: "Ice-cold bubbly with flutes." },
-  { name: "Charcuterie board", detail: "Curated spreads by local vendors." },
-  { name: "Extended fire time", detail: "Add additional hours as needed." },
-  { name: "Custom neon sign", detail: "Personalized name and hashtag options." },
+  { name: "Themed décor", detail: "Custom themes beyond pink — coordinated to your party." },
+  { name: "Custom accessories", detail: "Personalized signs, sashes, and group merchandise." },
+  { name: "Food add-ons", detail: "Curated spreads from our favorite local vendors." },
+  { name: "Upgraded seating layouts", detail: "Lounge-style or extended seating for larger parties." },
 ];
 
 export default function BachelorettePage() {
@@ -121,19 +130,39 @@ export default function BachelorettePage() {
         </div>
       </section>
 
+      <section className="bg-white py-20 sm:py-28">
+        <div className="container-x mx-auto max-w-3xl">
+          <p className="eyebrow text-center">Photo-Ready Extras</p>
+          <h2 className="mt-3 text-center text-3xl font-semibold tracking-tight sm:text-4xl">
+            Every detail dialed in for the perfect shot
+          </h2>
+          <ul className="mt-10 grid gap-3 sm:grid-cols-2">
+            {PHOTO_READY_EXTRAS.map((item) => (
+              <li
+                key={item}
+                className="flex gap-2.5 rounded-2xl bg-[var(--color-sand-50)] p-4 text-[15px] text-ink-800/90"
+              >
+                <svg className="mt-0.5 h-4 w-4 flex-none text-[var(--color-ember-500)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="bg-[var(--color-sand-100)] py-20 sm:py-28">
         <div className="container-x">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">Add-Ons</p>
+            <p className="eyebrow">Customization Options</p>
             <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
               Make it yours
             </h2>
             <p className="mt-5 text-ink-800/80">
-              Personalize the experience with curated add-ons from our favorite
-              local vendors.
+              Personalize the experience with themed décor, custom accessories,
+              food add-ons from local vendors, and upgraded seating layouts.
             </p>
           </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {ADDONS.map((a) => (
               <div key={a.name} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-ink-900/5">
                 <h3 className="text-lg font-semibold">{a.name}</h3>
@@ -141,6 +170,9 @@ export default function BachelorettePage() {
               </div>
             ))}
           </div>
+          <p className="mx-auto mt-12 max-w-2xl rounded-2xl bg-white px-6 py-4 text-center text-sm font-semibold text-ink-900 ring-1 ring-ink-900/10">
+            A 15% gratuity will be added to all bookings.
+          </p>
         </div>
       </section>
 

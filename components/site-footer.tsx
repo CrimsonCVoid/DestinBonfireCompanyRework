@@ -51,7 +51,6 @@ export function SiteFooter() {
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/#service-areas">Areas We Serve</Link></li>
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/#faq">FAQ</Link></li>
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/refund-policy">Refund Policy</Link></li>
-            <li><Link className="hover:text-[var(--color-ember-400)]" href="/refund-policy#privacy-policy">Privacy Policy</Link></li>
           </ul>
         </div>
 

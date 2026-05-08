@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { ContactSection } from "@/components/contact-section";
+import { BookNowButton } from "@/components/book-now-button";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -34,48 +35,6 @@ export const metadata: Metadata = {
   },
 };
 
-const STEPS = [
-  {
-    title: "1. Reserve your date",
-    body: "Book online or reach out by phone. Reservations secure your place in line once county permits are released.",
-  },
-  {
-    title: "2. Pick your beaches",
-    body: "Select a first- and second-choice beach access from our permitted locations across South Walton. Each beach has a limited daily permit count.",
-  },
-  {
-    title: "3. We submit the permit",
-    body: "Walton County typically releases standard permits about two weeks before your date. We handle the submission, fees, and all paperwork.",
-  },
-  {
-    title: "4. Confirmation & logistics",
-    body: "Once your permit is confirmed, we send final details — beach, arrival time, parking notes, and what to bring. You simply show up.",
-  },
-  {
-    title: "5. Setup, fire & cleanup",
-    body: "Our team arrives early to set up your seating, tiki torches, fire, and any add-ons. A dedicated attendant stays on-site. We clean up every spark once your evening ends.",
-  },
-];
-
-const FAQ_PERMITS = [
-  {
-    q: "Are bonfires allowed in Destin city limits?",
-    a: "No. Destin (Okaloosa County) does not allow beach bonfires. All permitted bonfires are held on nearby Walton County beaches — Miramar Beach is the closest to Destin.",
-  },
-  {
-    q: "How far in advance are permits issued?",
-    a: "Standard permits are typically issued by the county about two weeks before your booked date. That is why we confirm availability closer to your date, not at booking.",
-  },
-  {
-    q: "Why do you ask for a second-choice beach?",
-    a: "Each permitted beach has a capped daily permit count. A second choice gives us flexibility to secure your date if the first beach is already full.",
-  },
-  {
-    q: "What is a special event permit?",
-    a: "A special event permit may be required for larger gatherings or events with additional elements such as catering, lighting, or expanded setups. We will advise if it applies and guide you through the process.",
-  },
-];
-
 export default function PermitPage() {
   const breadcrumbLd = {
     "@context": "https://schema.org",
@@ -90,15 +49,6 @@ export default function PermitPage() {
       },
     ],
   };
-  const faqLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: FAQ_PERMITS.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  };
 
   return (
     <>
@@ -109,81 +59,173 @@ export default function PermitPage() {
       />
 
       <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
-        <div className="container-x grid gap-12 lg:grid-cols-[1fr_1.4fr]">
-          <div>
-            <p className="eyebrow">The Short Version</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Five steps from booking to bonfire
-            </h2>
-            <p className="mt-5 text-ink-800/80">
-              Every beach bonfire along 30A requires a Walton County permit.
-              We handle submission, fees, timing, and logistics — and if a
-              first-choice beach fills, we shift to your second choice without
-              missing a beat.
-            </p>
-          </div>
-          <ol className="space-y-6">
-            {STEPS.map((step) => (
-              <li key={step.title} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-ink-900/5">
-                <h3 className="text-lg font-semibold text-[var(--color-ember-600)]">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-800/80">{step.body}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="bg-[var(--color-sand-100)] py-20 sm:py-28">
         <div className="container-x mx-auto max-w-3xl">
-          <p className="eyebrow text-center">Permit FAQ</p>
-          <h2 className="mt-3 text-center text-3xl font-semibold tracking-tight sm:text-4xl">
-            Common permit questions
+          <div className="flex flex-col gap-3 pb-12 sm:flex-row sm:justify-center">
+            <BookNowButton>Book Your Bonfire</BookNowButton>
+            <a href={SITE.phoneHref} className="btn-ghost">
+              Call Now {SITE.phone}
+            </a>
+          </div>
+
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            How Beach Bonfire Permits Work Near Destin &amp; Along 30A
           </h2>
-          <div className="mt-12 divide-y divide-ink-900/10 rounded-3xl bg-white">
-            {FAQ_PERMITS.map((f) => (
-              <details key={f.q} className="group px-6 py-5">
-                <summary className="flex cursor-pointer items-center justify-between gap-6 text-base font-semibold text-ink-900 [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <svg className="h-5 w-5 flex-none text-[var(--color-ember-600)] transition group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
-                </summary>
-                <p className="mt-3 text-sm leading-relaxed text-ink-800/80">{f.a}</p>
-              </details>
-            ))}
+          <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            <p>
+              Planning a beach bonfire should feel simple and stress-free — and
+              with the right guidance, it is. One of the most common questions
+              we receive is about permits, especially for guests staying in
+              Destin. Here’s what you need to know:
+            </p>
+            <p>
+              Beach bonfires are{" "}
+              <strong>
+                not permitted within Destin city limits (Okaloosa County)
+              </strong>
+              . However, just minutes away, permitted bonfires are allowed on
+              select beaches in Walton County, including Miramar Beach, Santa
+              Rosa Beach, and along 30A.
+            </p>
+            <p>
+              At Destin Bonfire Company, we host our bonfires exclusively on
+              these permitted beaches and handle the entire process for you so
+              your experience is fully compliant, professionally managed, and
+              easy to enjoy from start to finish.
+            </p>
           </div>
         </div>
       </section>
 
       <section className="bg-white py-20 sm:py-28">
         <div className="container-x mx-auto max-w-3xl">
-          <p className="eyebrow">A Transparent Process</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-            No permit markup, no processing fees
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            How the Walton County Permit Process Works
           </h2>
-          <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+          <p className="mt-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            Once you reserve your bonfire, our team coordinates all required
+            permits behind the scenes.
+          </p>
+          <p className="mt-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            Here’s how the process works:
+          </p>
+          <ul className="mt-5 list-disc space-y-4 pl-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            <li>
+              Standard bonfire permits are released by Walton County{" "}
+              <strong>two weeks prior to your scheduled event date</strong>
+            </li>
+            <li>
+              Each beach is limited to a{" "}
+              <strong>set number of permits per day</strong>
+            </li>
+            <li>
+              Because availability is limited, we require a{" "}
+              <strong>second-choice beach option</strong> in case your first
+              choice is unavailable
+            </li>
+            <li>
+              Permits are secured based on availability at the time they are
+              released
+            </li>
+          </ul>
+          <p className="mt-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            This is why booking early is important — while permits are not
+            issued until closer to your date, your reservation ensures you are
+            in position when they become available.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-[var(--color-sand-100)] py-20 sm:py-28">
+        <div className="container-x mx-auto max-w-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            Limited Availability &amp; Planning Ahead
+          </h2>
+          <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
             <p>
-              All permit fees are set by Walton County and paid directly to
-              them — we do not mark up or profit from permit costs in any way.
-              We also do not add any admin or processing fees to your permit
-              purchase.
+              Because Walton County strictly limits the number of bonfires
+              allowed each day, certain dates and beaches can fill quickly —
+              especially during peak seasons.
             </p>
             <p>
-              Our role is to manage the process, handle the logistics, and make
-              sure everything is done properly so your group doesn’t have to
-              worry about the details. Beach bonfires are not permitted within
-              Destin city limits (Okaloosa County); permitted bonfires are
-              allowed on select beaches in Walton County including Miramar
-              Beach, Santa Rosa Beach, and along 30A.
+              Providing flexibility with location and booking in advance gives
+              you the best chance of securing your preferred setup.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20 sm:py-28">
+        <div className="container-x mx-auto max-w-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            When a Special Event Permit May Be Recommended
+          </h2>
+          <p className="mt-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            If you are planning a larger gathering or would like to include
+            additional elements such as catering, lighting, or expanded setups,
+            an additional <strong>special event permit</strong> may be required
+            by the county in addition to your standard bonfire permit.
+          </p>
+          <p className="mt-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            This option can:
+          </p>
+          <ul className="mt-4 list-disc space-y-3 pl-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            <li>Allow for more advanced planning</li>
+            <li>
+              Provide greater flexibility for larger or more customized events
+            </li>
+          </ul>
+          <p className="mt-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            We’re happy to guide you through whether this is needed for your
+            specific event.
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
+        <div className="container-x mx-auto max-w-3xl">
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            A Transparent Process
+          </h2>
+          <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            <p>We believe in keeping things simple and transparent.</p>
+            <p className="font-semibold text-ink-900">
+              All permit fees are set by the county and paid directly to them —
+              we do not mark up or profit from permit costs in any way. We do
+              not add any admin or processing fees to your permit purchase.
+            </p>
+            <p>
+              Our role is to manage the process, handle the logistics, and
+              ensure everything is done properly so you don’t have to worry
+              about the details.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20 sm:py-28">
+        <div className="container-x mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            Ready to plan your beach bonfire experience?
+          </h2>
+          <p className="mt-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
+            Book online or contact us to learn more about availability, private
+            events, and custom celebrations.
+          </p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a href={SITE.phoneHref} className="btn-ghost">
+              Call Us Today {SITE.phone}
+            </a>
+            <BookNowButton>Book Your Bonfire</BookNowButton>
           </div>
         </div>
       </section>
 
       <ContactSection />
 
-      <script type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-      <script type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
     </>
   );
 }

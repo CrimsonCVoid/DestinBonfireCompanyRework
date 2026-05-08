@@ -251,7 +251,7 @@ export const BEACHES: BeachDetail[] = [
     shortName: "Walton Dunes",
     community: "Seagrove Beach",
     image: "/images/waltondunes.jpg",
-    parkingAddress: "258 Beachfront Trail, Santa Rosa Beach, FL 32459",
+    parkingAddress: "238 Beachfront Trail, Santa Rosa Beach, FL 32459",
     lat: 30.30377,
     lng: -86.08731,
     parkingSpots: "Roughly 15 roadside spots at the end of Beachfront Trail.",

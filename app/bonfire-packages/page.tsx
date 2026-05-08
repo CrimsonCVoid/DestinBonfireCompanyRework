@@ -3,7 +3,8 @@ import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { ContactSection } from "@/components/contact-section";
 import { BookNowButton } from "@/components/book-now-button";
-import { FAREHARBOR, PACKAGES, SITE } from "@/lib/site";
+import Link from "next/link";
+import { FAREHARBOR, PACKAGES, SITE, SPECIALTY_PACKAGES } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Beach Bonfire Packages & Pricing on 30A",
@@ -92,10 +93,9 @@ export default function PackagesPage() {
           </div>
           <ul className="mt-10 grid gap-4 sm:grid-cols-2">
             {[
-              "No admin or processing fees when you book directly with us",
-              "No permit fee mark-ups — fees are paid directly to Walton County",
-              "Flexible rescheduling before the permit is purchased",
-              "Everything included — no surprise add-on fees for the Bluetooth speaker, food table, cornhole, or s’mores",
+              "No permit fee mark-ups",
+              "Flexible rescheduling before permit purchase",
+              "Everything included with no surprise add-on fees for bluetooth speaker, food table, cornhole, or s’mores",
             ].map((item) => (
               <li
                 key={item}
@@ -183,27 +183,81 @@ export default function PackagesPage() {
       </section>
 
       <section className="bg-white py-20 sm:py-28">
+        <div className="container-x">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">More Options</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+              Larger groups &amp; bachelorette parties
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            {SPECIALTY_PACKAGES.map((sp) => {
+              const isInternal = sp.ctaHref.startsWith("/");
+              return (
+                <article
+                  key={sp.slug}
+                  id={sp.slug}
+                  className="scroll-mt-24 overflow-hidden rounded-3xl bg-[var(--color-sand-50)] shadow-sm ring-1 ring-ink-900/5"
+                >
+                  <div className="relative aspect-[16/9] overflow-hidden">
+                    <Image
+                      src={sp.image}
+                      alt={`${sp.name} — beach bonfire`}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-8">
+                    <h3 className="text-2xl font-semibold">{sp.name}</h3>
+                    <p className="mt-2 text-sm uppercase tracking-wider text-ink-800/70">
+                      {sp.groupSize}
+                      {sp.price ? ` · ${sp.price}` : ""}
+                    </p>
+                    <p className="mt-4 text-[15px] leading-relaxed text-ink-800/85">
+                      {sp.description}
+                    </p>
+                    {isInternal ? (
+                      <Link href={sp.ctaHref} className="btn-ghost mt-6">
+                        {sp.ctaLabel}
+                      </Link>
+                    ) : (
+                      <a href={sp.ctaHref} className="btn-ghost mt-6">
+                        {sp.ctaLabel}
+                      </a>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
         <div className="container-x mx-auto max-w-4xl">
           <div className="text-center">
             <p className="eyebrow">Enhancements</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Add-ons &amp; larger groups
+              Add-ons
             </h2>
             <p className="mt-4 text-ink-800/80">
-              S’mores are always included. Customize your bonfire with extras,
-              or ask about custom setups for wedding welcome parties, family
-              reunions, corporate events, birthdays, and women’s retreats.
+              Looking for something special? We&apos;re happy to customize your
+              setup. Our celebration coordinator personalizes events for
+              birthdays, anniversaries, girls&apos; trips, women&apos;s
+              retreats, and more occasions.
             </p>
           </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { name: "Extra hour", price: "$100", detail: "Extend the fire for a longer evening." },
               { name: "Cooler with ice", price: "$40", detail: "Ice cooler ready for your drinks." },
               { name: "Extra beach chair", price: "$20", detail: "Add additional seating per guest." },
+              { name: "S’mores", price: "ALWAYS included", detail: "Every bonfire comes with complimentary s’mores." },
             ].map((e) => (
               <div
                 key={e.name}
-                className="rounded-2xl bg-[var(--color-sand-50)] p-6 shadow-sm ring-1 ring-ink-900/5"
+                className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-ink-900/5"
               >
                 <h3 className="text-lg font-semibold">{e.name}</h3>
                 <p className="mt-1 text-2xl font-bold text-[var(--color-ember-600)]">{e.price}</p>

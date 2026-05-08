@@ -34,6 +34,11 @@ export function Hero() {
           beaches. We handle permits, setup, cleanup, and hosting — so you can
           simply show up and enjoy the night.
         </p>
+        <p className="mt-4 max-w-2xl text-balance text-sm leading-relaxed text-sand-100/85 sm:text-base">
+          We serve guests staying in 30A and Destin with professionally hosted
+          bonfires in nearby permitted beach areas including Miramar Beach,
+          Santa Rosa Beach, Rosemary Beach, and Seaside.
+        </p>
 
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
           <BookNowButton className="text-base">

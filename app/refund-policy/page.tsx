@@ -55,9 +55,6 @@ export default function RefundPage() {
           <h1 id="cancellations" className="scroll-mt-24 text-4xl font-semibold tracking-tight sm:text-5xl">
             Cancellations, Refunds &amp; Fees
           </h1>
-          <h1 id="privacy-policy" className="mt-4 scroll-mt-24 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Privacy Policy
-          </h1>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <BookNowButton>Book Your Bonfire</BookNowButton>
             <a href={SITE.phoneHref} className="btn-secondary">
@@ -150,6 +147,22 @@ export default function RefundPage() {
               fees.
             </li>
           </ul>
+
+          <p className="mt-10 text-2xl font-bold text-ink-900">
+            Permit &amp; Processing Fee Refunds
+          </p>
+
+          <p className="mt-5">
+            As mentioned, county permit fees are non-refundable once purchased
+            because those fees are paid to Walton County and are not reimbursed
+            to us. Processing fees charged by our booking partner, FareHarbor,
+            are also non-refundable because those fees are retained by
+            FareHarbor and are not returned to us. We do not keep, receive, or
+            profit from either of these fees. Guests are always welcome to book
+            and pay directly with us by phone at no additional charge. If you
+            choose to book through our website, any applicable processing fees
+            will not be refunded.
+          </p>
 
           <h3 className="mt-14 text-3xl font-semibold text-ink-900 sm:text-4xl">
             Beach Conditions

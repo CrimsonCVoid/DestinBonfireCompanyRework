@@ -108,18 +108,18 @@ export const PACKAGES: Package[] = [
     image: "/images/IMG_0674.jpeg",
     fareHarborKey: "cozyBonfire",
     includes: [
+      "S’mores",
+      "Cornhole",
+      "Bluetooth Speaker",
+      "6 ft table with tablecloth",
       "Private beach bonfire setup",
       "2 hour fire",
-      "6 chair setup",
+      "6 chair set up",
       "Tiki torches",
       "On-site bonfire attendant",
       "Welcome sign",
-      "6 ft table with tablecloth",
-      "Cornhole",
-      "Bluetooth speaker",
-      "Complimentary s’mores",
       "Full setup & cleanup",
-      "$157 Walton County permit included",
+      "$157 Walton County permit",
     ],
   },
   {
@@ -133,18 +133,18 @@ export const PACKAGES: Package[] = [
     image: "/images/IMG_0684.jpeg",
     fareHarborKey: "sunsetCircle",
     includes: [
+      "S’mores",
+      "Cornhole",
+      "Bluetooth Speaker",
+      "6 ft table with tablecloth",
       "Private beach bonfire setup",
       "2 hour fire",
-      "12 chair setup",
+      "12 chair set up",
       "Tiki torches",
       "On-site bonfire attendant",
       "Welcome sign",
-      "6 ft table with tablecloth",
-      "Cornhole",
-      "Bluetooth speaker",
-      "Complimentary s’mores",
       "Full setup & cleanup",
-      "$157 Walton County permit included",
+      "$157 Walton County permit",
     ],
   },
   {
@@ -157,18 +157,18 @@ export const PACKAGES: Package[] = [
     image: "/images/IMG_2426.jpeg",
     fareHarborKey: "shorelineSocial",
     includes: [
+      "S’mores",
+      "Cornhole",
+      "Bluetooth Speaker",
+      "(2) 6 ft tables with tablecloths",
       "Private beach bonfire setup",
       "3 hour fire",
-      "20 chair setup",
+      "20 chair set up",
       "Tiki torches",
       "On-site bonfire attendant",
       "Welcome sign",
-      "Two 6 ft tables with tablecloths",
-      "Cornhole",
-      "Bluetooth speaker",
-      "Complimentary s’mores",
       "Full setup & cleanup",
-      "$157 Walton County permit included",
+      "$157 Walton County permit fee",
     ],
   },
   {
@@ -181,21 +181,56 @@ export const PACKAGES: Package[] = [
     image: "/images/IMG_0673.jpeg",
     fareHarborKey: "bonfireBash",
     includes: [
+      "S’mores",
+      "TWO On-site bonfire attendants",
+      "Cornhole",
+      "Bluetooth Speaker",
+      "(2) 6 ft tables with tablecloths",
+      "(2) 32″ round high top tables with tablecloths",
       "Private beach bonfire setup",
       "3 hour fire",
-      "29 chair setup",
+      "29 chair set up",
       "Tiki torches",
-      "TWO on-site bonfire attendants",
       "Welcome sign",
-      "Two 6 ft tables with tablecloths",
-      "Two 32″ round high-top tables with tablecloths",
-      "Cornhole",
-      "Bluetooth speaker",
-      "Complimentary s’mores",
       "Full setup & cleanup",
-      "$157 Walton County permit included",
-      "18% gratuity added at booking",
+      "$157 Walton County permit fee",
+      "18% gratuity added",
     ],
+  },
+];
+
+export type SpecialtyPackage = {
+  slug: string;
+  name: string;
+  groupSize: string;
+  price?: string;
+  description: string;
+  ctaLabel: string;
+  ctaHref: string;
+  image: string;
+};
+
+export const SPECIALTY_PACKAGES: SpecialtyPackage[] = [
+  {
+    slug: "ultimate-bonfire",
+    name: "The Ultimate Bonfire",
+    groupSize: "More than 30 People",
+    description:
+      "Perfect for wedding welcome parties, family reunions, corporate events, and large group celebrations. Contact event planner for customization.",
+    ctaLabel: "Contact Event Planner",
+    ctaHref: "tel:+18507061325",
+    image: "/images/IMG_2429.jpeg",
+  },
+  {
+    slug: "bachelorette-bash",
+    name: "Bachelorette Bash",
+    groupSize: "Up to 12 guests",
+    price: "$595",
+    description:
+      "Contact for larger parties. Includes customizable event planning.",
+    ctaLabel: "View Bachelorette Details",
+    ctaHref: "/bachelorette-bonfire",
+    image: "/images/IMG_0398-640w.jpg",
   },
 ];
 
@@ -210,6 +245,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
   {
     slug: "ed-walline",
     name: "Ed Walline Regional Beach Access",
+    address: "4447 County Highway 30A, Santa Rosa Beach, FL 32459",
     image: "/images/edwallenbeach.jpg",
   },
   {
@@ -221,26 +257,31 @@ export const SERVICE_AREAS: ServiceArea[] = [
   {
     slug: "santa-clara",
     name: "Santa Clara Regional Beach Access",
+    address: "3468 East County Highway 30A, Santa Rosa Beach, FL 32459",
     image: "/images/SantaClara.jpg",
   },
   {
     slug: "dune-allen",
     name: "Dune Allen Beach",
+    address: "5999 County Highway 30A, Santa Rosa Beach, FL 32459",
     image: "/images/DuneAllen.jpg",
   },
   {
     slug: "fort-panic",
     name: "Fort Panic Regional Beach",
+    address: "5753 County Highway 30A, Santa Rosa Beach, FL 32459",
     image: "/images/FortPanic.jpg",
   },
   {
     slug: "blue-mountain",
     name: "Blue Mountain Regional Beach Access",
+    address: "2365 South County Highway 83, Santa Rosa Beach, FL 32459",
     image: "/images/BlueMountain2.jpg",
   },
   {
     slug: "walton-dunes",
     name: "Walton Dunes Access",
+    address: "238 Beachfront Trail, Santa Rosa Beach, FL 32459",
     image: "/images/waltondunes.jpg",
   },
   {
@@ -272,7 +313,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
 export const FAQ = [
   {
     q: "How much does a 30A beach bonfire cost?",
-    a: "Beach bonfire packages along Scenic Highway 30A start at $429 for up to 6 guests. Pricing includes permit handling, setup, seating, a dedicated fire attendant, s’mores, and cleanup. Larger groups can be accommodated with custom pricing.",
+    a: "Beach bonfire packages along Scenic Highway 30A start at $429.00 for up to 6 guests. Pricing includes permit handling, setup, seating, a dedicated fire attendant, s’mores, and cleanup. Larger groups can be accommodated with custom pricing.",
   },
   {
     q: "Do you need a permit for a beach bonfire on 30A?",

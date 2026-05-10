@@ -20,10 +20,10 @@ export const metadata: Metadata = {
       "Host a fun, private bachelorette beach bonfire near Destin and along 30A. Pink themes, seating, s’mores, fire attendant, and full cleanup included. Book your unforgettable night.",
     images: [
       {
-        url: "/images/IMG_0398-640w.jpg",
+        url: "/images/BatchloretteLandFacing.jpg",
         width: 1200,
         height: 630,
-        alt: "Bachelorette party celebrating at a private beach bonfire",
+        alt: "Bachelorette party celebrating at a private beach bonfire on 30A",
       },
     ],
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "30A & Destin Bachelorette Bonfires | Destin Bonfire Company",
     description:
       "Host a fun, private bachelorette beach bonfire near Destin and along 30A. Pink themes, seating, s’mores, fire attendant, and full cleanup included. Book your unforgettable night.",
-    images: ["/images/IMG_0398-640w.jpg"],
+    images: ["/images/BatchloretteLandFacing.jpg"],
   },
 };
 
@@ -83,20 +83,21 @@ export default function BachelorettePage() {
   };
 
   return (
-    <>
+    <div data-theme="pink">
       <PageHeader
         eyebrow="Bachelorette Bonfires"
         title="Bachelorette Bonfire"
         subtitle="Private, fully hosted bonfires on 30A starting at $595 for up to 12 guests. We bring the sign, the chairs, the fire, and the vibes — you bring the bridal party."
-        image="/images/IMG_0398-640w.jpg"
+        video="/videos/bachelorette-setup.mp4"
+        image="/images/WideShotFarBatchlorettePhoto.jpg"
       />
 
       <section className="bg-[var(--color-sand-50)] py-20 sm:py-28" id="BacheloretteBonfire">
         <div className="container-x grid items-start gap-14 lg:grid-cols-[1.1fr_1fr]">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-xl">
             <Image
-              src="/images/IMG_0398-640w.jpg"
-              alt="Bachelorette party celebrating at a private beach bonfire"
+              src="/images/BatchloretteFirePristinePhoto.jpg"
+              alt="Bachelorette beach bonfire with bride and bridal party"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
@@ -212,6 +213,6 @@ export default function BachelorettePage() {
 
       <script type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
-    </>
+    </div>
   );
 }

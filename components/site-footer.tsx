@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SITE } from "@/lib/site";
+import { COMMUNITIES, SITE } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
 
 export function SiteFooter() {
   return (
     <footer className="bg-ink-900 text-sand-100">
-      <div className="container-x grid gap-12 py-16 md:grid-cols-3">
+      <div className="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <Image
             src="/images/destin-bonfire-company-logo.png"
@@ -16,9 +16,9 @@ export function SiteFooter() {
             className="h-16 w-auto brightness-0 invert"
           />
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-sand-200/90">
-            Locally owned, professionally hosted beach bonfires along Florida&apos;s
-            Emerald Coast. We handle permits, setup, and cleanup so you can
-            simply enjoy the night.
+            Locally owned, professionally hosted beach bonfires across 30A and
+            the closest permitted beaches to Destin. We handle permits, setup,
+            and cleanup so you can simply enjoy the night.
           </p>
           <div className="mt-6 flex gap-3">
             <a
@@ -47,10 +47,28 @@ export function SiteFooter() {
           <ul className="mt-5 space-y-3 text-sm">
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/bonfire-packages">Beach Bonfire Packages</Link></li>
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/bachelorette-bonfire">Bachelorette Bonfires</Link></li>
-            <li><Link className="hover:text-[var(--color-ember-400)]" href="/bonfire-permit-process">Bonfire Permit Process</Link></li>
-            <li><Link className="hover:text-[var(--color-ember-400)]" href="/#service-areas">Areas We Serve</Link></li>
+            <li><Link className="hover:text-[var(--color-ember-400)]" href="/bonfire-permit-process">Permit Process</Link></li>
+            <li><Link className="hover:text-[var(--color-ember-400)]" href="/blog">Bonfire Blog</Link></li>
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/#faq">FAQ</Link></li>
             <li><Link className="hover:text-[var(--color-ember-400)]" href="/refund-policy">Refund Policy</Link></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-400)]">Locations</h3>
+          <ul className="mt-5 space-y-3 text-sm">
+            {COMMUNITIES.map((c) => (
+              <li key={c.slug}>
+                <Link className="hover:text-[var(--color-ember-400)]" href={`/locations/${c.slug}`}>
+                  {c.pageTitle}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link className="text-sand-200/60 hover:text-[var(--color-ember-400)]" href="/#service-areas">
+                All 11 beach accesses →
+              </Link>
+            </li>
           </ul>
         </div>
 

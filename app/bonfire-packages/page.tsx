@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       "Compare our four all-inclusive beach bonfire packages near Destin and 30A. Permit, setup, seating, tiki torches, s’mores, fire attendant, and cleanup included.",
     images: [
       {
-        url: "/images/IMG_0684.jpeg",
+        url: "/images/BigCircleBonfireSetupNight.jpg",
         width: 1200,
         height: 630,
         alt: "Private beach bonfire package setup on 30A",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "Beach Bonfire Packages & Pricing on 30A | Destin Bonfire Company",
     description:
       "Compare our four all-inclusive beach bonfire packages near Destin and 30A. Permit, setup, seating, tiki torches, s’mores, fire attendant, and cleanup included.",
-    images: ["/images/IMG_0684.jpeg"],
+    images: ["/images/BigCircleBonfireSetupNight.jpg"],
   },
 };
 
@@ -81,38 +81,9 @@ export default function PackagesPage() {
         eyebrow="All-Inclusive Packages"
         title="Beach Bonfire Packages on 30A"
         subtitle="Four fully hosted packages for every group size — from quiet couples' nights to large family celebrations. Permit, setup, and cleanup always included."
+        video="/videos/fire-to-sea.mp4"
+        image="/images/BigCircleBonfireSetupNight.jpg"
       />
-
-      <section className="bg-white py-16 sm:py-20">
-        <div className="container-x mx-auto max-w-4xl">
-          <div className="text-center">
-            <p className="eyebrow">Why Choose Destin Bonfire Company</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
-              Transparent pricing, no surprises
-            </h2>
-          </div>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
-            {[
-              "No permit fee mark-ups",
-              "Flexible rescheduling before permit purchase",
-              "Everything included with no surprise add-on fees for bluetooth speaker, food table, cornhole, or s’mores",
-            ].map((item) => (
-              <li
-                key={item}
-                className="flex gap-3 rounded-2xl bg-[var(--color-sand-50)] p-5 text-[15px] text-ink-800/90"
-              >
-                <span
-                  className="mt-0.5 text-lg leading-none"
-                  aria-hidden="true"
-                >
-                  🔥
-                </span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
 
       <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
         <div className="container-x space-y-24">

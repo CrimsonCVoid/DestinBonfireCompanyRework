@@ -61,8 +61,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/ed-walline-regional-beach-access-39/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
-      { label: "30A.com — Ed Walline", url: "https://30a.com/locations/ed-walline-regional-beach-access/" },
     ],
   },
   {
@@ -98,7 +96,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/gulfview-heights-regional-beach-access-37/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -135,7 +132,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/santa-clara-regional-beach-access-17/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -170,7 +166,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -206,7 +201,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/fort-panic-regional-beach-access-43/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -242,7 +236,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/blue-mountain-regional-beach-access-36/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -279,7 +272,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -317,7 +309,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -357,7 +348,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -396,7 +386,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/inlet-beach-regional-access-2a-2b-2c/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
     ],
   },
   {
@@ -436,8 +425,6 @@ export const BEACHES: BeachDetail[] = [
     ],
     sources: [
       { label: "Visit South Walton", url: "https://www.visitsouthwalton.com/beach-access/scenic-gulf-drive-regional-beach-access/" },
-      { label: "30A Blaze — permitted access list", url: "https://www.30ablaze.com/south-walton-public-beach-accesses" },
-      { label: "Walton Outdoors — opening press", url: "https://waltonoutdoors.com/new-regional-beach-access-opens-in-miramar-beach/" },
     ],
   },
 ];

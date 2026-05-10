@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/hero";
+import { TrustStrip } from "@/components/trust-strip";
 import { WelcomeSection } from "@/components/welcome-section";
+import { WhyChooseUs } from "@/components/why-choose-us";
+import { CommunitiesSection } from "@/components/communities-section";
 import { PackagesSection } from "@/components/packages-section";
 import { BacheloretteCta } from "@/components/bachelorette-cta";
 import { Testimonials } from "@/components/testimonials";
@@ -33,6 +36,13 @@ export default function HomePage() {
     serviceType: "Beach Bonfire Experience",
     provider: { "@id": `${SITE.domain}/#business` },
     areaServed: SERVICE_AREAS.map((a) => ({ "@type": "Place", name: a.name })),
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "127",
+      bestRating: "5",
+      worstRating: "1",
+    },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Beach Bonfire Packages",
@@ -51,10 +61,13 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TrustStrip />
       <WelcomeSection />
       <PackagesSection />
-      <BacheloretteCta />
       <Testimonials />
+      <WhyChooseUs />
+      <CommunitiesSection />
+      <BacheloretteCta />
       <FaqAccordion />
       <ServiceAreas />
       <Gallery />

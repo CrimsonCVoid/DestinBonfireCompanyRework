@@ -17,6 +17,16 @@ Set these in Vercel (Project → Settings → Environment Variables) and in `.en
 | `CONTACT_EMAIL_FROM_FALLBACK` | no (default `Destin Bonfire Company <bookings@30aflame.com>`) | Fallback sender — e.g. the 30aflame.com-verified domain |
 | `CONTACT_EMAIL_TO` | no (default `bookings@destinbonfirecompany.com`) | Recipient inbox |
 | `CONTACT_EMAIL_REPLY_TO` | no (default: submitter's email) | Override if replies should go to a different inbox |
+| `CONTACT_EMAIL_UNSUBSCRIBE_MAILTO` | no (default: `CONTACT_EMAIL_TO`) | Address Gmail's one-click unsubscribe will mailto: when the recipient clicks "Unsubscribe" |
+| `CONTACT_EMAIL_UNSUBSCRIBE_URL` | no (default `${SITE.domain}/refund-policy#contact`) | URL the `List-Unsubscribe` header points at |
+
+> **Deliverability note — recommended sender setup.**
+> Default `CONTACT_EMAIL_FROM` and `CONTACT_EMAIL_TO` are both `bookings@destinbonfirecompany.com` so it works out-of-the-box. Self-send (From == To) is a yellow flag with some inbox providers. For best deliverability, verify a second non-mailbox sender like `forms@destinbonfirecompany.com` in Resend and set:
+> ```
+> CONTACT_EMAIL_FROM="Destin Bonfire Company Website <forms@destinbonfirecompany.com>"
+> CONTACT_EMAIL_TO=bookings@destinbonfirecompany.com
+> ```
+> Reply-To is already wired to the submitter's email, so replies still go to the customer.
 
 ---
 

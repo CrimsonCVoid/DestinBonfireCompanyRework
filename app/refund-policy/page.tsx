@@ -17,7 +17,7 @@ export const metadata: Metadata = {
       "Review our cancellation & refund policy for wedding bonfire events. Contact us for details on fees, weather, & custom service charges.",
     images: [
       {
-        url: "/images/IMG_0684.jpeg",
+        url: "/images/BigCircleBonfireSetupNight.jpg",
         width: 1200,
         height: 630,
         alt: "Private beach bonfire on 30A",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Refund Policy | Destin Bonfire Company",
     description:
       "Review our cancellation & refund policy for wedding bonfire events. Contact us for details on fees, weather, & custom service charges.",
-    images: ["/images/IMG_0684.jpeg"],
+    images: ["/images/BigCircleBonfireSetupNight.jpg"],
   },
 };
 
@@ -216,7 +216,7 @@ export default function RefundPage() {
 
           <p className="mt-6">
             We operate with care and respect for the beautiful beaches and
-            wildlife that make the Emerald Coast so special.
+            wildlife that make 30A and Destin so special.
           </p>
 
           <p className="mt-5">

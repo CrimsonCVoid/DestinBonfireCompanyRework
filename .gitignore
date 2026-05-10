@@ -11,6 +11,10 @@ logs/
 # Large unreferenced media moved out of public/ — kept locally, not tracked
 unused-assets/
 
+# Raw DSLR photos + 4K source videos kept locally for re-encodes; only the
+# optimized outputs in public/images and public/videos get committed.
+Media/
+
 # TypeScript build cache
 tsconfig.tsbuildinfo
 

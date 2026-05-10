@@ -11,7 +11,7 @@ export function Hero() {
         loop
         playsInline
         preload="metadata"
-        poster="/images/home-banner-2208w.jpg"
+        poster="/images/Wideshot12ChairsBeach.jpeg"
         className="absolute inset-0 -z-20 h-full w-full object-cover"
         aria-hidden="true"
       >
@@ -24,20 +24,15 @@ export function Hero() {
       />
 
       <div className="container-x relative flex min-h-[92vh] flex-col items-center justify-center py-32 text-center text-white">
-        <p className="eyebrow text-[var(--color-ember-400)]">Destin · 30A · Emerald Coast</p>
-        <h1 className="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-          All-Inclusive Beach Bonfire Experiences
-          <span className="block text-[var(--color-ember-400)]">near Destin &amp; 30A</span>
+        <p className="eyebrow text-[var(--color-ember-400)]">Destin · 30A · Walton County</p>
+        <h1 className="mt-5 text-5xl font-semibold leading-[1.04] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+          Luxury Beach Bonfires
+          <span className="block text-[var(--color-ember-400)]">Near Destin</span>
         </h1>
-        <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-sand-100 sm:text-lg">
-          Private, professionally hosted bonfires on permitted Emerald Coast
-          beaches. We handle permits, setup, cleanup, and hosting — so you can
-          simply show up and enjoy the night.
-        </p>
-        <p className="mt-4 max-w-2xl text-balance text-sm leading-relaxed text-sand-100/85 sm:text-base">
-          We serve guests staying in 30A and Destin with professionally hosted
-          bonfires in nearby permitted beach areas including Miramar Beach,
-          Santa Rosa Beach, Rosemary Beach, and Seaside.
+        <p className="mt-8 max-w-2xl text-balance text-lg leading-relaxed text-sand-100 sm:text-xl">
+          Fully-permitted, professionally hosted bonfires on 30A and Destin&rsquo;s nearest beaches.
+          We pull the Walton County permit, handle setup and cleanup, and host
+          your night — so you just show up.
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">

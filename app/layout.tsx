@@ -7,6 +7,13 @@ import { SiteFooter } from "@/components/site-footer";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
+// VDX Marketing — Google Tag Manager container.
+// Per VDX brief: every page must include the head snippet + body noscript fallback.
+// All Google Ads / GA4 / Meta Pixel tags are deployed by VDX inside this container —
+// do NOT add gtag.js, GA4, or Meta Pixel directly anywhere in this codebase.
+// Contact: ross@vdxmarketing.com
+const GTM_ID = "GTM-KRQ9ZJQ7";
+
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
@@ -29,19 +36,23 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: {
-    default: `Beach Bonfires Near Destin & 30A | ${SITE.name}`,
+    default: `Luxury Beach Bonfires Near Destin | ${SITE.name}`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   keywords: [
+    "luxury beach bonfire Destin",
     "Destin beach bonfire",
     "30A beach bonfire",
-    "beach bonfire rental",
-    "bachelorette bonfire 30A",
-    "Santa Rosa Beach bonfire",
-    "South Walton bonfire",
+    "beach bonfire rental Destin",
     "Miramar Beach bonfire",
+    "Santa Rosa Beach bonfire",
+    "Seaside bonfire",
+    "Rosemary Beach bonfire",
+    "bachelorette bonfire 30A",
+    "South Walton bonfire",
     "bonfire permits Walton County",
+    "private beach bonfire Florida",
   ],
   authors: [{ name: SITE.name }],
   creator: SITE.name,
@@ -54,22 +65,22 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE.domain,
     siteName: SITE.name,
-    title: `Beach Bonfires Near Destin & 30A | ${SITE.name}`,
+    title: `Luxury Beach Bonfires Near Destin | ${SITE.name}`,
     description: SITE.description,
     images: [
       {
-        url: "/images/IMG_0684.jpeg",
+        url: "/images/BigCircleBonfireSetupNight.jpg",
         width: 1200,
         height: 630,
-        alt: "Private beach bonfire experience on Florida's Emerald Coast",
+        alt: "Private beach bonfire experience on 30A near Destin",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Beach Bonfires Near Destin & 30A | ${SITE.name}`,
+    title: `Luxury Beach Bonfires Near Destin | ${SITE.name}`,
     description: SITE.description,
-    images: ["/images/IMG_0684.jpeg"],
+    images: ["/images/BigCircleBonfireSetupNight.jpg"],
   },
   robots: {
     index: true,
@@ -104,9 +115,9 @@ const localBusinessJsonLd = {
   telephone: SITE.phone,
   email: SITE.email,
   image: [
-    `${SITE.domain}/images/IMG_0674.jpeg`,
-    `${SITE.domain}/images/IMG_0684.jpeg`,
-    `${SITE.domain}/images/IMG_2426.jpeg`,
+    `${SITE.domain}/images/12ChairSetupSunset.jpeg`,
+    `${SITE.domain}/images/BigCircleBonfireSetupNight.jpg`,
+    `${SITE.domain}/images/18ChairSunsetSetup.jpg`,
   ],
   logo: `${SITE.domain}/images/destin-bonfire-company-logo.png`,
   priceRange: "$$",
@@ -152,7 +163,30 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+      <head>
+        {/* Google Tag Manager — VDX Marketing (head snippet, as high as possible). */}
+        <Script
+          id="gtm-head"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');`,
+          }}
+        />
+      </head>
       <body>
+        {/* Google Tag Manager (noscript) — must be immediately after opening <body>. */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-lg"

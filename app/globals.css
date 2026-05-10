@@ -79,6 +79,27 @@
 }
 
 /* ==========================================================================
+   Pink theme — scoped to subtrees marked [data-theme="pink"].
+   Used on the Bachelorette page so the entire pink remap (buttons, eyebrows,
+   accent rings, FareHarbor button, etc.) flips at the wrapper level without
+   editing every component. The site-wide ember palette is untouched.
+   ========================================================================== */
+[data-theme="pink"] {
+  --color-ember-400: #f9a8d4;
+  --color-ember-500: #ec4899;
+  --color-ember-600: #db2777;
+  --color-ember-700: #be185d;
+
+  --color-sand-50: #fff7fb;
+  --color-sand-100: #fdebf3;
+  --color-sand-200: #f9d4e4;
+}
+[data-theme="pink"] ::selection {
+  background: #ec4899;
+  color: #fff;
+}
+
+/* ==========================================================================
    FareHarbor Lightframe modal — visual overhaul
 
    The booking UI itself renders inside FareHarbor's iframe (served from

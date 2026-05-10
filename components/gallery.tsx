@@ -8,7 +8,7 @@ export function Gallery() {
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow">Gallery</p>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Bonfire moments on the Emerald Coast
+            Bonfire moments on 30A and Destin
           </h2>
           <p className="mt-5 text-ink-800/75">
             A look at what your night could look like — sunset chairs, glowing

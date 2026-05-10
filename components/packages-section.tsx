@@ -1,6 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { PACKAGES } from "@/lib/site";
+import { PACKAGES, type Package } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
+
+const VISIBLE = 6;
 
 export function PackagesSection() {
   return (
@@ -20,66 +25,7 @@ export function PackagesSection() {
 
         <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {PACKAGES.map((p) => (
-            <article
-              key={p.slug}
-              className={`group relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 transition hover:-translate-y-1 hover:shadow-xl ${
-                p.popular ? "ring-2 ring-[var(--color-ember-500)]" : ""
-              }`}
-            >
-              {p.popular && (
-                <div className="absolute right-5 top-5 z-10 rounded-full bg-[var(--color-ember-500)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-white shadow">
-                  Most Popular
-                </div>
-              )}
-              <div className="relative aspect-[4/3] overflow-hidden bg-[var(--color-sand-200)]">
-                <Image
-                  src={p.image}
-                  alt={`${p.name} — beach bonfire package`}
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-700 group-hover:scale-105"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col p-6">
-                <h3 className="text-2xl font-semibold">{p.name}</h3>
-                <p className="mt-1 text-sm text-ink-800/70">{p.tagline}</p>
-
-                <div className="mt-5 flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tight text-[var(--color-ember-600)]">
-                    ${p.price}
-                  </span>
-                </div>
-                <p className="text-xs uppercase tracking-wider text-ink-800/60">
-                  {p.groupSize} · {p.duration}
-                </p>
-
-                <ul className="mt-6 flex-1 space-y-2.5 text-sm text-ink-800/90">
-                  {p.includes.slice(0, 6).map((item) => (
-                    <li key={item} className="flex gap-2.5">
-                      <svg className="mt-0.5 h-4 w-4 flex-none text-[var(--color-ember-500)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                  {p.includes.length > 6 && (
-                    <li className="pt-1 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)]">
-                      + {p.includes.length - 6} more included
-                    </li>
-                  )}
-                </ul>
-
-                <BookNowButton
-                  item={p.fareHarborKey}
-                  variant={p.popular ? "primary" : "ghost"}
-                  fullWidth
-                  className="mt-7"
-                >
-                  Book {p.name}
-                </BookNowButton>
-              </div>
-            </article>
+            <PackageCard key={p.slug} p={p} />
           ))}
         </div>
 
@@ -89,5 +35,95 @@ export function PackagesSection() {
         </p>
       </div>
     </section>
+  );
+}
+
+function PackageCard({ p }: { p: Package }) {
+  const [expanded, setExpanded] = useState(false);
+  const overflow = p.includes.length - VISIBLE;
+  const visible = expanded ? p.includes : p.includes.slice(0, VISIBLE);
+  const panelId = `pkg-${p.slug}-extras`;
+
+  return (
+    <article
+      className={`group relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 transition hover:-translate-y-1 hover:shadow-xl ${
+        p.popular ? "ring-2 ring-[var(--color-ember-500)]" : ""
+      }`}
+    >
+      {p.popular && (
+        <div className="absolute right-5 top-5 z-10 rounded-full bg-[var(--color-ember-500)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-white shadow">
+          Most Popular
+        </div>
+      )}
+      <div className="relative aspect-[4/3] overflow-hidden bg-[var(--color-sand-200)]">
+        <Image
+          src={p.image}
+          alt={`${p.name} — beach bonfire package`}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition duration-700 group-hover:scale-105"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="text-2xl font-semibold">{p.name}</h3>
+        <p className="mt-1 text-sm text-ink-800/70">{p.tagline}</p>
+
+        <div className="mt-5 flex items-baseline gap-2">
+          <span className="text-4xl font-bold tracking-tight text-[var(--color-ember-600)]">
+            ${p.price}
+          </span>
+        </div>
+        <p className="text-xs uppercase tracking-wider text-ink-800/60">
+          {p.groupSize} · {p.duration}
+        </p>
+
+        <ul
+          id={panelId}
+          className="mt-6 flex-1 space-y-2.5 text-sm text-ink-800/90"
+        >
+          {visible.map((item) => (
+            <li key={item} className="flex gap-2.5">
+              <svg className="mt-0.5 h-4 w-4 flex-none text-[var(--color-ember-500)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        {overflow > 0 && (
+          <button
+            type="button"
+            onClick={() => setExpanded((e) => !e)}
+            aria-expanded={expanded}
+            aria-controls={panelId}
+            className="mt-3 inline-flex items-center justify-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:bg-[var(--color-ember-500)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ember-500)]"
+          >
+            {expanded ? "Show less" : `+ ${overflow} more included`}
+            <svg
+              className={`h-3.5 w-3.5 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        )}
+
+        <BookNowButton
+          item={p.fareHarborKey}
+          variant={p.popular ? "primary" : "ghost"}
+          fullWidth
+          className="mt-7"
+        >
+          Book {p.name}
+        </BookNowButton>
+      </div>
+    </article>
   );
 }

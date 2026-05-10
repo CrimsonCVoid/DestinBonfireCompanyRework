@@ -1,11 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "error";
+
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[];
+  }
+}
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,8 +27,18 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
       });
       if (!res.ok) throw new Error("Failed");
+      // GTM dataLayer event — VDX uses the /contact/thank-you URL change as
+      // the primary conversion trigger; this event is a belt-and-suspenders
+      // signal in case they want to fire on the event instead.
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "contact_form_submit",
+          form_id: "contact",
+        });
+      }
       form.reset();
-      setStatus("sent");
+      router.push("/contact/thank-you");
     } catch {
       setStatus("error");
     }
@@ -104,11 +122,6 @@ export function ContactForm() {
         {status === "sending" ? "Sending…" : "Send Message"}
       </button>
 
-      {status === "sent" && (
-        <p role="status" className="mt-4 rounded-lg bg-emerald-500/20 px-4 py-3 text-sm text-emerald-100">
-          Thank you for reaching out — we will get back to you as soon as possible.
-        </p>
-      )}
       {status === "error" && (
         <p role="alert" className="mt-4 rounded-lg bg-rose-500/20 px-4 py-3 text-sm text-rose-100">
           Something went wrong. Please call us directly or try again.

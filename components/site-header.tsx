@@ -7,12 +7,11 @@ import { SITE } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
 
 const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/bonfire-packages", label: "Beach Bonfires" },
+  { href: "/bonfire-packages", label: "Packages" },
+  { href: "/#locations", label: "Locations" },
   { href: "/bachelorette-bonfire", label: "Bachelorette" },
-  { href: "/bonfire-permit-process", label: "Permit Process" },
-  { href: "/#service-areas", label: "Areas We Serve" },
-  { href: "/refund-policy", label: "Refund Policy" },
+  { href: "/bonfire-permit-process", label: "Permits" },
+  { href: "/blog", label: "Blog" },
 ];
 
 export function SiteHeader() {

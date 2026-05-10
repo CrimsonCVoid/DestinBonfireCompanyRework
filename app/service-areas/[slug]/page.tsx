@@ -11,7 +11,7 @@ import {
   googleMapsSatelliteEmbed,
   googleMapsSatelliteLink,
 } from "@/lib/beaches";
-import { SITE } from "@/lib/site";
+import { COMMUNITIES, SITE } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -42,6 +42,10 @@ export default async function BeachPage({ params }: Props) {
   const { slug } = await params;
   const beach = getBeach(slug);
   if (!beach) notFound();
+
+  const parentCommunities = COMMUNITIES.filter((c) =>
+    c.beaches.includes(beach.slug),
+  );
 
   const mapEmbed = googleMapsSatelliteEmbed(beach.lat, beach.lng);
   const mapLink = googleMapsSatelliteLink(beach.lat, beach.lng);
@@ -263,6 +267,43 @@ export default async function BeachPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {parentCommunities.length > 0 && (
+        <section className="bg-[var(--color-ember-500)]/10 py-16">
+          <div className="container-x">
+            <div className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm ring-1 ring-ink-900/5 sm:p-10">
+              <p className="eyebrow">Part Of</p>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
+                Bonfires for {parentCommunities.map((c) => c.name).join(" & ")} guests
+              </h3>
+              <p className="mt-4 text-[15px] leading-relaxed text-ink-800/85">
+                {beach.shortName} is one of the permitted accesses we serve for
+                guests staying in these communities. Read the full local guide
+                for parking, dining, and how this beach compares to the others
+                nearby.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {parentCommunities.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/locations/${c.slug}`}
+                    className="inline-flex items-center gap-2 rounded-full bg-[var(--color-ember-500)] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[var(--color-ember-600)]"
+                  >
+                    {c.pageTitle}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M5 12h14" />
+                      <path d="M13 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                ))}
+                <Link href="/bonfire-permit-process" className="inline-flex items-center gap-2 rounded-full border border-ink-900/15 px-5 py-2.5 text-sm font-semibold text-ink-900 hover:border-[var(--color-ember-500)] hover:text-[var(--color-ember-700)]">
+                  How permits work
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-[var(--color-sand-50)] py-12">
         <div className="container-x">

@@ -7,8 +7,8 @@ export function BacheloretteCta() {
       <div className="container-x grid items-center gap-14 lg:grid-cols-2">
         <div className="relative order-last aspect-[5/6] overflow-hidden rounded-[2rem] shadow-xl lg:order-first">
           <Image
-            src="/images/IMG_0398-640w.jpg"
-            alt="Bachelorette bonfire with bride and bridal party"
+            src="/images/BatchloretteLandFacing.jpg"
+            alt="Bachelorette beach bonfire on 30A — bride and bridal party"
             fill
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="object-cover"

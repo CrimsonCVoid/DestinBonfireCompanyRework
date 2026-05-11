@@ -2,32 +2,492 @@
 
 import { useMemo, useState } from "react";
 import { feature } from "topojson-client";
-import { geoNaturalEarth1, geoPath } from "d3-geo";
-import type { CountryVisitors } from "@/lib/posthog";
+import {
+  geoAlbersUsa,
+  geoNaturalEarth1,
+  geoPath,
+  type GeoProjection,
+} from "d3-geo";
+import type { CityPoint, CountryVisitors, StateVisitors } from "@/lib/posthog";
 import { NUMERIC_TO_ALPHA2 } from "@/lib/iso-country-codes";
 
 type Topology = Parameters<typeof feature>[0];
-type FeatureCollection = ReturnType<typeof feature>;
+type GeoFeature = {
+  type: "Feature";
+  id?: string | number;
+  properties?: Record<string, unknown>;
+  geometry: unknown;
+};
+type FeatureCollection = { type: "FeatureCollection"; features: GeoFeature[] };
 
 const WIDTH = 980;
-const HEIGHT = 460;
+const HEIGHT = 500;
 
-function logScale(v: number, max: number): number {
-  // log1p so a single visitor still gets a visible color, but the top
-  // countries don't completely swamp the gradient.
-  if (max <= 0) return 0;
-  return Math.log1p(v) / Math.log1p(max);
+type ViewMode = "world" | "us";
+
+export function VisitorsMap({
+  worldTopology,
+  usTopology,
+  countries,
+  states,
+  cityPoints,
+  windowDays,
+}: {
+  worldTopology: Topology;
+  usTopology: Topology | null;
+  countries: CountryVisitors[];
+  states: StateVisitors[];
+  cityPoints: CityPoint[];
+  windowDays: number;
+}) {
+  const [view, setView] = useState<ViewMode>("us");
+  const [selectedState, setSelectedState] = useState<string | null>(null); // full state name
+  const [hover, setHover] = useState<{
+    title: string;
+    sub: string;
+    x: number;
+    y: number;
+  } | null>(null);
+
+  // ----------------------- World view data -----------------------
+  const countryByAlpha2 = useMemo(() => {
+    const m = new Map<string, CountryVisitors>();
+    countries.forEach((c) => m.set(c.code.toUpperCase(), c));
+    return m;
+  }, [countries]);
+  const maxCountry = Math.max(1, ...countries.map((c) => c.visitors));
+
+  const worldGeo = useMemo<FeatureCollection | null>(() => {
+    const obj = (worldTopology as { objects: Record<string, unknown> }).objects.countries;
+    if (!obj) return null;
+    return feature(
+      worldTopology,
+      obj as Parameters<typeof feature>[1],
+    ) as unknown as FeatureCollection;
+  }, [worldTopology]);
+
+  // ----------------------- US view data --------------------------
+  const stateByName = useMemo(() => {
+    const m = new Map<string, StateVisitors>();
+    states.forEach((s) => m.set(s.state.toLowerCase(), s));
+    return m;
+  }, [states]);
+  const maxState = Math.max(1, ...states.map((s) => s.visitors));
+
+  const usGeo = useMemo<FeatureCollection | null>(() => {
+    if (!usTopology) return null;
+    const obj = (usTopology as { objects: Record<string, unknown> }).objects.states;
+    if (!obj) return null;
+    return feature(
+      usTopology,
+      obj as Parameters<typeof feature>[1],
+    ) as unknown as FeatureCollection;
+  }, [usTopology]);
+
+  // ----------------------- Projection ----------------------------
+  const projection = useMemo<GeoProjection | null>(() => {
+    if (view === "world") {
+      if (!worldGeo) return null;
+      return geoNaturalEarth1().fitSize(
+        [WIDTH, HEIGHT],
+        worldGeo as unknown as Parameters<GeoProjection["fitSize"]>[1],
+      );
+    }
+    if (!usGeo) return null;
+    if (selectedState) {
+      const f = usGeo.features.find(
+        (x) =>
+          (x.properties as { name?: string } | undefined)?.name?.toLowerCase() ===
+          selectedState.toLowerCase(),
+      );
+      if (f) {
+        // fitSize with a small padding so the state isn't flush against edges.
+        return geoAlbersUsa().fitExtent(
+          [
+            [40, 30],
+            [WIDTH - 40, HEIGHT - 30],
+          ],
+          f as unknown as Parameters<GeoProjection["fitExtent"]>[1],
+        );
+      }
+    }
+    return geoAlbersUsa().fitSize(
+      [WIDTH, HEIGHT],
+      usGeo as unknown as Parameters<GeoProjection["fitSize"]>[1],
+    );
+  }, [view, worldGeo, usGeo, selectedState]);
+
+  const pathGen = useMemo(
+    () => (projection ? geoPath(projection) : null),
+    [projection],
+  );
+
+  // ----------------------- Dots (US view only) -------------------
+  const dots = useMemo(() => {
+    if (view !== "us") return [];
+    if (!projection) return [];
+    const filtered = selectedState
+      ? cityPoints.filter(
+          (c) => c.state.toLowerCase() === selectedState.toLowerCase(),
+        )
+      : cityPoints.filter((c) =>
+          c.country.toLowerCase().startsWith("united states"),
+        );
+    const maxV = Math.max(1, ...filtered.map((c) => c.visitors));
+    return filtered
+      .map((c) => {
+        const xy = projection([c.lng, c.lat]);
+        if (!xy) return null;
+        const t = Math.log1p(c.visitors) / Math.log1p(maxV);
+        const r = 3 + t * 13; // 3px → 16px radius
+        return { ...c, x: xy[0], y: xy[1], r };
+      })
+      .filter((d): d is NonNullable<typeof d> => d !== null)
+      .sort((a, b) => b.r - a.r); // big dots painted first, small dots on top
+  }, [view, selectedState, cityPoints, projection]);
+
+  // ----------------------- Right-panel rows ----------------------
+  const rightPanel = useMemo(() => {
+    if (view === "world") {
+      return {
+        title: "Top countries",
+        total: `${countries.length} ${countries.length === 1 ? "country" : "countries"} · ${countries
+          .reduce((s, c) => s + c.visitors, 0)
+          .toLocaleString()} visitors`,
+        rows: countries.slice(0, 10).map((c) => ({
+          key: c.code,
+          flag: c.code,
+          label: c.name,
+          value: c.visitors,
+          max: maxCountry,
+          onClick: undefined,
+        })),
+        empty: `No geo-tagged pageviews in the last ${windowDays} days.`,
+      };
+    }
+    if (selectedState) {
+      const stateCities = cityPoints
+        .filter((c) => c.state.toLowerCase() === selectedState.toLowerCase())
+        .sort((a, b) => b.visitors - a.visitors);
+      const maxCity = Math.max(1, ...stateCities.map((c) => c.visitors));
+      return {
+        title: `${selectedState} · top cities`,
+        total: `${stateCities.length} ${stateCities.length === 1 ? "city" : "cities"} · ${stateCities
+          .reduce((s, c) => s + c.visitors, 0)
+          .toLocaleString()} visitors`,
+        rows: stateCities.slice(0, 10).map((c, i) => ({
+          key: `${c.city}-${i}`,
+          flag: "",
+          label: c.city,
+          value: c.visitors,
+          max: maxCity,
+          onClick: undefined,
+        })),
+        empty: `No cities yet for ${selectedState}.`,
+      };
+    }
+    return {
+      title: "Top states",
+      total: `${states.length} ${states.length === 1 ? "state" : "states"} · ${states
+        .reduce((s, c) => s + c.visitors, 0)
+        .toLocaleString()} visitors`,
+      rows: states.slice(0, 10).map((s) => ({
+        key: s.state,
+        flag: "",
+        label: s.state,
+        value: s.visitors,
+        max: maxState,
+        onClick: () => setSelectedState(s.state),
+      })),
+      empty: `No US visitors yet in the last ${windowDays} days.`,
+    };
+  }, [
+    view,
+    selectedState,
+    countries,
+    states,
+    cityPoints,
+    maxCountry,
+    maxState,
+    windowDays,
+  ]);
+
+  // ----------------------- Render --------------------------------
+  if (!pathGen) {
+    return (
+      <div className="rounded-xl border border-dashed border-white/15 px-4 py-10 text-center text-sm text-white/50">
+        Map data failed to load.
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      {/* Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="inline-flex rounded-full border border-white/10 bg-black/30 p-1 text-xs font-semibold uppercase tracking-wider">
+          <ViewTab active={view === "us"} onClick={() => { setView("us"); setSelectedState(null); }}>
+            United States
+          </ViewTab>
+          <ViewTab active={view === "world"} onClick={() => { setView("world"); setSelectedState(null); }}>
+            World
+          </ViewTab>
+        </div>
+        {view === "us" && selectedState && (
+          <button
+            onClick={() => setSelectedState(null)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white/80 transition hover:border-[#f2a261]/60 hover:text-white"
+          >
+            ← All states
+          </button>
+        )}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
+        {/* Map */}
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b0a09]">
+          <svg
+            viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+            role="img"
+            aria-label={view === "world" ? "World map of visitors" : "US map of visitors"}
+            className="block h-auto w-full"
+            onMouseLeave={() => setHover(null)}
+          >
+            {/* World view */}
+            {view === "world" && worldGeo &&
+              worldGeo.features.map((f, i) => {
+                const numericId = String(f.id ?? "");
+                const alpha2 = NUMERIC_TO_ALPHA2[numericId];
+                const data = alpha2 ? countryByAlpha2.get(alpha2) : undefined;
+                const t = data ? Math.log1p(data.visitors) / Math.log1p(maxCountry) : 0;
+                const fill = data ? colorFor(t) : "#1a1614";
+                const name =
+                  (f.properties as { name?: string } | undefined)?.name ?? "Unknown";
+                return (
+                  <path
+                    key={i}
+                    d={pathGen(f as never) ?? ""}
+                    fill={fill}
+                    stroke="rgba(255,255,255,0.08)"
+                    strokeWidth={0.4}
+                    onMouseMove={(e) =>
+                      setHover({
+                        title: data?.name ?? name,
+                        sub: data
+                          ? `${data.visitors.toLocaleString()} visitors · ${data.pageviews.toLocaleString()} pageviews`
+                          : "No visitors",
+                        ...mousePos(e),
+                      })
+                    }
+                  />
+                );
+              })}
+
+            {/* US view — state polygons */}
+            {view === "us" && usGeo &&
+              usGeo.features.map((f, i) => {
+                const name =
+                  (f.properties as { name?: string } | undefined)?.name ?? "Unknown";
+                const data = stateByName.get(name.toLowerCase());
+                const t = data ? Math.log1p(data.visitors) / Math.log1p(maxState) : 0;
+                const baseFill = data ? colorFor(t) : "#1a1614";
+                const isSelected =
+                  selectedState && name.toLowerCase() === selectedState.toLowerCase();
+                const isDimmed = !!selectedState && !isSelected;
+                const stroke = isSelected ? "#f2a261" : "rgba(255,255,255,0.12)";
+                const strokeWidth = isSelected ? 1.5 : 0.5;
+                const opacity = isDimmed ? 0.35 : 1;
+                return (
+                  <path
+                    key={i}
+                    d={pathGen(f as never) ?? ""}
+                    fill={baseFill}
+                    stroke={stroke}
+                    strokeWidth={strokeWidth}
+                    opacity={opacity}
+                    className={
+                      data
+                        ? "cursor-pointer transition-[opacity,stroke-width] duration-150"
+                        : "transition-[opacity] duration-150"
+                    }
+                    onMouseMove={(e) =>
+                      setHover({
+                        title: name,
+                        sub: data
+                          ? `${data.visitors.toLocaleString()} visitors · ${data.pageviews.toLocaleString()} pageviews · click for cities`
+                          : "No visitors",
+                        ...mousePos(e),
+                      })
+                    }
+                    onClick={() => {
+                      if (data) setSelectedState((cur) => (cur === name ? null : name));
+                    }}
+                  />
+                );
+              })}
+
+            {/* City dots — US view only */}
+            {view === "us" &&
+              dots.map((d) => (
+                <g key={`${d.city}-${d.state}`}>
+                  <circle
+                    cx={d.x}
+                    cy={d.y}
+                    r={d.r + 4}
+                    fill="rgba(242,162,97,0.18)"
+                  />
+                  <circle
+                    cx={d.x}
+                    cy={d.y}
+                    r={d.r}
+                    fill="rgba(242,162,97,0.95)"
+                    stroke="#0b0a09"
+                    strokeWidth={1.25}
+                    className="cursor-pointer"
+                    onMouseMove={(e) =>
+                      setHover({
+                        title: d.city,
+                        sub: [d.state, d.country].filter(Boolean).join(" · "),
+                        ...mousePos(e),
+                      })
+                    }
+                  />
+                </g>
+              ))}
+          </svg>
+
+          {/* Tooltip */}
+          {hover && (
+            <div
+              className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-white/15 bg-black/85 px-3 py-2 text-xs shadow-xl backdrop-blur"
+              style={{ left: hover.x, top: Math.max(40, hover.y - 8) }}
+            >
+              <p className="font-semibold text-white">{hover.title}</p>
+              <p className="mt-0.5 text-white/70">{hover.sub}</p>
+            </div>
+          )}
+
+          {/* Legend / hint bar */}
+          <div className="flex items-center gap-3 border-t border-white/10 bg-black/40 px-4 py-2.5 text-[10px] uppercase tracking-wider text-white/55">
+            {view === "us" && !selectedState ? (
+              <span>Click a state to see city-level dots</span>
+            ) : view === "us" && selectedState ? (
+              <span>
+                Showing{" "}
+                <span className="text-white/85">{dots.length}</span> cit{dots.length === 1 ? "y" : "ies"} in {selectedState}
+              </span>
+            ) : (
+              <span>Hover any country for details</span>
+            )}
+            <span className="ml-auto flex items-center gap-2">
+              <span>0</span>
+              <span
+                aria-hidden="true"
+                className="h-2 w-32 rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgb(60,36,28), rgb(131,47,8), rgb(184,82,19), rgb(242,162,97))",
+                }}
+              />
+              <span>
+                {(view === "world"
+                  ? maxCountry
+                  : selectedState
+                    ? Math.max(
+                        1,
+                        ...cityPoints
+                          .filter(
+                            (c) =>
+                              c.state.toLowerCase() ===
+                              selectedState.toLowerCase(),
+                          )
+                          .map((c) => c.visitors),
+                      )
+                    : maxState
+                ).toLocaleString()}
+              </span>
+            </span>
+          </div>
+        </div>
+
+        {/* Right panel */}
+        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+            {rightPanel.title}
+          </p>
+          <p className="mt-1 text-xs text-white/55">{rightPanel.total}</p>
+          {rightPanel.rows.length === 0 ? (
+            <div className="mt-5 rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/50">
+              {rightPanel.empty}
+            </div>
+          ) : (
+            <ul className="mt-5 space-y-2">
+              {rightPanel.rows.map((r) => {
+                const pct = (r.value / r.max) * 100;
+                const Item = (
+                  <div className="relative overflow-hidden rounded-lg bg-white/[0.04] px-3 py-2">
+                    <div
+                      className="absolute inset-y-0 left-0"
+                      style={{
+                        width: `${pct}%`,
+                        background:
+                          "linear-gradient(to right, rgba(184,82,19,0.55), rgba(242,162,97,0.2))",
+                      }}
+                      aria-hidden="true"
+                    />
+                    <div className="relative flex items-center justify-between gap-3 text-sm">
+                      <span className="flex min-w-0 items-center gap-2.5">
+                        {r.flag ? <Flag code={r.flag} /> : null}
+                        <span className="truncate font-medium text-white">{r.label}</span>
+                      </span>
+                      <span className="flex-none whitespace-nowrap text-white/75">
+                        {r.value.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                );
+                if (r.onClick) {
+                  return (
+                    <li key={r.key}>
+                      <button
+                        type="button"
+                        onClick={r.onClick}
+                        className="block w-full text-left transition hover:brightness-125"
+                      >
+                        {Item}
+                      </button>
+                    </li>
+                  );
+                }
+                return <li key={r.key}>{Item}</li>;
+              })}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-/** Interpolate ember-700 → ember-400 by t ∈ [0,1]. */
+// ----------------------- Helpers -----------------------
+
+function mousePos(e: React.MouseEvent<SVGElement>): { x: number; y: number } {
+  const svg = e.currentTarget.ownerSVGElement;
+  if (!svg) return { x: 0, y: 0 };
+  const rect = svg.getBoundingClientRect();
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top,
+  };
+}
+
 function colorFor(t: number): string {
-  if (t <= 0) return "#1f1a18"; // no-data: near ink-900
-  // ember-700 #832f08 → ember-500 #b85213 → ember-400 #f2a261
+  if (t <= 0) return "#1f1a18";
   const stops = [
-    { t: 0.0, c: [60, 36, 28] }, // softer base for "1 visitor" — still distinct from no-data
-    { t: 0.25, c: [131, 47, 8] }, // ember-700
-    { t: 0.55, c: [184, 82, 19] }, // ember-500
-    { t: 1.0, c: [242, 162, 97] }, // ember-400
+    { t: 0.0, c: [60, 36, 28] },
+    { t: 0.25, c: [131, 47, 8] },
+    { t: 0.55, c: [184, 82, 19] },
+    { t: 1.0, c: [242, 162, 97] },
   ];
   for (let i = 1; i < stops.length; i++) {
     const a = stops[i - 1];
@@ -43,194 +503,31 @@ function colorFor(t: number): string {
   return "rgb(242,162,97)";
 }
 
-export function VisitorsMap({
-  topology,
-  countries,
-  windowDays,
+function ViewTab({
+  active,
+  children,
+  onClick,
 }: {
-  topology: Topology;
-  countries: CountryVisitors[];
-  windowDays: number;
+  active: boolean;
+  children: React.ReactNode;
+  onClick: () => void;
 }) {
-  const [hover, setHover] = useState<{
-    name: string;
-    visitors: number;
-    pageviews: number;
-    x: number;
-    y: number;
-  } | null>(null);
-
-  const byAlpha2 = useMemo(() => {
-    const m = new Map<string, CountryVisitors>();
-    countries.forEach((c) => m.set(c.code.toUpperCase(), c));
-    return m;
-  }, [countries]);
-
-  const maxVisitors = Math.max(1, ...countries.map((c) => c.visitors));
-
-  // Convert TopoJSON → GeoJSON FeatureCollection (one-time).
-  const geo = useMemo(() => {
-    // The world-atlas object is named "countries".
-    const obj = (topology as { objects: Record<string, unknown> }).objects.countries;
-    if (!obj) return null;
-    return feature(topology, obj as Parameters<typeof feature>[1]) as FeatureCollection;
-  }, [topology]);
-
-  // Equal-area-ish projection that looks good for a global view.
-  const projection = useMemo(
-    () => geoNaturalEarth1().fitSize([WIDTH, HEIGHT], geo ?? { type: "Sphere" } as unknown as never),
-    [geo],
-  );
-  const pathGen = useMemo(() => geoPath(projection), [projection]);
-
-  if (!geo || !("features" in geo)) {
-    return (
-      <div className="rounded-xl border border-dashed border-white/15 px-4 py-10 text-center text-sm text-white/50">
-        Map data failed to load.
-      </div>
-    );
-  }
-
-  const totalVisitors = countries.reduce((sum, c) => sum + c.visitors, 0);
-  const topCountries = countries.slice(0, 8);
-
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
-      {/* Map */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b0a09]">
-        <svg
-          viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-          role="img"
-          aria-label="World map of visitors by country"
-          className="block h-auto w-full"
-          onMouseLeave={() => setHover(null)}
-        >
-          {/* Sphere outline */}
-          <path
-            d={pathGen({ type: "Sphere" }) ?? undefined}
-            fill="#0b0a09"
-            stroke="rgba(255,255,255,0.06)"
-          />
-          {geo.features.map((f, i) => {
-            const numericId = typeof f.id === "string" ? f.id : String(f.id ?? "");
-            const alpha2 = NUMERIC_TO_ALPHA2[numericId];
-            const data = alpha2 ? byAlpha2.get(alpha2) : undefined;
-            const t = data ? logScale(data.visitors, maxVisitors) : 0;
-            const fill = data ? colorFor(t) : "#1a1614"; // ink-900
-            const d = pathGen(f) ?? "";
-            const name =
-              (f.properties as { name?: string } | undefined)?.name ?? "Unknown";
-            return (
-              <path
-                key={i}
-                d={d}
-                fill={fill}
-                stroke="rgba(255,255,255,0.08)"
-                strokeWidth={0.4}
-                onMouseMove={(e) => {
-                  const rect = (e.currentTarget.ownerSVGElement as SVGSVGElement).getBoundingClientRect();
-                  setHover({
-                    name: data?.name ?? name,
-                    visitors: data?.visitors ?? 0,
-                    pageviews: data?.pageviews ?? 0,
-                    x: e.clientX - rect.left,
-                    y: e.clientY - rect.top,
-                  });
-                }}
-              />
-            );
-          })}
-        </svg>
-
-        {/* Tooltip */}
-        {hover && (
-          <div
-            className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-white/15 bg-black/85 px-3 py-2 text-xs shadow-xl backdrop-blur"
-            style={{ left: hover.x, top: Math.max(34, hover.y - 8) }}
-          >
-            <p className="font-semibold text-white">{hover.name}</p>
-            <p className="mt-0.5 text-white/70">
-              {hover.visitors.toLocaleString()} visitors · {hover.pageviews.toLocaleString()} pageviews
-            </p>
-          </div>
-        )}
-
-        {/* Legend */}
-        <div className="flex items-center gap-3 border-t border-white/10 bg-black/40 px-4 py-2.5 text-[10px] uppercase tracking-wider text-white/55">
-          <span>0</span>
-          <div
-            className="h-2 flex-1 rounded-full"
-            style={{
-              background:
-                "linear-gradient(to right, rgb(60,36,28), rgb(131,47,8), rgb(184,82,19), rgb(242,162,97))",
-            }}
-            aria-hidden="true"
-          />
-          <span>{maxVisitors.toLocaleString()}</span>
-        </div>
-      </div>
-
-      {/* Right panel: top countries */}
-      <div className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-        <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
-          Top countries
-        </p>
-        <p className="mt-1 text-lg font-semibold text-white">
-          {countries.length} {countries.length === 1 ? "country" : "countries"}
-          <span className="ml-2 text-white/45">
-            · {totalVisitors.toLocaleString()} visitors total
-          </span>
-        </p>
-        {topCountries.length === 0 ? (
-          <div className="mt-5 rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/50">
-            No geo-tagged pageviews in the last {windowDays} days.
-          </div>
-        ) : (
-          <ul className="mt-5 space-y-2">
-            {topCountries.map((c) => {
-              const pct = (c.visitors / maxVisitors) * 100;
-              return (
-                <li
-                  key={c.code}
-                  className="relative overflow-hidden rounded-lg bg-white/[0.04] px-3 py-2"
-                >
-                  <div
-                    className="absolute inset-y-0 left-0"
-                    style={{
-                      width: `${pct}%`,
-                      background: "linear-gradient(to right, rgba(184,82,19,0.55), rgba(242,162,97,0.2))",
-                    }}
-                    aria-hidden="true"
-                  />
-                  <div className="relative flex items-center justify-between gap-3 text-sm">
-                    <span className="flex min-w-0 items-center gap-2.5">
-                      <Flag code={c.code} />
-                      <span className="truncate font-medium text-white">{c.name}</span>
-                    </span>
-                    <span className="flex-none whitespace-nowrap text-white/75">
-                      {c.visitors.toLocaleString()}
-                    </span>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-        {countries.length > topCountries.length && (
-          <p className="mt-4 text-xs text-white/40">
-            +{countries.length - topCountries.length} more on the map →
-          </p>
-        )}
-      </div>
-    </div>
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        "rounded-full px-4 py-1.5 transition " +
+        (active ? "bg-[#c45a22] text-white" : "text-white/65 hover:text-white")
+      }
+    >
+      {children}
+    </button>
   );
 }
 
-/** Twemoji-style emoji flag from alpha-2 code. */
 function Flag({ code }: { code: string }) {
-  if (!code || code.length !== 2) {
-    return <span className="text-base" aria-hidden="true">🏳️</span>;
-  }
+  if (!code || code.length !== 2) return <span className="text-base" aria-hidden="true">🏳️</span>;
   const emoji = code
     .toUpperCase()
     .split("")

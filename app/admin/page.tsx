@@ -5,6 +5,7 @@ import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { computeStats, readSubmissions } from "@/lib/form-submissions";
 import {
   getBookingFunnel,
+  getCityPoints,
   getCityVisitors,
   getCountryVisitors,
   getDailyTrend,
@@ -16,6 +17,7 @@ import {
   getStatus,
   getTopPages,
   getTopReferrers,
+  getUsStateVisitors,
 } from "@/lib/posthog";
 import { LogoutButton } from "./logout-button";
 import { SubmissionsTable } from "./submissions-table";
@@ -49,6 +51,8 @@ export default async function AdminPage() {
     eventsFeed,
     countries,
     cities,
+    usStates,
+    cityPoints,
   ] = phReady
     ? await Promise.all([
         getKpis(WINDOW_DAYS),
@@ -62,6 +66,8 @@ export default async function AdminPage() {
         getRecentEvents(40),
         getCountryVisitors(WINDOW_DAYS),
         getCityVisitors(WINDOW_DAYS, 12),
+        getUsStateVisitors(WINDOW_DAYS),
+        getCityPoints(WINDOW_DAYS, 500),
       ])
     : [
         { pageviews: 0, visitors: 0, sessions: 0, windowDays: WINDOW_DAYS },
@@ -75,20 +81,25 @@ export default async function AdminPage() {
         [],
         [],
         [],
+        [],
+        [],
       ];
 
-  // Load the world TopoJSON server-side (~100KB, parsed once per request,
-  // not bundled into the page chunk). Pass to the client map component.
-  let worldTopology: unknown = null;
-  try {
-    const raw = await fs.readFile(
-      path.join(process.cwd(), "public", "data", "countries-110m.json"),
-      "utf8",
-    );
-    worldTopology = JSON.parse(raw);
-  } catch {
-    worldTopology = null;
+  // Load both topologies server-side — parsed once per request, NOT shipped
+  // in the page chunk. The world atlas (~100KB) and the US states atlas
+  // (~115KB) get passed as serialized JSON into the client map component.
+  async function readJson(rel: string): Promise<unknown> {
+    try {
+      const raw = await fs.readFile(path.join(process.cwd(), "public", "data", rel), "utf8");
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
   }
+  const [worldTopology, usTopology] = await Promise.all([
+    readJson("countries-110m.json"),
+    readJson("us-states-10m.json"),
+  ]);
 
   const maxDaily = Math.max(1, ...daily.map((d) => d.pageviews));
   const totalDeviceVisits = Math.max(1, devices.reduce((a, d) => a + d.visits, 0));
@@ -294,11 +305,14 @@ export default async function AdminPage() {
             </p>
           </div>
         </div>
-        {worldTopology && countries.length > 0 ? (
+        {worldTopology && (countries.length > 0 || usStates.length > 0) ? (
           <div className="mt-6">
             <VisitorsMap
-              topology={worldTopology as Parameters<typeof VisitorsMap>[0]["topology"]}
+              worldTopology={worldTopology as Parameters<typeof VisitorsMap>[0]["worldTopology"]}
+              usTopology={usTopology as Parameters<typeof VisitorsMap>[0]["usTopology"]}
               countries={countries}
+              states={usStates}
+              cityPoints={cityPoints}
               windowDays={WINDOW_DAYS}
             />
           </div>

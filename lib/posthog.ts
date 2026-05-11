@@ -399,6 +399,91 @@ export async function getCountryVisitors(days = 30): Promise<CountryVisitors[]> 
     }));
 }
 
+export type StateVisitors = {
+  state: string; // full name as PostHog/MaxMind returns it (e.g. "Florida")
+  visitors: number;
+  pageviews: number;
+};
+
+/**
+ * State-level breakdown for US visitors. Uses $geoip_subdivision_1_name
+ * which MaxMind returns as the full state name (matches the world-atlas
+ * "properties.name" field on the US states TopoJSON).
+ */
+export async function getUsStateVisitors(days = 30): Promise<StateVisitors[]> {
+  const r = await hogql(`
+    SELECT
+      coalesce(nullIf(properties.$geoip_subdivision_1_name, ''), 'Unknown') AS state,
+      uniq(person_id) AS visitors,
+      count() AS pageviews
+    FROM events
+    WHERE timestamp >= now() - INTERVAL ${days} DAY
+      AND event = '$pageview'
+      AND upper(properties.$geoip_country_code) = 'US'
+    GROUP BY state
+    HAVING state != 'Unknown'
+    ORDER BY visitors DESC
+  `);
+  if (!r?.results) return [];
+  return r.results
+    .filter((row): row is unknown[] => Array.isArray(row))
+    .map((row) => ({
+      state: String(row[0] ?? ""),
+      visitors: Number(row[1] ?? 0),
+      pageviews: Number(row[2] ?? 0),
+    }));
+}
+
+export type CityPoint = {
+  city: string;
+  state: string; // full subdivision name (or "" for non-US)
+  country: string;
+  lat: number;
+  lng: number;
+  visitors: number;
+};
+
+/**
+ * Cities with geocoordinates for the dot map. Returns up to `limit`
+ * cities globally — the client component filters down to whichever
+ * state/country is currently in focus. Lat/lng are averaged from
+ * MaxMind's per-event geocode (stable enough to plot a single dot
+ * per city).
+ */
+export async function getCityPoints(days = 30, limit = 500): Promise<CityPoint[]> {
+  const r = await hogql(`
+    SELECT
+      coalesce(nullIf(properties.$geoip_city_name, ''), 'Unknown') AS city,
+      coalesce(nullIf(properties.$geoip_subdivision_1_name, ''), '') AS state,
+      coalesce(nullIf(properties.$geoip_country_name, ''), '') AS country,
+      avg(toFloat64OrNull(toString(properties.$geoip_latitude))) AS lat,
+      avg(toFloat64OrNull(toString(properties.$geoip_longitude))) AS lng,
+      uniq(person_id) AS visitors
+    FROM events
+    WHERE timestamp >= now() - INTERVAL ${days} DAY
+      AND event = '$pageview'
+      AND properties.$geoip_city_name IS NOT NULL
+      AND properties.$geoip_latitude IS NOT NULL
+      AND properties.$geoip_longitude IS NOT NULL
+    GROUP BY city, state, country
+    HAVING lat IS NOT NULL AND lng IS NOT NULL
+    ORDER BY visitors DESC
+    LIMIT ${limit}
+  `);
+  if (!r?.results) return [];
+  return r.results
+    .filter((row): row is unknown[] => Array.isArray(row))
+    .map((row) => ({
+      city: String(row[0] ?? "Unknown"),
+      state: String(row[1] ?? ""),
+      country: String(row[2] ?? ""),
+      lat: Number(row[3] ?? 0),
+      lng: Number(row[4] ?? 0),
+      visitors: Number(row[5] ?? 0),
+    }))
+    .filter((c) => Number.isFinite(c.lat) && Number.isFinite(c.lng));
+}
+
 export type CityVisitors = {
   city: string;
   region: string;

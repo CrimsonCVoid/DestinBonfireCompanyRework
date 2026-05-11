@@ -22,6 +22,7 @@ import {
 import { LogoutButton } from "./logout-button";
 import { SubmissionsTable } from "./submissions-table";
 import { VisitorsMap } from "@/components/visitors-map";
+import { lookupUsCity } from "@/lib/us-cities";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -113,7 +114,14 @@ export default async function AdminPage() {
   }
   const enrichedCities = cities.map((c) => {
     const key = `${c.city.toLowerCase()}|${c.region.toLowerCase()}`;
-    const coords = coordsByKey.get(key);
+    // Prefer PostHog coords (real visitor centroid); fall back to the
+    // bundled US city → lat/lng table so dots still plot when PostHog
+    // didn't supply coords on the captured event.
+    const coords =
+      coordsByKey.get(key) ??
+      (c.country.toLowerCase().startsWith("united states")
+        ? lookupUsCity(c.city, c.region)
+        : null);
     return {
       city: c.city,
       state: c.region,

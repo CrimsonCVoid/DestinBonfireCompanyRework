@@ -35,7 +35,7 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <label className="block">
-        <span className="text-xs font-semibold uppercase tracking-wider text-white/70">
+        <span className="text-xs font-semibold uppercase tracking-wider text-ink-800/70">
           Admin token
         </span>
         <input
@@ -46,13 +46,13 @@ export function LoginForm() {
           value={token}
           onChange={(e) => setToken(e.target.value)}
           placeholder="64-character hex string"
-          className="mt-2 w-full rounded-xl border border-white/15 bg-black/30 px-4 py-3 font-mono text-sm text-white placeholder:text-white/30 focus:border-[#f2a261]/60 focus:outline-none focus:ring-2 focus:ring-[#f2a261]/40"
+          className="mt-2 w-full rounded-xl border border-ink-900/15 bg-[var(--color-sand-50)] px-4 py-3 font-mono text-sm text-ink-900 placeholder:text-ink-800/35 focus:border-[var(--color-ember-500)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-ember-500)]/30"
         />
       </label>
       {err && (
         <p
           role="alert"
-          className="rounded-lg border border-red-400/30 bg-red-400/10 px-3 py-2 text-sm text-red-200"
+          className="rounded-lg border border-red-300/70 bg-red-50 px-3 py-2 text-sm text-red-800"
         >
           {err}
         </p>
@@ -60,7 +60,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={busy || token.trim().length < 32}
-        className="w-full rounded-full bg-[#c45a22] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-lg shadow-[#c45a22]/30 transition hover:bg-[#a8430f] disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-full bg-[var(--color-ember-500)] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-md shadow-[var(--color-ember-500)]/20 transition hover:bg-[var(--color-ember-600)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {busy ? "Verifying…" : "Sign in"}
       </button>

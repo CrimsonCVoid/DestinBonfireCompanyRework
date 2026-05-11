@@ -16,10 +16,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         // Cleaner than threading a "hide chrome" flag through the root layout.
         dangerouslySetInnerHTML={{
           __html: `
-            body { background: #0f0c0a !important; }
+            body { background: #fdfaf3 !important; color: #1a1614 !important; }
             body > a[href="#main"], header, footer { display: none !important; }
             main#main { padding: 0 !important; }
-            .admin-shell { color: #f5efe4; min-height: 100dvh; }
+            .admin-shell { color: #1a1614; min-height: 100dvh; }
           `,
         }}
       />

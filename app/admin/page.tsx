@@ -142,13 +142,13 @@ export default async function AdminPage() {
       {/* Header */}
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#f2a261]">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[var(--color-ember-600)]">
             Destin Bonfire Company
           </p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
             Admin dashboard
           </h1>
-          <p className="mt-1 text-sm text-white/60">
+          <p className="mt-1 text-sm text-ink-800/65">
             Form submissions and website analytics — last {WINDOW_DAYS} days.
           </p>
         </div>
@@ -174,9 +174,9 @@ export default async function AdminPage() {
 
       {/* PostHog connection banner */}
       {!phReady && (
-        <div className="mt-8 rounded-2xl border border-amber-400/30 bg-amber-400/10 p-5 text-sm text-amber-100">
+        <div className="mt-8 rounded-2xl border border-amber-300/70 bg-amber-50 p-5 text-sm text-amber-800">
           <p className="font-semibold">PostHog isn&rsquo;t connected.</p>
-          <p className="mt-1 text-amber-100/80">
+          <p className="mt-1 text-amber-700">
             {status.reason === "no_api_key" &&
               "Set POSTHOG_PERSONAL_API_KEY in your environment to load analytics."}
             {status.reason === "no_project" &&
@@ -188,12 +188,12 @@ export default async function AdminPage() {
       )}
 
       {/* Booking funnel */}
-      <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <section className="mt-10 rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Conversion</p>
-            <h2 className="mt-1 text-xl font-semibold text-white">Booking funnel</h2>
-            <p className="mt-1 text-xs text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">Conversion</p>
+            <h2 className="mt-1 text-xl font-semibold text-ink-900">Booking funnel</h2>
+            <p className="mt-1 text-xs text-ink-800/55">
               Visited → clicked a Book button → submitted the contact form. Last {WINDOW_DAYS} days, unique people.
             </p>
           </div>
@@ -211,7 +211,7 @@ export default async function AdminPage() {
               return (
                 <li
                   key={s.name}
-                  className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/30 p-5"
+                  className="relative overflow-hidden rounded-2xl border border-ink-900/10 bg-[var(--color-sand-50)] p-5"
                 >
                   <div
                     className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#c45a22]/40 to-[#f2a261]/15"
@@ -219,14 +219,14 @@ export default async function AdminPage() {
                     aria-hidden="true"
                   />
                   <div className="relative">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/45">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-ink-800/50">
                       Step {i + 1}
                     </p>
-                    <p className="mt-1 text-sm font-semibold text-white">{s.name}</p>
-                    <p className="mt-3 text-3xl font-semibold tracking-tight text-white">
+                    <p className="mt-1 text-sm font-semibold text-ink-900">{s.name}</p>
+                    <p className="mt-3 text-3xl font-semibold tracking-tight text-ink-900">
                       {s.count.toLocaleString()}
                     </p>
-                    <p className="mt-1 text-xs text-white/55">
+                    <p className="mt-1 text-xs text-ink-800/60">
                       {i === 0 ? "Top of funnel" : `${fromPrev}% from previous · ${fromStart}% from start`}
                     </p>
                   </div>
@@ -238,13 +238,13 @@ export default async function AdminPage() {
       </section>
 
       {/* Pageviews trend */}
-      <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <section className="mt-8 rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Trend</p>
-            <h2 className="mt-1 text-xl font-semibold text-white">Daily pageviews</h2>
+            <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">Trend</p>
+            <h2 className="mt-1 text-xl font-semibold text-ink-900">Daily pageviews</h2>
           </div>
-          <p className="text-xs text-white/40">{daily.length} day{daily.length === 1 ? "" : "s"} of data</p>
+          <p className="text-xs text-ink-800/50">{daily.length} day{daily.length === 1 ? "" : "s"} of data</p>
         </div>
         {daily.length === 0 ? (
           <Empty>No pageview events recorded in this window.</Empty>
@@ -308,12 +308,12 @@ export default async function AdminPage() {
                 return (
                   <div key={d.device}>
                     <div className="flex items-center justify-between text-sm">
-                      <span className="font-medium text-white">{d.device}</span>
-                      <span className="text-white/60">
+                      <span className="font-medium text-ink-900">{d.device}</span>
+                      <span className="text-ink-800/65">
                         {d.visits.toLocaleString()} · {pct.toFixed(1)}%
                       </span>
                     </div>
-                    <div className="mt-1 h-2 overflow-hidden rounded-full bg-white/10">
+                    <div className="mt-1 h-2 overflow-hidden rounded-full bg-ink-900/[0.08]">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-[#c45a22] to-[#f2a261]"
                         style={{ width: `${pct}%` }}
@@ -328,12 +328,12 @@ export default async function AdminPage() {
       </section>
 
       {/* Geo — where visitors come from */}
-      <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <section className="mt-8 rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Geo</p>
-            <h2 className="mt-1 text-xl font-semibold text-white">Where visitors come from</h2>
-            <p className="mt-1 text-xs text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">Geo</p>
+            <h2 className="mt-1 text-xl font-semibold text-ink-900">Where visitors come from</h2>
+            <p className="mt-1 text-xs text-ink-800/55">
               Country and city breakdown for the last {WINDOW_DAYS} days. Hover the map for details.
             </p>
           </div>
@@ -360,22 +360,22 @@ export default async function AdminPage() {
         {/* Top cities row */}
         {cities.length > 0 && (
           <div className="mt-6">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">
               Top cities
             </p>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {cities.slice(0, 12).map((c, i) => (
                 <li
                   key={`${c.city}-${c.region}-${c.country}-${i}`}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.04] px-3 py-2 text-sm"
+                  className="flex items-center justify-between gap-3 rounded-lg bg-[var(--color-sand-50)] px-3 py-2 text-sm"
                 >
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-white">{c.city}</p>
-                    <p className="truncate text-xs text-white/45">
+                    <p className="truncate font-medium text-ink-900">{c.city}</p>
+                    <p className="truncate text-xs text-ink-800/50">
                       {[c.region, c.country].filter(Boolean).join(" · ") || "—"}
                     </p>
                   </div>
-                  <span className="flex-none whitespace-nowrap text-white/70">
+                  <span className="flex-none whitespace-nowrap text-ink-800/75">
                     {c.visitors.toLocaleString()}
                   </span>
                 </li>
@@ -386,14 +386,14 @@ export default async function AdminPage() {
       </section>
 
       {/* Session replays */}
-      <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <section className="mt-8 rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
         <div className="flex items-end justify-between">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+            <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">
               Replays
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-white">Session recordings</h2>
-            <p className="mt-1 text-xs text-white/50">
+            <h2 className="mt-1 text-xl font-semibold text-ink-900">Session recordings</h2>
+            <p className="mt-1 text-xs text-ink-800/55">
               Last 7 days of recorded sessions. Click a row to open the full PostHog player.
             </p>
           </div>
@@ -402,7 +402,7 @@ export default async function AdminPage() {
               href={`${status.host}/project/${status.projectId}/replay/home`}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white/80 transition hover:border-white/40 hover:text-white"
+              className="rounded-full border border-ink-900/15 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-ink-800/85 transition hover:border-[var(--color-ember-500)]/50 hover:text-ink-900"
             >
               All replays ↗
             </a>
@@ -420,34 +420,34 @@ export default async function AdminPage() {
                   href={r.playerUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-black/30 p-4 transition hover:border-[#f2a261]/40 hover:bg-black/40"
+                  className="group flex items-center gap-4 rounded-2xl border border-ink-900/10 bg-[var(--color-sand-50)] p-4 transition hover:border-[#f2a261]/40 hover:bg-[var(--color-sand-100)]"
                 >
                   <span
                     aria-hidden="true"
-                    className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[#c45a22]/20 text-[#f2a261] transition group-hover:bg-[#c45a22]/40"
+                    className="flex h-12 w-12 flex-none items-center justify-center rounded-full bg-[#c45a22]/20 text-[var(--color-ember-600)] transition group-hover:bg-[#c45a22]/40"
                   >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </span>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-white">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-ink-900">
                       <span>{fmtDuration(r.durationSec)}</span>
-                      <span className="text-white/30">·</span>
-                      <span className="text-white/65">
+                      <span className="text-ink-800/40">·</span>
+                      <span className="text-ink-800/70">
                         {r.clickCount} clicks · {r.keypressCount} keys
                       </span>
                     </div>
-                    <p className="mt-1 truncate text-xs text-white/55" title={r.startUrl}>
+                    <p className="mt-1 truncate text-xs text-ink-800/60" title={r.startUrl}>
                       {pathFromUrl(r.startUrl) || "/"}
                     </p>
-                    <p className="mt-0.5 text-[10px] uppercase tracking-wider text-white/35">
+                    <p className="mt-0.5 text-[10px] uppercase tracking-wider text-ink-800/45">
                       {fmtDateTime(r.startTime)}
                     </p>
                   </div>
                   <span
                     aria-hidden="true"
-                    className="flex-none text-white/30 transition group-hover:translate-x-0.5 group-hover:text-[#f2a261]"
+                    className="flex-none text-ink-800/40 transition group-hover:translate-x-0.5 group-hover:text-[var(--color-ember-600)]"
                   >
                     →
                   </span>
@@ -468,10 +468,10 @@ export default async function AdminPage() {
               {errors.map((e, i) => (
                 <li
                   key={i}
-                  className="rounded-lg border border-red-400/20 bg-red-400/5 p-3 text-xs"
+                  className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs"
                 >
-                  <p className="font-mono text-red-200 break-words">{e.message}</p>
-                  <p className="mt-1 text-white/50">
+                  <p className="font-mono text-red-800 break-words">{e.message}</p>
+                  <p className="mt-1 text-red-700/70">
                     {e.pathname || "/"} · {fmtDateTime(e.timestamp)}
                   </p>
                 </li>
@@ -488,15 +488,15 @@ export default async function AdminPage() {
               {eventsFeed.map((e, i) => (
                 <li
                   key={i}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.04] px-3 py-2 text-xs"
+                  className="flex items-center justify-between gap-3 rounded-lg bg-[var(--color-sand-50)] px-3 py-2 text-xs"
                 >
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-white">
+                    <p className="truncate font-medium text-ink-900">
                       <EventChip name={e.event} /> {e.pathname || "—"}
                     </p>
-                    <p className="text-white/45">{fmtDateTime(e.timestamp)}</p>
+                    <p className="text-ink-800/50">{fmtDateTime(e.timestamp)}</p>
                   </div>
-                  <span className="flex-none text-white/40">{e.device || "—"}</span>
+                  <span className="flex-none text-ink-800/50">{e.device || "—"}</span>
                 </li>
               ))}
             </ul>
@@ -505,21 +505,21 @@ export default async function AdminPage() {
       </section>
 
       {/* Submissions table */}
-      <section className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+      <section className="mt-10 rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Inbox</p>
-            <h2 className="mt-1 text-xl font-semibold text-white">Contact-form submissions</h2>
+            <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">Inbox</p>
+            <h2 className="mt-1 text-xl font-semibold text-ink-900">Contact-form submissions</h2>
             <SourceBadge source={submissionsSource} />
           </div>
-          <p className="text-xs text-white/40">
+          <p className="text-xs text-ink-800/50">
             {stats.total} total · {stats.last7d} in last 7 days
           </p>
         </div>
         <SubmissionsTable rows={submissions} />
       </section>
 
-      <footer className="mt-12 text-center text-xs text-white/30">
+      <footer className="mt-12 text-center text-xs text-ink-800/40">
         Build {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7) ?? "local"} · session ends after 7 days of inactivity.
       </footer>
     </main>
@@ -536,24 +536,24 @@ function Kpi(props: {
   warning?: boolean;
 }) {
   const border = props.warning
-    ? "border-red-400/30"
+    ? "border-red-300/70"
     : props.accent
-      ? "border-[#f2a261]/40"
-      : "border-white/10";
+      ? "border-[var(--color-ember-500)]/40"
+      : "border-ink-900/10";
   return (
-    <div className={`rounded-2xl border ${border} bg-white/[0.03] p-5`}>
-      <p className="text-xs font-semibold uppercase tracking-wider text-white/55">{props.label}</p>
-      <p className="mt-3 text-3xl font-semibold tracking-tight text-white">{props.value}</p>
-      {props.sub && <p className="mt-1 text-xs text-white/50">{props.sub}</p>}
+    <div className={`rounded-2xl border ${border} bg-white shadow-sm p-5`}>
+      <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/60">{props.label}</p>
+      <p className="mt-3 text-3xl font-semibold tracking-tight text-ink-900">{props.value}</p>
+      {props.sub && <p className="mt-1 text-xs text-ink-800/55">{props.sub}</p>}
     </div>
   );
 }
 
 function Card(props: { title: string; eyebrow: string; children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6">
-      <p className="text-xs font-semibold uppercase tracking-wider text-white/50">{props.eyebrow}</p>
-      <h3 className="mt-1 text-xl font-semibold text-white">{props.title}</h3>
+    <div className="rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
+      <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">{props.eyebrow}</p>
+      <h3 className="mt-1 text-xl font-semibold text-ink-900">{props.title}</h3>
       <div className="mt-5">{props.children}</div>
     </div>
   );
@@ -566,19 +566,19 @@ function BarList(props: { rows: Array<{ label: string; value: number; sub?: stri
       {props.rows.map((r) => {
         const pct = (r.value / max) * 100;
         return (
-          <li key={r.label} className="relative overflow-hidden rounded-lg bg-white/[0.04] px-3 py-2">
+          <li key={r.label} className="relative overflow-hidden rounded-lg bg-[var(--color-sand-50)] px-3 py-2">
             <div
               className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#c45a22]/60 to-[#f2a261]/30"
               style={{ width: `${pct}%` }}
               aria-hidden="true"
             />
             <div className="relative flex items-center justify-between gap-3 text-sm">
-              <span className="truncate font-medium text-white" title={r.label}>
+              <span className="truncate font-medium text-ink-900" title={r.label}>
                 {r.label}
               </span>
-              <span className="flex-none whitespace-nowrap text-white/70">
+              <span className="flex-none whitespace-nowrap text-ink-800/75">
                 {r.value.toLocaleString()}
-                {r.sub ? <span className="ml-2 text-white/40">· {r.sub}</span> : null}
+                {r.sub ? <span className="ml-2 text-ink-800/50">· {r.sub}</span> : null}
               </span>
             </div>
           </li>
@@ -590,7 +590,7 @@ function BarList(props: { rows: Array<{ label: string; value: number; sub?: stri
 
 function Empty(props: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/50">
+    <div className="rounded-xl border border-dashed border-ink-900/15 px-4 py-6 text-center text-sm text-ink-800/55">
       {props.children}
     </div>
   );
@@ -599,23 +599,23 @@ function Empty(props: { children: React.ReactNode }) {
 function SourceBadge({ source }: { source: "supabase" | "json" | "unconfigured" }) {
   if (source === "supabase") {
     return (
-      <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-200">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-300" aria-hidden="true" />
+      <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-300/70 bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-800">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-600" aria-hidden="true" />
         Supabase · live
       </p>
     );
   }
   if (source === "json") {
     return (
-      <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-200">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-300" aria-hidden="true" />
+      <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-amber-300/70 bg-amber-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-800">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-600" aria-hidden="true" />
         Supabase configured · query failed · showing local JSON
       </p>
     );
   }
   return (
-    <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/65">
-      <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/40" aria-hidden="true" />
+    <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-ink-900/15 bg-[var(--color-sand-50)] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink-800/70">
+      <span className="inline-block h-1.5 w-1.5 rounded-full bg-ink-800/40" aria-hidden="true" />
       Local JSON · Supabase not configured
     </p>
   );
@@ -624,14 +624,14 @@ function SourceBadge({ source }: { source: "supabase" | "json" | "unconfigured" 
 function EventChip({ name }: { name: string }) {
   const tone =
     name === "book_button_clicked"
-      ? "bg-[#c45a22]/20 text-[#f2a261]"
+      ? "bg-[var(--color-ember-500)]/15 text-[var(--color-ember-700)]"
       : name === "contact_form_submitted"
-        ? "bg-emerald-400/15 text-emerald-200"
+        ? "bg-emerald-100 text-emerald-800"
         : name === "$pageview"
-          ? "bg-white/10 text-white/75"
+          ? "bg-ink-900/[0.06] text-ink-800/80"
           : name === "$exception"
-            ? "bg-red-400/15 text-red-200"
-            : "bg-white/[0.06] text-white/65";
+            ? "bg-red-100 text-red-800"
+            : "bg-[var(--color-sand-100)] text-ink-800/70";
   return (
     <span className={`mr-2 inline-block rounded px-1.5 py-0.5 font-mono text-[10px] ${tone}`}>
       {name}

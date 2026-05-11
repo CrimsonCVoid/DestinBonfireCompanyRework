@@ -231,7 +231,7 @@ export function VisitorsMap({
   // ----------------------- Render --------------------------------
   if (!pathGen) {
     return (
-      <div className="rounded-xl border border-dashed border-white/15 px-4 py-10 text-center text-sm text-white/50">
+      <div className="rounded-xl border border-dashed border-ink-900/15 px-4 py-10 text-center text-sm text-ink-800/55">
         Map data failed to load.
       </div>
     );
@@ -241,7 +241,7 @@ export function VisitorsMap({
     <div className="space-y-4">
       {/* Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex rounded-full border border-white/10 bg-black/30 p-1 text-xs font-semibold uppercase tracking-wider">
+        <div className="inline-flex rounded-full border border-ink-900/10 bg-white p-1 text-xs font-semibold uppercase tracking-wider shadow-sm">
           <ViewTab active={view === "us"} onClick={() => { setView("us"); setSelectedState(null); }}>
             United States
           </ViewTab>
@@ -252,7 +252,7 @@ export function VisitorsMap({
         {view === "us" && selectedState && (
           <button
             onClick={() => setSelectedState(null)}
-            className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white/80 transition hover:border-[#f2a261]/60 hover:text-white"
+            className="inline-flex items-center gap-1.5 rounded-full border border-ink-900/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-ink-800/85 transition hover:border-[var(--color-ember-500)]/50 hover:text-[var(--color-ember-700)]"
           >
             ← All states
           </button>
@@ -261,7 +261,7 @@ export function VisitorsMap({
 
       <div className="grid gap-6 lg:grid-cols-[1.7fr_1fr]">
         {/* Map */}
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0b0a09]">
+        <div className="relative overflow-hidden rounded-2xl border border-ink-900/10 bg-[var(--color-sand-50)] shadow-sm">
           <svg
             viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
             role="img"
@@ -276,7 +276,9 @@ export function VisitorsMap({
                 const alpha2 = NUMERIC_TO_ALPHA2[numericId];
                 const data = alpha2 ? countryByAlpha2.get(alpha2) : undefined;
                 const t = data ? Math.log1p(data.visitors) / Math.log1p(maxCountry) : 0;
-                const fill = data ? colorFor(t) : "#1a1614";
+                // No-data fill: sand-200 (#ece0c4) for a soft cream-on-cream
+                // landmass that still reads against the sand-50 canvas.
+                const fill = data ? colorFor(t) : "#ece0c4";
                 const name =
                   (f.properties as { name?: string } | undefined)?.name ?? "Unknown";
                 return (
@@ -284,7 +286,7 @@ export function VisitorsMap({
                     key={i}
                     d={pathGen(f as never) ?? ""}
                     fill={fill}
-                    stroke="rgba(255,255,255,0.08)"
+                    stroke="rgba(26,22,20,0.12)"
                     strokeWidth={0.4}
                     onMouseMove={(e) =>
                       setHover({
@@ -306,12 +308,12 @@ export function VisitorsMap({
                   (f.properties as { name?: string } | undefined)?.name ?? "Unknown";
                 const data = stateByName.get(name.toLowerCase());
                 const t = data ? Math.log1p(data.visitors) / Math.log1p(maxState) : 0;
-                const baseFill = data ? colorFor(t) : "#1a1614";
+                const baseFill = data ? colorFor(t) : "#ece0c4";
                 const isSelected =
                   selectedState && name.toLowerCase() === selectedState.toLowerCase();
                 const isDimmed = !!selectedState && !isSelected;
-                const stroke = isSelected ? "#f2a261" : "rgba(255,255,255,0.12)";
-                const strokeWidth = isSelected ? 1.5 : 0.5;
+                const stroke = isSelected ? "#832f08" : "rgba(26,22,20,0.18)";
+                const strokeWidth = isSelected ? 1.75 : 0.5;
                 const opacity = isDimmed ? 0.35 : 1;
                 return (
                   <path
@@ -365,7 +367,7 @@ export function VisitorsMap({
                       cy={d.y}
                       r={d.r}
                       fill={core}
-                      stroke="#0b0a09"
+                      stroke="#1a1614"
                       strokeWidth={1.25}
                       className="cursor-pointer"
                       onMouseMove={(e) =>
@@ -387,28 +389,30 @@ export function VisitorsMap({
               })}
           </svg>
 
-          {/* Tooltip */}
+          {/* Tooltip — kept dark for maximum contrast against the
+              cream map canvas. White-on-dark reads instantly even when
+              hovering over a brightly-colored state polygon. */}
           {hover && (
             <div
-              className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-white/15 bg-black/85 px-3 py-2 text-xs shadow-xl backdrop-blur"
+              className="pointer-events-none absolute z-10 -translate-x-1/2 -translate-y-full rounded-lg border border-ink-900/40 bg-ink-900/95 px-3 py-2 text-xs shadow-xl backdrop-blur"
               style={{ left: hover.x, top: Math.max(40, hover.y - 8) }}
             >
               <p className="font-semibold text-white">{hover.title}</p>
-              <p className="mt-0.5 text-white/70">{hover.sub}</p>
+              <p className="mt-0.5 text-sand-100/85">{hover.sub}</p>
             </div>
           )}
 
           {/* Legend / hint bar */}
-          <div className="flex items-center gap-3 border-t border-white/10 bg-black/40 px-4 py-2.5 text-[10px] uppercase tracking-wider text-white/55">
+          <div className="flex items-center gap-3 border-t border-ink-900/10 bg-[var(--color-sand-100)] px-4 py-2.5 text-[10px] uppercase tracking-wider text-ink-800/60">
             {view === "us" && !selectedState ? (
               <span>Click a state to see city-level dots</span>
             ) : view === "us" && selectedState ? (
               <span>
-                Showing <span className="text-white/85">{dots.length}</span> of{" "}
-                <span className="text-white/85">{scopedCities.length}</span> cit
+                Showing <span className="text-ink-800/85">{dots.length}</span> of{" "}
+                <span className="text-ink-800/85">{scopedCities.length}</span> cit
                 {scopedCities.length === 1 ? "y" : "ies"} in {selectedState}
                 {missingCoords > 0 && (
-                  <span className="text-white/45"> · {missingCoords} without map coords</span>
+                  <span className="text-ink-800/50"> · {missingCoords} without map coords</span>
                 )}
               </span>
             ) : (
@@ -441,13 +445,13 @@ export function VisitorsMap({
         </div>
 
         {/* Right panel */}
-        <div className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+        <div className="flex flex-col rounded-2xl border border-ink-900/10 bg-white shadow-sm p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">
             {rightPanel.title}
           </p>
-          <p className="mt-1 text-xs text-white/55">{rightPanel.total}</p>
+          <p className="mt-1 text-xs text-ink-800/60">{rightPanel.total}</p>
           {rightPanel.rows.length === 0 ? (
-            <div className="mt-5 rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/50">
+            <div className="mt-5 rounded-xl border border-dashed border-ink-900/15 px-4 py-6 text-center text-sm text-ink-800/55">
               {rightPanel.empty}
             </div>
           ) : (
@@ -455,7 +459,7 @@ export function VisitorsMap({
               {rightPanel.rows.map((r) => {
                 const pct = (r.value / r.max) * 100;
                 const Item = (
-                  <div className="relative overflow-hidden rounded-lg bg-white/[0.04] px-3 py-2">
+                  <div className="relative overflow-hidden rounded-lg bg-[var(--color-sand-50)] px-3 py-2">
                     <div
                       className="absolute inset-y-0 left-0"
                       style={{
@@ -468,9 +472,9 @@ export function VisitorsMap({
                     <div className="relative flex items-center justify-between gap-3 text-sm">
                       <span className="flex min-w-0 items-center gap-2.5">
                         {r.flag ? <Flag code={r.flag} /> : null}
-                        <span className="truncate font-medium text-white">{r.label}</span>
+                        <span className="truncate font-medium text-ink-900">{r.label}</span>
                       </span>
-                      <span className="flex-none whitespace-nowrap text-white/75">
+                      <span className="flex-none whitespace-nowrap text-ink-800/80">
                         {r.value.toLocaleString()}
                       </span>
                     </div>
@@ -585,7 +589,7 @@ function ViewTab({
       onClick={onClick}
       className={
         "rounded-full px-4 py-1.5 transition " +
-        (active ? "bg-[#c45a22] text-white" : "text-white/65 hover:text-white")
+        (active ? "bg-[var(--color-ember-500)] text-white shadow-sm" : "text-ink-800/70 hover:text-[var(--color-ember-700)]")
       }
     >
       {children}

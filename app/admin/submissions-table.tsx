@@ -27,7 +27,7 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
 
   if (rows.length === 0) {
     return (
-      <div className="mt-6 rounded-xl border border-dashed border-white/15 px-4 py-10 text-center text-sm text-white/50">
+      <div className="mt-6 rounded-xl border border-dashed border-ink-900/15 px-4 py-10 text-center text-sm text-ink-800/55">
         No submissions yet. The first inquiry from the contact form will land here.
       </div>
     );
@@ -52,8 +52,8 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
               className={
                 "rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider transition " +
                 (filter === f
-                  ? "bg-[#c45a22] text-white"
-                  : "border border-white/15 text-white/70 hover:border-white/35 hover:text-white")
+                  ? "bg-[var(--color-ember-500)] text-white shadow-sm"
+                  : "border border-ink-900/15 bg-white text-ink-800/80 hover:border-[var(--color-ember-500)]/50 hover:text-[var(--color-ember-700)]")
               }
             >
               {label}
@@ -65,14 +65,14 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
           placeholder="Search name, email, message…"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full max-w-xs rounded-full border border-white/15 bg-black/30 px-4 py-2 text-sm text-white placeholder:text-white/30 focus:border-[#f2a261]/60 focus:outline-none focus:ring-1 focus:ring-[#f2a261]/40"
+          className="w-full max-w-xs rounded-full border border-ink-900/15 bg-[var(--color-sand-50)] px-4 py-2 text-sm text-ink-900 placeholder:text-ink-800/40 focus:border-[var(--color-ember-500)] focus:outline-none focus:ring-1 focus:ring-[var(--color-ember-500)]/30"
         />
       </div>
 
       {/* Table */}
-      <div className="mt-5 overflow-hidden rounded-2xl border border-white/10">
+      <div className="mt-5 overflow-hidden rounded-2xl border border-ink-900/10">
         <table className="w-full text-left text-sm">
-          <thead className="bg-white/[0.04] text-xs uppercase tracking-wider text-white/55">
+          <thead className="bg-[var(--color-sand-50)] text-xs uppercase tracking-wider text-ink-800/60">
             <tr>
               <th className="px-4 py-3 font-semibold">When</th>
               <th className="px-4 py-3 font-semibold">Name</th>
@@ -84,7 +84,7 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
           <tbody>
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-sm text-white/45">
+                <td colSpan={5} className="px-4 py-8 text-center text-sm text-ink-800/50">
                   No matches.
                 </td>
               </tr>
@@ -97,46 +97,46 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
                   <>
                     <tr
                       key={r.submitted_at + r.email + idx}
-                      className="cursor-pointer border-t border-white/5 transition hover:bg-white/[0.03]"
+                      className="cursor-pointer border-t border-ink-900/5 transition hover:bg-[var(--color-sand-100)]"
                       onClick={() => setOpenIdx(isOpen ? null : idx)}
                     >
-                      <td className="px-4 py-3 align-top text-white/85">
+                      <td className="px-4 py-3 align-top text-ink-900">
                         <p className="font-medium">{fmtDate(r.submitted_at)}</p>
-                        <p className="text-xs text-white/45">{fmtTime(r.submitted_at)}</p>
+                        <p className="text-xs text-ink-800/50">{fmtTime(r.submitted_at)}</p>
                       </td>
-                      <td className="px-4 py-3 align-top text-white">{r.name}</td>
-                      <td className="px-4 py-3 align-top text-white/80">
+                      <td className="px-4 py-3 align-top text-ink-900">{r.name}</td>
+                      <td className="px-4 py-3 align-top text-ink-800/85">
                         <a
                           href={`mailto:${r.email}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="block truncate hover:text-[#f2a261]"
+                          className="block truncate hover:text-[var(--color-ember-600)]"
                         >
                           {r.email}
                         </a>
                         <a
                           href={`tel:${r.phone}`}
                           onClick={(e) => e.stopPropagation()}
-                          className="block text-xs text-white/55 hover:text-[#f2a261]"
+                          className="block text-xs text-ink-800/60 hover:text-[var(--color-ember-600)]"
                         >
                           {r.phone}
                         </a>
                       </td>
-                      <td className="px-4 py-3 align-top text-white/75">{r.details || "—"}</td>
+                      <td className="px-4 py-3 align-top text-ink-800/80">{r.details || "—"}</td>
                       <td className="px-4 py-3 align-top">
                         <span className={pillClass(status)}>{status.label}</span>
                       </td>
                     </tr>
                     {isOpen && (
-                      <tr key={r.submitted_at + r.email + "-detail"} className="border-t border-white/5 bg-black/30">
+                      <tr key={r.submitted_at + r.email + "-detail"} className="border-t border-ink-900/5 bg-[var(--color-sand-50)]">
                         <td colSpan={5} className="px-4 py-5">
                           <div className="grid gap-5 lg:grid-cols-[2fr_1fr]">
                             <div>
-                              <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Message</p>
-                              <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-white/90">
+                              <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/55">Message</p>
+                              <p className="mt-2 whitespace-pre-wrap text-[15px] leading-relaxed text-ink-800/90">
                                 {r.message}
                               </p>
                             </div>
-                            <dl className="space-y-2 text-xs text-white/65">
+                            <dl className="space-y-2 text-xs text-ink-800/70">
                               <Row k="Mode" v={r.mode} />
                               <Row k="Email sent" v={String(r.email_sent)} />
                               {r.error_message && <Row k="Error" v={r.error_message} mono />}
@@ -155,7 +155,7 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
         </table>
       </div>
 
-      <p className="mt-3 text-xs text-white/40">
+      <p className="mt-3 text-xs text-ink-800/50">
         Click any row to see the full message and delivery details.
       </p>
     </div>
@@ -165,12 +165,12 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
 function Row({ k, v, mono, wrap }: { k: string; v: string; mono?: boolean; wrap?: boolean }) {
   return (
     <div className="flex gap-3">
-      <dt className="w-24 flex-none uppercase tracking-wider text-white/45">{k}</dt>
+      <dt className="w-24 flex-none uppercase tracking-wider text-ink-800/50">{k}</dt>
       <dd
         className={
           (mono ? "font-mono " : "") +
           (wrap ? "break-all " : "") +
-          "text-white/80"
+          "text-ink-800/85"
         }
       >
         {v}
@@ -189,9 +189,9 @@ function statusOf(r: ContactLogEntry): StatusKind {
 
 function pillClass(s: StatusKind) {
   const base = "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em]";
-  if (s.kind === "delivered") return `${base} bg-emerald-400/15 text-emerald-200 ring-1 ring-emerald-400/30`;
-  if (s.kind === "failed") return `${base} bg-red-400/15 text-red-200 ring-1 ring-red-400/30`;
-  return `${base} bg-amber-400/15 text-amber-100 ring-1 ring-amber-400/30`;
+  if (s.kind === "delivered") return `${base} bg-emerald-50 text-emerald-800 ring-1 ring-emerald-300/70`;
+  if (s.kind === "failed") return `${base} bg-red-50 text-red-800 ring-1 ring-red-300/70`;
+  return `${base} bg-amber-50 text-amber-800 ring-1 ring-amber-300/70`;
 }
 
 function fmtDate(iso: string): string {

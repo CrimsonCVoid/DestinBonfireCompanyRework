@@ -414,6 +414,107 @@ export const FAQ: FaqItem[] = [
   },
 ];
 
+// Live Google reviews — pulled verbatim from the company's Google
+// Business Profile review feed. Owner replies, photo-only entries, and
+// the few negative reviews are excluded from the home-page carousel.
+// The deep-link below opens the full filtered review list on Google
+// where every review (including critical ones) is visible.
+export const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/search?q=Destin+Bonfire+Company&kgmid=/g/11k5hd91yk#lrd=0x60301ac2922e2bb3:0x1a615f7d60ef2fe1,1";
+
+export type GoogleReview = {
+  name: string;
+  dateLabel: string;
+  text: string;
+  occasion?: string;
+  /** True if the source text was truncated by Google's "... More" cutoff. */
+  truncated?: boolean;
+};
+
+export const GOOGLE_REVIEWS: GoogleReview[] = [
+  { name: "Heidi W", dateLabel: "2 weeks ago", text: "Kaylee and the team at Destin Bonfire Company truly went above and beyond to create one of the most amazing experiences! If you are visiting Destin, this is an absolute must-do!" },
+  { name: "Riley Bills", dateLabel: "4 weeks ago", occasion: "Bachelorette", text: "We booked for a bachelorette trip and it was so much fun! Corbin made sure we were well taken care of and had everything we needed. The hospitality was incredible! A good time had by all!" },
+  { name: "Meghan Williams", dateLabel: "1 month ago", occasion: "Spring break · Family of 5", text: "I am so glad I scheduled a bonfire with this company for my family of 5 during spring break! There is just something magical about a bonfire on the beach at sunset. Everything was taken care of — we didn't have to bring a thing.", truncated: true },
+  { name: "Tammy Crites", dateLabel: "1 month ago", occasion: "Family vacation", text: "You should absolutely book with Destin Bonfire Company! We had the best time during our family vacation. Corbin made the whole evening so special and personal — honestly, we felt like he was part of our group by the end of the night!", truncated: true },
+  { name: "Jenny Keith", dateLabel: "1 month ago", text: "We had a great time! The setup was perfect at just the right time to see the sunset. Big thanks to Mike, Ben and Sam for making it a memorable experience!" },
+  { name: "Cory Keith", dateLabel: "1 month ago", occasion: "Group of 18", text: "We had a group of 18 for a bonfire. None of us had done it before and all had a blast. Mike, Ben, and Sam took care of everything. We didn't have to worry about or do anything — we were able to relax and enjoy the wonderful experience.", truncated: true },
+  { name: "Steph Boone", dateLabel: "1 month ago", occasion: "Spring break · 45+ people", text: "We were in town for our daughter's spring break trip with a large group of other families. Organizing a beach bonfire for 45+ people was pretty challenging, but overall Kaylee made the process pretty smooth.", truncated: true },
+  { name: "Samuel", dateLabel: "1 month ago", text: "Best bonfire company ever. Will book with y'all every year. Thanks Ben and Mike." },
+  { name: "Amy Rosso", dateLabel: "1 month ago", text: "Unique experience that was memorable for everyone!" },
+  { name: "Erin Williams", dateLabel: "1 month ago", text: "Beautiful setting and mindful attendants — not intrusive but very accommodating. I would love to do this again!" },
+  { name: "Marcia & Doug Pohlmann", dateLabel: "1 month ago", occasion: "Bachelorette", text: "We had an AWESOME time on our bachelorette bonfire with Sam! He went above and beyond to make our night even more special. Highly recommend!" },
+  { name: "Stephanie Biesterveld", dateLabel: "1 month ago", occasion: "Team trip", text: "Our team had such a great evening! We had a blast and won't forget our evening. Mike and Ben were great bonfire attendants — they even accepted a dance from one of our teammates!" },
+  { name: "Mike Carley", dateLabel: "1 month ago", occasion: "Family with kids", text: "Absolutely incredible experience. Corbin had everything we could have needed prepared and ready. We had five little kids with us and it was the perfect experience to let them run wild on the beach while the adults relaxed by the fire." },
+  { name: "Ashleigh Grubb", dateLabel: "1 month ago", text: "Sam set up and provided a perfect bonfire experience! The blankets, s'mores, and cornhole boards were nice touches. Sam made everything so comfortable and easy, and he was well-prepared, professional, and attentive." },
+  { name: "Grecia Trejo", dateLabel: "1 month ago", occasion: "Bachelorette", text: "Amazing service! Mike the beach bonfire worker went above and beyond to make sure we had everything we needed. Super attentive, friendly, and made the whole experience perfect and so fun. Highly recommend!" },
+  { name: "Brad Neese", dateLabel: "1 month ago", occasion: "Family · 7 teenagers", text: "THIS EXPERIENCE WAS THE HIGHLIGHT OF OUR TRIP TO DESTIN! Destin Bonfire Company is top notch. The online reservation was easy and the company communicated well by text leading up to our bonfire.", truncated: true },
+  { name: "Paige Rivard", dateLabel: "2 months ago", occasion: "Women's retreat", text: "We had a lovely evening on the beach made possible by Destin Bonfire Company and our beach attendant Corbin. Thank you!" },
+  { name: "Ashley Hanson", dateLabel: "2 months ago", text: "What an amazing experience we had — such a beautiful setting you created! And thanks to Corbin for providing a lovely fire and tending it so unobtrusively for our gathering.", truncated: true },
+  { name: "Leah Rocco", dateLabel: "2 months ago", occasion: "Family", text: "Such a great family-fun experience!" },
+  { name: "Yvonne V", dateLabel: "2 months ago", text: "We had an amazing experience with this bonfire company! Everything was set up perfectly and made our night so memorable. The team was professional, friendly, and handled all the details so we could just relax and enjoy the fire.", truncated: true },
+  { name: "Phi Vo", dateLabel: "2 months ago", text: "Had a relaxing time. Would recommend for those looking for a chill evening gathering. Great customer service and staff always checked on us.", truncated: true },
+  { name: "Anh Nguyen", dateLabel: "2 months ago", occasion: "Girls trip", text: "We went as a group of girls and had such a wonderful time! We made s'mores, had great conversations, and really enjoyed the whole experience. They even provided a Bluetooth speaker so we could connect our phones and play music. Highly recommend!" },
+  { name: "Angel Do", dateLabel: "2 months ago", text: "This was such an amazing way to end our trip! They had everything set up for us by the time we got there, provided s'mores and a huge speaker which added to our overall experience.", truncated: true },
+  { name: "Dawn Le", dateLabel: "2 months ago", text: "Awesome service!" },
+  { name: "Tiffany Butler", dateLabel: "2 months ago", occasion: "Bachelorette", text: "Great experience — easy to find the crew even though it was late. Loved the setup and it was perfect for our bachelorette party.", truncated: true },
+  { name: "Rayma Miles", dateLabel: "4 months ago", text: "We had so much fun. The evening was just perfect. Luca did a fantastic job keeping our bonfire a picture-perfect blaze. Kaylee also gets two thumbs up for the ease of planning and helping with our reservations. We highly recommend and would definitely do it again." },
+  { name: "Fran Douthitt", dateLabel: "4 months ago", text: "Very fun! Enjoyed the whole experience. Luca made sure we were taken care of. He was super." },
+  { name: "Andrea S", dateLabel: "5 months ago", text: "Book them! We booked Destin Bonfire for a beach bonfire and it was fantastic. They were easy to work with during scheduling, the setup was quick, and our attendants were super helpful.", truncated: true },
+  { name: "Jessica Berryhill", dateLabel: "7 months ago", text: "Had a great time! Wonderful setup, the attendant was amazing. Will definitely do it again!" },
+  { name: "Andrew Brooks", dateLabel: "8 months ago", occasion: "Family", text: "Destin Bonfire Company made our beach night absolutely unforgettable! They handled everything from start to finish — setup was perfect, the fire was beautiful, and the atmosphere they created for my family was amazing.", truncated: true },
+  { name: "Erick Gonzales", dateLabel: "8 months ago", occasion: "Proposal", text: "Amazing people — Katy is awesome. She helped all along the way and made my ideal proposal happen. They work with all ideas. I am from Texas and this was planned approximately 6 months prior and they executed beautifully.", truncated: true },
+  { name: "David Conner", dateLabel: "8 months ago", occasion: "Corporate · group of 100", text: "We brought a group of 100 down for a work trip and had a BLAST at the bonfire. The team took incredible care to curate a fun experience for our team. 10/10 would recommend." },
+  { name: "Stephanie Slate", dateLabel: "9 months ago", occasion: "Wedding reception", text: "Destin Bonfire Company did an awesome job with our daughter and son-in-law's casual beachside wedding reception. They communicated promptly, answering any questions we had throughout the process to help make it a stress-free event.", truncated: true },
+  { name: "N. Aggielarr", dateLabel: "9 months ago", occasion: "Bachelorette", text: "Perfect touch to the bachelorette party. This was our first event during day one as everyone was flying in from all over. Very calming and relaxing. They were flexible and understanding when we were running a little behind.", truncated: true },
+  { name: "Devin Blankenship", dateLabel: "9 months ago", occasion: "Bachelorette", text: "This amazing company came through for us last minute after another awful company canceled on us. Our fire attendants Ethan and Josh were so kind, keeping the fire burning just right.", truncated: true },
+  { name: "Dave McCune", dateLabel: "9 months ago", text: "Our bonfire was amazing. Great service and help with all our needs. I will be back soon." },
+  { name: "Scott Getty", dateLabel: "9 months ago", occasion: "Large family", text: "Was a great experience for our large family." },
+  { name: "Bevin Judge", dateLabel: "9 months ago", text: "Came through last minute and set up for us after another company canceled on us. Thank you again!" },
+  { name: "Yemy Fuguet", dateLabel: "10 months ago", occasion: "Marriage proposal", text: "Our experience with Destin Bonfire Company was exceptional. The team created an unforgettable setting for the marriage proposal, with flawless decoration by the ocean at sunset. Every detail was perfectly organized.", truncated: true },
+  { name: "Janelle Cantu", dateLabel: "10 months ago", occasion: "Birthday · Texas family", text: "Would 100% recommend using Destin Bonfire Company for your beach bonfire. My family and I came from Texas to celebrate a birthday and everybody we interacted with at DBC were so kind and helpful. They helped me determine which beach was best.", truncated: true },
+  { name: "Jordan Alonso", dateLabel: "11 months ago", occasion: "Bachelorette", text: "We highly enjoyed our bonfire experience on Miramar Beach! I booked a private bonfire for the last night of my girlfriend's bachelorette party and we thoroughly enjoyed the experience. It was perfect and picturesque.", truncated: true },
+  { name: "Ed Megyesi", dateLabel: "11 months ago", occasion: "Family · 10-year tradition", text: "Hired Destin Bonfire Company and they were great! Corbin was our fire attendant for the evening. We have been coming to Destin for the last 10 years and my wife wanted to do something different — we stumbled across Destin Bonfire. This will now be a new tradition for our family. Highly recommend!" },
+  { name: "Zac Thomas", dateLabel: "11 months ago", text: "Absolutely wonderful, great employees, very comfortable and an overall welcoming experience. Tracen made sure we were taken care of. 10/10 see you next year." },
+  { name: "Kim Crist", dateLabel: "11 months ago", occasion: "Wedding · 50 guests", text: "Destin Bonfire Company is the best! We hosted a party the day after my son's wedding and we couldn't have been happier. They set everything up for 50 people and took everything away for us!" },
+  { name: "Vickie Dolan", dateLabel: "11 months ago", occasion: "Bachelorette", text: "This is a must in Destin! We did this on a bachelorette trip and it was such a fun and creative activity. It made for cute photos and such a relaxing evening on the beach. Tracen was the best host and so sweet." },
+  { name: "Clark Adams", dateLabel: "1 year ago", text: "Destin Bonfire Company made our beach trip unforgettable! We didn't have to worry about bringing firewood or setting up — they handled it all. The fire was perfect, the seating was comfortable, and the ambiance was just what we needed.", truncated: true },
+  { name: "May Medina", dateLabel: "1 year ago", occasion: "Proposal", text: "Let me start off with WOW! From the beginning Kaylee was so helpful and gave very detailed information of my request. The proposal setup was so beautiful. They made our special day amazing." },
+  { name: "Sandy Martin", dateLabel: "1 year ago", occasion: "Daughter's wedding", text: "I cannot say enough great things about this group. From the first phone call with Kaylee, she ran with ideas for a setup for my daughter's wedding. We started with a bonfire that grew to an elaborate wedding ceremony with the bonfire.", truncated: true },
+  { name: "Christopher Piazza", dateLabel: "1 year ago", occasion: "Family reunion", text: "Our family recently had the most unforgettable experience with Destin Bonfire Company, and I can't recommend them enough! From start to finish, their service was impeccable — it truly made our family reunion a cornerstone memory.", truncated: true },
+  { name: "Nan", dateLabel: "1 year ago", text: "Nick was amazing! He was always on top of all our requests and easy to be around. This company and its employees are the best in Destin. Ask for Nick and you will have a great time!" },
+  { name: "Corey Hacker", dateLabel: "1 year ago", text: "What a great experience! They took care of absolutely everything and were a pleasure to work with. Highly recommend!" },
+  { name: "Summer Feucht", dateLabel: "1 year ago", text: "Amazing — and a shout-out to Kaylee and Chris who worked hard to help us get the fire right at our beach condo! Never a more perfect way to end a beach trip." },
+  { name: "Mike Boyer", dateLabel: "1 year ago", text: "Great setup and experience — highly recommend! Kaylee was so helpful and our fire attendant Payton was great." },
+  { name: "Randell Richmond", dateLabel: "1 year ago", occasion: "Family", text: "The best experience ever for my family and I! They kept the fire going full on and making sure we were okay consistently." },
+  { name: "Derek Harris", dateLabel: "1 year ago", text: "This was such a fun experience. Definitely something everyone should do while in Destin. They were super accommodating during the booking process and our fire tender was so helpful. One of our favorite activities of the trip." },
+  { name: "Rachael Clark", dateLabel: "1 year ago", occasion: "Family", text: "The best family experience! We LOVED it. Kyle was so kind and helpful too. Highly recommend!" },
+  { name: "Rainer Araujo", dateLabel: "1 year ago", text: "Amazing customer service from Kaylee and Eric. I am so impressed how easy and simple it was to throw a beach bonfire — just by making a phone call.", truncated: true },
+  { name: "marcy parsons", dateLabel: "3 years ago", occasion: "Bonfire for 12", text: "Choose Destin Bonfire Company! Great communication, gorgeous presentation, and worth every penny. They think of every detail. Owners truly want you to have a great experience. We had a bonfire for 12 with s'mores add-on.", truncated: true },
+  { name: "Tracey Lightfoot", dateLabel: "1 year ago", text: "Nick was awesome and so attentive to our party. Really enjoyed our time on the beach." },
+  { name: "Denise Jordan", dateLabel: "1 year ago", occasion: "Family", text: "Our family had a lot of fun and appreciated the great service and kindness the entire time. Thank you!" },
+  { name: "Jason & Tina Wileman", dateLabel: "1 year ago", text: "Nick was our host for the evening. He was polite, available to help, and very kind. Nick, your boss is fortunate to have you." },
+  { name: "Tracen Trahan", dateLabel: "1 year ago", occasion: "22nd birthday", text: "Used Destin Bonfire here locally for my 22nd birthday party. Fantastic time with my friends and family — they scheduled us for a 7 PM slot and made sure we caught the sunset perfectly. Truly a magical experience. Will book again for another family member in the future." },
+  { name: "Donna Harris", dateLabel: "1 year ago", occasion: "Family of 12 · 2-year repeat", text: "Destin Bonfire Company is the best! We have used them for 2 years for my family of 12. Their communication is fantastic. Their attention to detail is top notch. I will definitely use them again." },
+  { name: "Kristin Weston", dateLabel: "1 year ago", text: "Wonderful experience! Great communicating and customer service. The attendants were very friendly and helpful. Truly the cherry on top of our trip!" },
+  { name: "Jo", dateLabel: "1 year ago", text: "Literally the best people to work with — extremely responsive and kind. Absolutely recommend and will be using again!" },
+  { name: "Tom Scheide", dateLabel: "1 year ago", text: "Best bonfire experience for my wife's birthday. Thank you Erik, Kaylee and Kyle!" },
+  { name: "Hailey Boyer Roise", dateLabel: "1 year ago", text: "So fun and perfect for late October. S'mores, music, and a great bonfire on the beach. Loved it!" },
+  { name: "Ann Howe", dateLabel: "1 year ago", occasion: "Family", text: "Incredible service. On time and took care of everything. Very much enjoyed our bonfire. It was a great family memory." },
+  { name: "Matthew Odhner", dateLabel: "1 year ago", text: "Great time." },
+  { name: "Angie Giguere", dateLabel: "1 year ago", occasion: "Bachelorette", text: "What a great experience. The finale to our bachelorette trip in Destin. Make sure that you get the cooler and water so you can relax when you get to your fire location.", truncated: true },
+  { name: "Logan Fisher", dateLabel: "2 years ago", occasion: "Family · northerners visiting", text: "Family in town from way up north — what to do? This was a great idea! It was a little chilly for us but the northerners loved it. Well set up and we paired with the provided Bluetooth speaker. A wonderful evening on the beach watching the sunset by a bonfire. Thanks Sam for your hard work and professionalism." },
+  { name: "Gracey Belote", dateLabel: "2 years ago", occasion: "Bachelorette", text: "We booked a bonfire for the final night of a friend's bachelorette weekend, and it was the perfect way to cap off our trip! We got some lovely sunset photos and were able to enjoy wine and s'mores by the fire. Would highly recommend!" },
+  { name: "Sarah Hayes", dateLabel: "2 years ago", text: "Our bonfire experience was amazing! Sam did an excellent job accommodating our group. He was so attentive and thoughtful. Thank you for a wonderful night!" },
+  { name: "James Rooney", dateLabel: "2 years ago", text: "Sam did an amazing job with our bonfire. He made sure the fire was always going. Very polite. We will definitely use Destin Bonfires again when in Destin." },
+  { name: "Elizabeth Wendel", dateLabel: "2 years ago", occasion: "Family", text: "Wonderful once-in-a-lifetime experience — worth every penny. Sam made the bonfire so special for our family. Would highly recommend." },
+  { name: "Griffin Combs", dateLabel: "3 years ago", text: "Absolute blast! Sam showed us a great time. He was very professional, the bonfire looked great, and some really awesome games were included. Highly recommend." },
+  { name: "Darlene Combs", dateLabel: "3 years ago", text: "We had a great experience! Sam is so sweet, polite and professional. We will definitely use him for all of our bonfires!" },
+  { name: "courtnee Armstrong", dateLabel: "3 years ago", text: "Highlight of our trip! Had a great time and both Sam and Eric were awesome to work with!" },
+  { name: "Nicole G", dateLabel: "3 years ago", text: "Had an amazing bonfire experience! Great customer service. Will be booking again!" },
+  { name: "Maddie Revelle", dateLabel: "3 years ago", text: "Had a blast! So great being able to actually have a fire on the beach!" },
+  { name: "Danielle Beasley", dateLabel: "3 years ago", occasion: "Family", text: "I rented a golf cart from Erik this summer and had him set up a bonfire for my family this fall. It was a great experience and I can't wait to do it again!" },
+];
+
 export const TESTIMONIALS = [
   {
     name: "Sarah P.",

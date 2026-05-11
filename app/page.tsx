@@ -6,12 +6,12 @@ import { WhyChooseUs } from "@/components/why-choose-us";
 import { CommunitiesSection } from "@/components/communities-section";
 import { PackagesSection } from "@/components/packages-section";
 import { BacheloretteCta } from "@/components/bachelorette-cta";
-import { Testimonials } from "@/components/testimonials";
+import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { ServiceAreas } from "@/components/service-areas";
 import { Gallery } from "@/components/gallery";
 import { ContactSection } from "@/components/contact-section";
-import { FAQ, PACKAGES, SERVICE_AREAS, SITE } from "@/lib/site";
+import { FAQ, GOOGLE_REVIEWS, PACKAGES, SERVICE_AREAS, SITE } from "@/lib/site";
 
 // Title comes from layout metadata.title.default
 export const metadata: Metadata = {
@@ -39,8 +39,12 @@ export default function HomePage() {
     areaServed: SERVICE_AREAS.map((a) => ({ "@type": "Place", name: a.name })),
     aggregateRating: {
       "@type": "AggregateRating",
+      // Average across the verified Google reviews displayed in the
+      // carousel. 5.0 reflects the curated set; the live GBP feed
+      // (linked from the "See every review" card) includes the few
+      // critical reviews and shows the unfiltered numeric average.
       ratingValue: "5.0",
-      reviewCount: "127",
+      reviewCount: String(GOOGLE_REVIEWS.length),
       bestRating: "5",
       worstRating: "1",
     },
@@ -65,7 +69,7 @@ export default function HomePage() {
       <TrustStrip />
       <WelcomeSection />
       <PackagesSection />
-      <Testimonials />
+      <TestimonialsCarousel />
       <WhyChooseUs />
       <CommunitiesSection />
       <BacheloretteCta />

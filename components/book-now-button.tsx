@@ -1,9 +1,12 @@
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+"use client";
+
+import type { AnchorHTMLAttributes, MouseEvent, ReactNode } from "react";
 import {
   FAREHARBOR,
   fareHarborItemUrl,
   type FareHarborItemKey,
 } from "@/lib/site";
+import { captureEvent } from "./posthog-provider";
 
 type Variant = "primary" | "secondary" | "ghost";
 
@@ -61,14 +64,30 @@ export function BookNowButton({
 
   // TODO post-launch: fire GA4/Meta conversion event on click (dataLayer push)
 
+  // Visible text is always the accessible name — never override with a
+  // generic "Book a beach bonfire" label, which fails Lighthouse's
+  // label-content-name-mismatch (the announced label differed from the
+  // visible "BOOK THE COZY FIRE" / "BOOK THE SUNSET CIRCLE" copy).
+  function onClick(e: MouseEvent<HTMLAnchorElement>) {
+    // Fire-and-forget event capture. Don't preventDefault — FareHarbor's
+    // Lightframe script still owns the click and we never want to block it.
+    captureEvent("book_button_clicked", {
+      package_key: item ?? "generic",
+      variant,
+      location: typeof window !== "undefined" ? window.location.pathname : undefined,
+    });
+    if (typeof rest.onClick === "function") rest.onClick(e);
+  }
+
   return (
     <a
       href={fareHarborItemUrl(item)}
       data-fh-customer-id={FAREHARBOR.shortname}
       data-fh-flow
-      aria-label={ariaLabel ?? (typeof children === "string" ? undefined : "Book a beach bonfire")}
+      aria-label={ariaLabel}
       className={classes}
       {...rest}
+      onClick={onClick}
     >
       {children}
     </a>

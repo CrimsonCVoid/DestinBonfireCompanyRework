@@ -4,6 +4,7 @@ import { Fraunces, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { PostHogProvider } from "@/components/posthog-provider";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -193,9 +194,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         >
           Skip to content
         </a>
-        <SiteHeader />
-        <main id="main">{children}</main>
-        <SiteFooter />
+        <PostHogProvider>
+          <SiteHeader />
+          <main id="main">{children}</main>
+          <SiteFooter />
+        </PostHogProvider>
         <Analytics />
         <script
           type="application/ld+json"
@@ -206,10 +209,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/*
           FareHarbor Lightframe — intercepts anchors with data-fh-customer-id
           and data-fh-flow matching the shortname, opens them in a modal.
+
+          Loaded with strategy="lazyOnload" so it runs AFTER the window load
+          event. This addresses several Lighthouse findings tied to the
+          FareHarbor bundle (legacy JS, third-party cookies, unload handler
+          that blocks bf-cache, deprecated API warnings) by keeping them off
+          the initial render. The script still attaches its click handler
+          well before any user is realistically clicking "Book Your Bonfire."
         */}
         <Script
           src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </body>
     </html>

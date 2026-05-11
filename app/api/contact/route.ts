@@ -1,6 +1,8 @@
+import { createHash } from "node:crypto";
 import { NextResponse } from "next/server";
 import { sendContactEmail, getEmailMode, type ContactPayload } from "@/lib/email";
 import { logContactSubmission } from "@/lib/contact-logger";
+import { captureServerEvent } from "@/lib/posthog-server";
 
 export const runtime = "nodejs";
 
@@ -99,6 +101,18 @@ export async function POST(req: Request) {
     error_message: send.ok ? null : send.error,
     user_agent: userAgent,
     ip,
+  });
+
+  // PostHog event — fire-and-forget, PII-free. Use a one-way hash of the
+  // email as the distinct_id so funnel stitching works across sessions
+  // without storing the raw email in PostHog.
+  const distinctId = "anon_" + createHash("sha256").update(payload.email).digest("hex").slice(0, 16);
+  void captureServerEvent(distinctId, "contact_form_submitted", {
+    email_sent: actuallySent,
+    delivery_mode: send.mode,
+    group_size_provided: Boolean(payload.details),
+    message_length: payload.message.length,
+    failed: !send.ok,
   });
 
   // User-facing response: if either email or log succeeded, tell the user we got it.

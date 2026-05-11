@@ -8,9 +8,10 @@ import { BookNowButton } from "./book-now-button";
 
 const NAV = [
   { href: "/bonfire-packages", label: "Packages" },
-  { href: "/#locations", label: "Locations" },
+  { href: "/#AREASWESERVE", label: "Locations We Serve" },
   { href: "/bachelorette-bonfire", label: "Bachelorette" },
   { href: "/bonfire-permit-process", label: "Permits" },
+  { href: "/refund-policy", label: "Refund Policy" },
   { href: "/blog", label: "Blog" },
 ];
 
@@ -49,7 +50,7 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 xl:gap-8 lg:flex" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.href}

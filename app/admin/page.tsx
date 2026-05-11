@@ -274,7 +274,7 @@ export default async function AdminPage() {
           ) : (
             <BarList
               rows={topPages.map((p) => ({
-                label: p.path || "/",
+                label: displayPath(p.path),
                 value: p.pageviews,
                 sub: `${p.visitors.toLocaleString()} visitors`,
               }))}
@@ -439,7 +439,7 @@ export default async function AdminPage() {
                       </span>
                     </div>
                     <p className="mt-1 truncate text-xs text-ink-800/60" title={r.startUrl}>
-                      {pathFromUrl(r.startUrl) || "/"}
+                      {displayPath(pathFromUrl(r.startUrl))}
                     </p>
                     <p className="mt-0.5 text-[10px] uppercase tracking-wider text-ink-800/45">
                       {fmtDateTime(r.startTime)}
@@ -472,7 +472,7 @@ export default async function AdminPage() {
                 >
                   <p className="font-mono text-red-800 break-words">{e.message}</p>
                   <p className="mt-1 text-red-700/70">
-                    {e.pathname || "/"} · {fmtDateTime(e.timestamp)}
+                    {displayPath(e.pathname)} · {fmtDateTime(e.timestamp)}
                   </p>
                 </li>
               ))}
@@ -492,7 +492,7 @@ export default async function AdminPage() {
                 >
                   <div className="min-w-0">
                     <p className="truncate font-medium text-ink-900">
-                      <EventChip name={e.event} /> {e.pathname || "—"}
+                      <EventChip name={e.event} /> {e.pathname ? displayPath(e.pathname) : "—"}
                     </p>
                     <p className="text-ink-800/50">{fmtDateTime(e.timestamp)}</p>
                   </div>
@@ -665,4 +665,17 @@ function pathFromUrl(u: string): string {
   } catch {
     return u;
   }
+}
+
+/**
+ * Cosmetic relabel — "/" is the actual route on the live site (we don't
+ * want to rename or redirect it), but in lists like Top Pages and the
+ * events feed the bare slash is visually ambiguous next to other paths
+ * like "/bonfire-packages". Display "/" as "/home" everywhere paths are
+ * surfaced to the operator.
+ */
+function displayPath(p: string | null | undefined): string {
+  const raw = (p ?? "").trim();
+  if (raw === "" || raw === "/") return "/home";
+  return raw;
 }

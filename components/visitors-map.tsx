@@ -137,9 +137,12 @@ export function VisitorsMap({
     );
   }, [view, selectedState, cityPoints]);
 
-  // ----------------------- Dots (US view only) -------------------
+  // ----------------------- Dots (only when a state is selected) ---
+  // Dots render exclusively in the state-drill view. In the all-US
+  // view the state choropleth is the visualization, and dots would
+  // just be noise.
   const dots = useMemo(() => {
-    if (view !== "us") return [];
+    if (view !== "us" || !selectedState) return [];
     if (!projection) return [];
     const plottable = scopedCities.filter(
       (c) => Number.isFinite(c.lat) && Number.isFinite(c.lng),
@@ -150,13 +153,13 @@ export function VisitorsMap({
         const xy = projection([c.lng, c.lat]);
         if (!xy) return null;
         const t = Math.log1p(c.visitors) / Math.log1p(maxV);
-        const r = 3 + t * 13; // 3px → 16px radius
-        return { ...c, x: xy[0], y: xy[1], r };
+        const r = 4 + t * 14; // 4px → 18px radius
+        return { ...c, x: xy[0], y: xy[1], r, t };
       })
       .filter((d): d is NonNullable<typeof d> => d !== null)
       .sort((a, b) => b.r - a.r); // big dots painted first, small dots on top
-  }, [view, scopedCities, projection]);
-  const missingCoords = scopedCities.length - dots.length;
+  }, [view, selectedState, scopedCities, projection]);
+  const missingCoords = selectedState ? scopedCities.length - dots.length : 0;
 
   // ----------------------- Right-panel rows ----------------------
   const rightPanel = useMemo(() => {
@@ -339,34 +342,49 @@ export function VisitorsMap({
                 );
               })}
 
-            {/* City dots — US view only */}
+            {/* City dots — only when a state is drilled into.
+                Three layers per dot give the "heatmap glow" feel:
+                  - outer halo (~3.2x radius, very low alpha)
+                  - mid halo (~1.8x radius, low alpha)
+                  - solid core (1x radius, near-opaque)
+                Color is interpolated on a cool→hot scale so a low-traffic
+                city reads as cool cyan and a hotspot reads as bright yellow,
+                contrasting against the warm ember state fill. */}
             {view === "us" &&
-              dots.map((d) => (
-                <g key={`${d.city}-${d.state}`}>
-                  <circle
-                    cx={d.x}
-                    cy={d.y}
-                    r={d.r + 4}
-                    fill="rgba(242,162,97,0.18)"
-                  />
-                  <circle
-                    cx={d.x}
-                    cy={d.y}
-                    r={d.r}
-                    fill="rgba(242,162,97,0.95)"
-                    stroke="#0b0a09"
-                    strokeWidth={1.25}
-                    className="cursor-pointer"
-                    onMouseMove={(e) =>
-                      setHover({
-                        title: d.city,
-                        sub: [d.state, d.country].filter(Boolean).join(" · "),
-                        ...mousePos(e),
-                      })
-                    }
-                  />
-                </g>
-              ))}
+              selectedState &&
+              dots.map((d) => {
+                const core = heatColor(d.t, 0.95);
+                const mid = heatColor(d.t, 0.32);
+                const halo = heatColor(d.t, 0.14);
+                return (
+                  <g key={`${d.city}-${d.state}`}>
+                    <circle cx={d.x} cy={d.y} r={d.r * 3.2} fill={halo} />
+                    <circle cx={d.x} cy={d.y} r={d.r * 1.8} fill={mid} />
+                    <circle
+                      cx={d.x}
+                      cy={d.y}
+                      r={d.r}
+                      fill={core}
+                      stroke="#0b0a09"
+                      strokeWidth={1.25}
+                      className="cursor-pointer"
+                      onMouseMove={(e) =>
+                        setHover({
+                          title: d.city,
+                          sub: [
+                            d.state,
+                            d.country,
+                            `${d.visitors.toLocaleString()} visitor${d.visitors === 1 ? "" : "s"}`,
+                          ]
+                            .filter(Boolean)
+                            .join(" · "),
+                          ...mousePos(e),
+                        })
+                      }
+                    />
+                  </g>
+                );
+              })}
           </svg>
 
           {/* Tooltip */}
@@ -402,8 +420,12 @@ export function VisitorsMap({
                 aria-hidden="true"
                 className="h-2 w-32 rounded-full"
                 style={{
+                  // State-drill view uses the cool→hot dot heatmap gradient;
+                  // both other views use the ember choropleth gradient.
                   background:
-                    "linear-gradient(to right, rgb(60,36,28), rgb(131,47,8), rgb(184,82,19), rgb(242,162,97))",
+                    view === "us" && selectedState
+                      ? "linear-gradient(to right, rgb(56,189,248), rgb(34,211,238), rgb(132,204,22), rgb(253,224,71))"
+                      : "linear-gradient(to right, rgb(60,36,28), rgb(131,47,8), rgb(184,82,19), rgb(242,162,97))",
                 }}
               />
               <span>
@@ -487,6 +509,43 @@ function mousePos(e: React.MouseEvent<SVGElement>): { x: number; y: number } {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top,
   };
+}
+
+/**
+ * Heatmap color for city dots. Cool → hot ramp tuned to contrast
+ * with the warm ember state choropleth underneath:
+ *
+ *   t=0.0  sky blue   #38bdf8
+ *   t=0.4  cyan       #22d3ee
+ *   t=0.7  lime       #84cc16
+ *   t=1.0  hot yellow #fde047
+ *
+ * `alpha` lets callers fade for the multi-layer glow without
+ * re-computing the RGB.
+ */
+function heatColor(t: number, alpha = 1): string {
+  const stops = [
+    { t: 0.0, c: [56, 189, 248] }, // sky-400
+    { t: 0.4, c: [34, 211, 238] }, // cyan-400
+    { t: 0.7, c: [132, 204, 22] }, // lime-500
+    { t: 1.0, c: [253, 224, 71] }, // yellow-300
+  ];
+  const clamped = Math.max(0, Math.min(1, t));
+  let rgb = stops[stops.length - 1].c;
+  for (let i = 1; i < stops.length; i++) {
+    const a = stops[i - 1];
+    const b = stops[i];
+    if (clamped <= b.t) {
+      const local = (clamped - a.t) / (b.t - a.t);
+      rgb = [
+        Math.round(a.c[0] + (b.c[0] - a.c[0]) * local),
+        Math.round(a.c[1] + (b.c[1] - a.c[1]) * local),
+        Math.round(a.c[2] + (b.c[2] - a.c[2]) * local),
+      ];
+      break;
+    }
+  }
+  return `rgba(${rgb[0]},${rgb[1]},${rgb[2]},${alpha})`;
 }
 
 function colorFor(t: number): string {

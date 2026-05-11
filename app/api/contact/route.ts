@@ -95,12 +95,26 @@ export async function POST(req: Request) {
   // In log_only mode no email is dispatched — record that truthfully.
   const actuallySent = send.ok && send.mode !== "log_only";
 
+  // Capture which page the form was submitted from (Referer header on the
+  // POST). Helps the admin see whether inquiries are coming from /contact,
+  // homepage, package pages, etc. Optional — never blocks the submission.
+  let sourcePage: string | undefined;
+  const referer = req.headers.get("referer");
+  if (referer) {
+    try {
+      sourcePage = new URL(referer).pathname;
+    } catch {
+      sourcePage = undefined;
+    }
+  }
+
   const logResult = await logContactSubmission(payload, {
     email_sent: actuallySent,
     mode: send.mode,
     error_message: send.ok ? null : send.error,
     user_agent: userAgent,
     ip,
+    source_page: sourcePage,
   });
 
   // PostHog event — fire-and-forget, PII-free. Use a one-way hash of the

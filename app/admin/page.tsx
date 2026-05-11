@@ -32,10 +32,12 @@ const WINDOW_DAYS = 30;
 export default async function AdminPage() {
   if (!(await isAdminAuthenticated())) redirect("/admin/login");
 
-  const [submissions, status] = await Promise.all([
+  const [submissionsResult, status] = await Promise.all([
     readSubmissions(),
     getStatus(),
   ]);
+  const submissions = submissionsResult.entries;
+  const submissionsSource = submissionsResult.source;
   const stats = computeStats(submissions);
 
   // Only hit PostHog if it's actually configured — otherwise show empty cards.
@@ -508,12 +510,13 @@ export default async function AdminPage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Inbox</p>
             <h2 className="mt-1 text-xl font-semibold text-white">Contact-form submissions</h2>
+            <SourceBadge source={submissionsSource} />
           </div>
           <p className="text-xs text-white/40">
             {stats.total} total · {stats.last7d} in last 7 days
           </p>
         </div>
-        <SubmissionsTable rows={[...submissions].reverse()} />
+        <SubmissionsTable rows={submissions} />
       </section>
 
       <footer className="mt-12 text-center text-xs text-white/30">
@@ -590,6 +593,31 @@ function Empty(props: { children: React.ReactNode }) {
     <div className="rounded-xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-white/50">
       {props.children}
     </div>
+  );
+}
+
+function SourceBadge({ source }: { source: "supabase" | "json" | "unconfigured" }) {
+  if (source === "supabase") {
+    return (
+      <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-200">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-emerald-300" aria-hidden="true" />
+        Supabase · live
+      </p>
+    );
+  }
+  if (source === "json") {
+    return (
+      <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-amber-200">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-300" aria-hidden="true" />
+        Supabase configured · query failed · showing local JSON
+      </p>
+    );
+  }
+  return (
+    <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/65">
+      <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/40" aria-hidden="true" />
+      Local JSON · Supabase not configured
+    </p>
   );
 }
 

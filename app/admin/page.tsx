@@ -65,7 +65,7 @@ export default async function AdminPage() {
         getRecentErrors(7, 10),
         getRecentEvents(40),
         getCountryVisitors(WINDOW_DAYS),
-        getCityVisitors(WINDOW_DAYS, 12),
+        getCityVisitors(WINDOW_DAYS, 500),
         getUsStateVisitors(WINDOW_DAYS),
         getCityPoints(WINDOW_DAYS, 500),
       ])
@@ -100,6 +100,29 @@ export default async function AdminPage() {
     readJson("countries-110m.json"),
     readJson("us-states-10m.json"),
   ]);
+
+  // Merge: cities (from getCityVisitors — reliable list of every city
+  // with traffic) enriched with lat/lng from cityPoints when available.
+  // PostHog's GeoIP enricher doesn't always set lat/lng, but it does
+  // always set city/state/country, so this guarantees the right panel
+  // is correct even when coords are missing.
+  const coordsByKey = new Map<string, { lat: number; lng: number }>();
+  for (const p of cityPoints) {
+    const key = `${p.city.toLowerCase()}|${p.state.toLowerCase()}`;
+    coordsByKey.set(key, { lat: p.lat, lng: p.lng });
+  }
+  const enrichedCities = cities.map((c) => {
+    const key = `${c.city.toLowerCase()}|${c.region.toLowerCase()}`;
+    const coords = coordsByKey.get(key);
+    return {
+      city: c.city,
+      state: c.region,
+      country: c.country,
+      lat: coords?.lat ?? Number.NaN,
+      lng: coords?.lng ?? Number.NaN,
+      visitors: c.visitors,
+    };
+  });
 
   const maxDaily = Math.max(1, ...daily.map((d) => d.pageviews));
   const totalDeviceVisits = Math.max(1, devices.reduce((a, d) => a + d.visits, 0));
@@ -312,7 +335,7 @@ export default async function AdminPage() {
               usTopology={usTopology as Parameters<typeof VisitorsMap>[0]["usTopology"]}
               countries={countries}
               states={usStates}
-              cityPoints={cityPoints}
+              cityPoints={enrichedCities}
               windowDays={WINDOW_DAYS}
             />
           </div>
@@ -331,7 +354,7 @@ export default async function AdminPage() {
               Top cities
             </p>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cities.map((c, i) => (
+              {cities.slice(0, 12).map((c, i) => (
                 <li
                   key={`${c.city}-${c.region}-${c.country}-${i}`}
                   className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.04] px-3 py-2 text-sm"

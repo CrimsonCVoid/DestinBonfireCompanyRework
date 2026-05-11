@@ -25,7 +25,6 @@ export function ServiceAreas() {
               key={area.slug}
               href={`/service-areas/${area.slug}`}
               className="group relative block overflow-hidden rounded-3xl bg-ink-900/80 shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ember-500)] focus-visible:ring-offset-2"
-              aria-label={`${area.name} — beach details`}
             >
               <div className="relative aspect-[4/5] w-full">
                 <Image

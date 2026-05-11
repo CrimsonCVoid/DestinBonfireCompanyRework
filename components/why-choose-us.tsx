@@ -24,7 +24,7 @@ export function WhyChooseUs() {
               key={s.label}
               className="rounded-2xl border border-ink-900/10 bg-[var(--color-sand-50)] px-5 py-6 text-center"
             >
-              <dt className="text-xs font-semibold uppercase tracking-wider text-ink-800/60">
+              <dt className="text-xs font-semibold uppercase tracking-wider text-ink-800/75">
                 {s.label}
               </dt>
               <dd className="mt-2 text-3xl font-semibold tracking-tight text-[var(--color-ember-600)] sm:text-4xl">
@@ -53,7 +53,7 @@ export function WhyChooseUs() {
 
         <div className="mt-12 flex flex-col items-center gap-3 text-center">
           <BookNowButton>Book Your Bonfire</BookNowButton>
-          <p className="text-xs text-ink-800/60">
+          <p className="text-xs text-ink-800/75">
             Or call us at{" "}
             <a href="tel:+18507061325" className="font-semibold text-ink-900 hover:text-[var(--color-ember-600)]">
               (850) 706-1325

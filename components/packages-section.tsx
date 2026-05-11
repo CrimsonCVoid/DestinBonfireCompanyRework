@@ -29,7 +29,7 @@ export function PackagesSection() {
           ))}
         </div>
 
-        <p className="mt-10 text-center text-sm text-ink-800/60">
+        <p className="mt-10 text-center text-sm text-ink-800/75">
           Pricing includes the $157 Walton County permit fee. 18% gratuity
           applies to The Bonfire Bash.
         </p>
@@ -74,7 +74,7 @@ function PackageCard({ p }: { p: Package }) {
             ${p.price}
           </span>
         </div>
-        <p className="text-xs uppercase tracking-wider text-ink-800/60">
+        <p className="text-xs uppercase tracking-wider text-ink-800/75">
           {p.groupSize} · {p.duration}
         </p>
 

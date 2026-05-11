@@ -85,9 +85,9 @@ export default function BachelorettePage() {
   return (
     <div data-theme="pink">
       <PageHeader
-        eyebrow="Bachelorette Bonfires"
+        eyebrow="Styled Bachelorette Beach Bonfire Experience"
         title="Bachelorette Bonfire"
-        subtitle="Private, fully hosted bonfires on 30A starting at $595 for up to 12 guests. We bring the sign, the chairs, the fire, and the vibes — you bring the bridal party."
+        subtitle="Planning a bachelorette trip to Destin or 30A? Celebrate with a styled beach bonfire experience that goes beyond the traditional setup — coordinated décor, thoughtful details, and a fun, memorable atmosphere for your bride tribe."
         video="/videos/bachelorette-setup.mp4"
         image="/images/WideShotFarBatchlorettePhoto.jpg"
       />
@@ -104,14 +104,20 @@ export default function BachelorettePage() {
             />
           </div>
           <div>
-            <p className="eyebrow">Experiences from $595</p>
+            <p className="eyebrow">Packages from $595 · Up to 12 guests</p>
             <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-              The perfect beach night for the bride-to-be
+              Your Private Bachelorette Beach Bonfire
             </h2>
             <p className="mt-5 text-lg text-ink-800/80">
-              Bachelorette bonfires include a custom welcome sign, premium
-              seating, tiki torches, a Bluetooth speaker, games, and
-              complimentary s’mores — on a private permitted beach along 30A.
+              Designed for groups visiting Destin and 30A, this all-inclusive
+              experience transforms a classic beach bonfire into an elevated,
+              photo-ready celebration. Whether you&rsquo;re planning a
+              laid-back girls&rsquo; night or a more styled celebration, every
+              detail is designed to feel effortless, unique, and truly special.
+            </p>
+            <p className="mt-4 text-sm font-semibold text-[var(--color-ember-700)]">
+              💍 Larger groups are <strong>ALWAYS</strong> welcome — call us
+              for a custom quote.
             </p>
             <h3 className="mt-10 text-sm font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
               Everything Included
@@ -135,8 +141,12 @@ export default function BachelorettePage() {
         <div className="container-x mx-auto max-w-3xl">
           <p className="eyebrow text-center">Photo-Ready Extras</p>
           <h2 className="mt-3 text-center text-3xl font-semibold tracking-tight sm:text-4xl">
-            Every detail dialed in for the perfect shot
+            Photo-ready for your bride tribe
           </h2>
+          <p className="mt-5 text-center text-ink-800/80">
+            Beach permits, setup, cleanup, and hosting are all included —
+            your group simply arrives and enjoys the night.
+          </p>
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
             {PHOTO_READY_EXTRAS.map((item) => (
               <li
@@ -154,13 +164,16 @@ export default function BachelorettePage() {
       <section className="bg-[var(--color-sand-100)] py-20 sm:py-28">
         <div className="container-x">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="eyebrow">Customization Options</p>
+            <p className="eyebrow">Bachelorette Bonfire Customization</p>
             <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Make it yours
+              Every bachelorette trip is different — yours should be too
             </h2>
             <p className="mt-5 text-ink-800/80">
-              Personalize the experience with themed décor, custom accessories,
-              food add-ons from local vendors, and upgraded seating layouts.
+              Sit back, relax, and let us turn the beach into your own private
+              celebration space. From tiki torches and comfortable seating to
+              beach games and styled tables, every detail is thoughtfully
+              arranged to create a beautiful setting for photos, laughter, and
+              unforgettable memories.
             </p>
           </div>
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -179,7 +192,7 @@ export default function BachelorettePage() {
 
       <section className="bg-white py-20 sm:py-28">
         <div className="container-x mx-auto max-w-3xl">
-          <p className="eyebrow text-center">Destin &amp; 30A Bachelorette</p>
+          <p className="eyebrow text-center">💍 30A Bachelorette Party Ideas</p>
           <h2 className="mt-3 text-center text-3xl font-semibold tracking-tight sm:text-4xl">
             Plan the perfect 30A bachelorette weekend
           </h2>

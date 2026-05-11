@@ -419,7 +419,7 @@ export const BEACHES: BeachDetail[] = [
     ],
     drivingNotes: [
       "Small vehicle lot (18 spaces) — arrive early on peak days.",
-      "This is the closest permitted beach to Destin — a short drive from Emerald Coast Pkwy.",
+      "This is the closest permitted beach to Destin — a short drive east on Highway 98 from Destin proper.",
       "A small travel fee may apply for service at this location due to distance from 30A.",
       "Confirmed on the current permitted-bonfire list.",
     ],

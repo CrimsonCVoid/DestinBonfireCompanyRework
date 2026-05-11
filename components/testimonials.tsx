@@ -50,9 +50,9 @@ export function Testimonials({ community, limit = 6, heading, eyebrow }: Props =
               key={t.name + t.text.slice(0, 20)}
               className="flex flex-col rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur"
             >
-              <div className="flex gap-0.5 text-[var(--color-ember-400)]" aria-label="5 out of 5 stars">
+              <div className="flex gap-0.5 text-[var(--color-ember-400)]" role="img" aria-label="Rated 5 out of 5 stars">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <svg key={i} width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
                     <path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z" />
                   </svg>
                 ))}

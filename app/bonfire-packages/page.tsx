@@ -79,11 +79,55 @@ export default function PackagesPage() {
     <>
       <PageHeader
         eyebrow="All-Inclusive Packages"
-        title="Beach Bonfire Packages on 30A"
-        subtitle="Four fully hosted packages for every group size — from quiet couples' nights to large family celebrations. Permit, setup, and cleanup always included."
+        title="Bonfire Packages"
+        subtitle="Professionally hosted, all-inclusive beach bonfires near Destin and along 30A. Permits, setup, on-site hosting, and cleanup are included on every package — your group simply arrives and enjoys the night."
         video="/videos/fire-to-sea.mp4"
         image="/images/BigCircleBonfireSetupNight.jpg"
       />
+
+      <section className="bg-white py-16 sm:py-20">
+        <div className="container-x mx-auto max-w-5xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Why Choose {SITE.name}</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">
+              All-inclusive, transparent, locally owned
+            </h2>
+          </div>
+          <ul className="mt-10 grid gap-5 text-[15px] leading-relaxed text-ink-800/90 sm:grid-cols-3">
+            <li className="rounded-2xl bg-[var(--color-sand-50)] p-6 shadow-sm ring-1 ring-ink-900/5">
+              <p className="text-2xl" aria-hidden="true">🔥</p>
+              <p className="mt-3 font-semibold text-ink-900">No permit fee mark-ups</p>
+              <p className="mt-2 text-sm text-ink-800/85">
+                Walton County permit fees are paid directly to the county. We
+                never mark them up or profit from permits.
+              </p>
+            </li>
+            <li className="rounded-2xl bg-[var(--color-sand-50)] p-6 shadow-sm ring-1 ring-ink-900/5">
+              <p className="text-2xl" aria-hidden="true">🔥</p>
+              <p className="mt-3 font-semibold text-ink-900">Flexible rescheduling</p>
+              <p className="mt-2 text-sm text-ink-800/85">
+                Plans change. Reschedule any time before your permit is
+                purchased — no fees, no hassle.
+              </p>
+            </li>
+            <li className="rounded-2xl bg-[var(--color-sand-50)] p-6 shadow-sm ring-1 ring-ink-900/5">
+              <p className="text-2xl" aria-hidden="true">🔥</p>
+              <p className="mt-3 font-semibold text-ink-900">Everything included</p>
+              <p className="mt-2 text-sm text-ink-800/85">
+                No surprise add-on fees for Bluetooth speaker, food table,
+                cornhole, or s&rsquo;mores. It&rsquo;s all in the package price.
+              </p>
+            </li>
+          </ul>
+          <p className="mt-10 text-center text-sm text-ink-800/80">
+            Need a last-minute booking? Call us at{" "}
+            <a href={SITE.phoneHref} className="font-semibold text-[var(--color-ember-600)] underline-offset-4 hover:underline">
+              {SITE.phone}
+            </a>
+            .
+          </p>
+        </div>
+      </section>
 
       <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
         <div className="container-x space-y-24">
@@ -213,10 +257,11 @@ export default function PackagesPage() {
               Add-ons
             </h2>
             <p className="mt-4 text-ink-800/80">
-              Looking for something special? We&apos;re happy to customize your
-              setup. Our celebration coordinator personalizes events for
-              birthdays, anniversaries, girls&apos; trips, women&apos;s
-              retreats, and more occasions.
+              Looking for something special? We&rsquo;re happy to customize
+              your setup. S&rsquo;mores are <strong>ALWAYS</strong> included
+              — and our coordinator can personalize details for birthdays,
+              anniversaries, girls&rsquo; trips, women&rsquo;s retreats, and
+              more.
             </p>
           </div>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">

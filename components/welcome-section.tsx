@@ -10,14 +10,13 @@ export function WelcomeSection() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Welcome to {SITE.name}</p>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            30A and Destin&apos;s most-booked private beach bonfire experience
+            Professionally managed beach bonfires along 30A and near Destin
           </h2>
           <p className="mt-6 text-base leading-relaxed text-ink-800/80 sm:text-lg">
-            We&apos;re a fully-permitted, locally operated bonfire team serving
-            guests staying in Destin, Miramar Beach, and along 30A. Every
-            bonfire we host is run on a Walton County permit pulled in your
-            name, set up by hand on the sand by our crew, and tended by an
-            on-site attendant from light to last ember.
+            {SITE.name} believes in providing professionally managed,
+            all-inclusive local beach bonfire experiences along Scenic Highway
+            30A and nearby permitted beaches for visitors staying in Destin
+            and surrounding areas.
           </p>
         </div>
 
@@ -34,25 +33,27 @@ export function WelcomeSection() {
 
           <div className="space-y-5 text-[15px] leading-relaxed text-ink-800/90 sm:text-base">
             <p className="text-lg font-semibold text-ink-900">
-              Every detail handled, every time. Permit, premium chairs, tiki
-              torches, ambient lighting, cornhole, complimentary s&rsquo;mores,
-              and an on-site attendant — included on every package, no add-ons
-              required.
+              We handle every detail, including required permits, full setup,
+              on-site hosting, and complete cleanup.
             </p>
             <p>
-              We host bonfires across the closest permitted Walton County
-              beaches to Destin and along the full length of 30A — including{" "}
-              <Link href="/locations/miramar-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Miramar Beach</Link>,{" "}
-              <Link href="/locations/santa-rosa-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Santa Rosa Beach</Link>,{" "}
+              Each bonfire includes comfortable seating, ambient lighting,
+              games like cornhole, and complimentary s&rsquo;mores — so you can
+              relax and enjoy the evening with your group.
+            </p>
+            <p>
+              From bachelorette parties and birthdays to family gatherings and
+              romantic proposals, we create custom beach bonfire experiences
+              for all kinds of special occasions. We proudly serve guests
+              visiting Destin and Miramar Beach as well as 30A communities
+              including{" "}
               <Link href="/locations/seaside-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Seaside</Link>,{" "}
-              <Link href="/locations/rosemary-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Rosemary Beach</Link>,
-              and the rest of{" "}
-              <Link href="/locations/30a-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">30A</Link>.
+              <Link href="/locations/rosemary-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Rosemary Beach</Link>,{" "}
+              <Link href="/locations/santa-rosa-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Santa Rosa Beach</Link>,
+              Inlet Beach, Grayton Beach, and Blue Mountain Beach.
             </p>
-            <p>
-              Bachelorette weekends, family reunions, proposals, milestone
-              birthdays, wedding welcome parties — guests rebook us year after
-              year for the moments that matter. Call or text{" "}
+            <p className="text-sm text-ink-800/75">
+              Call or text{" "}
               <a href={SITE.phoneHref} className="font-semibold text-[var(--color-ember-600)] underline-offset-4 hover:underline">
                 {SITE.phone}
               </a>{" "}

@@ -124,7 +124,7 @@ export default async function CommunityPage({ params }: Props) {
               {c.permitNote}
             </p>
             <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-ink-900/5">
-              <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/60">
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink-800/75">
                 Best For
               </p>
               <ul className="mt-3 space-y-2 text-[15px] text-ink-800/90">

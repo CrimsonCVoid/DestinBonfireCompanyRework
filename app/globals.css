@@ -7,9 +7,9 @@
   --color-sand-300: #d8c49a;
 
   --color-ember-400: #f2a261;
-  --color-ember-500: #e07a3a;
-  --color-ember-600: #c45a22;
-  --color-ember-700: #9a3e11;
+  --color-ember-500: #b85213; /* button bg — passes 4.5:1 on white text (~5.0:1) */
+  --color-ember-600: #a8430f; /* small text on sand-50 — passes 4.5:1 (~6.1:1) */
+  --color-ember-700: #832f08;
 
   --color-gulf-400: #6aa7c6;
   --color-gulf-500: #3b7fa3;

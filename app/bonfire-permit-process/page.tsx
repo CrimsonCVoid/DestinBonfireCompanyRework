@@ -105,8 +105,8 @@ export default function PermitPage() {
     <>
       <PageHeader
         eyebrow="How It Works"
-        title="The Walton County Bonfire Permit Process"
-        subtitle="Beach bonfires in this region are issued under a strict county permit. Here’s exactly how it works — and how we handle every step for you."
+        title="Bonfire Permit Process"
+        subtitle="How beach bonfire permits work near Destin and along 30A. Bonfires aren’t allowed inside Destin city limits, but they are permitted on select Walton County beaches including Miramar Beach, Santa Rosa Beach, and along 30A — and we handle the entire permit coordination for you."
       />
 
       <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
@@ -119,7 +119,7 @@ export default function PermitPage() {
           </div>
 
           <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-            Beach bonfires near Destin: the legal layer
+            How Beach Bonfire Permits Work Near Destin &amp; Along 30A
           </h2>
           <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
             <p>
@@ -202,7 +202,7 @@ export default function PermitPage() {
           </div>
 
           <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-ink-900/5">
-            <p className="eyebrow text-ink-800/60">What the permit does NOT cover</p>
+            <p className="eyebrow text-ink-800/75">What the permit does NOT cover</p>
             <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
               The permit is for a bonfire — that’s it
             </h2>
@@ -223,22 +223,23 @@ export default function PermitPage() {
 
       <section className="bg-white py-20 sm:py-28">
         <div className="container-x mx-auto max-w-3xl">
-          <h2 className="text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
-            A transparent fee structure
+          <p className="eyebrow">A Transparent Process</p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-ink-900 sm:text-4xl">
+            All permit fees are paid directly to the county
           </h2>
           <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
             <p>
-              The Walton County beach bonfire permit fee is currently{" "}
-              <strong>$157</strong>, set by the county. We do not mark up or
-              profit from the permit. The fee is built into every package price
-              transparently — there are no separate &ldquo;permit handling&rdquo;
-              charges added on top.
+              All permit fees are set by the county and paid directly to them
+              — we do not mark up or profit from permit costs in any way. The
+              current Walton County beach bonfire permit fee is{" "}
+              <strong>$157</strong>, and it&rsquo;s built into every package
+              price transparently.
             </p>
             <p>
               For bonfires that need a special-event permit (typically 30+
-              guests, expanded lighting, catering, or amplified sound), we’ll
-              quote the additional county fee separately during booking and walk
-              you through the application requirements.
+              guests, expanded lighting, catering, or amplified sound),
+              we&rsquo;ll quote the additional county fee separately during
+              booking and walk you through the application requirements.
             </p>
           </div>
         </div>
@@ -281,7 +282,7 @@ export default function PermitPage() {
                 className="rounded-2xl border border-ink-900/10 bg-[var(--color-sand-50)] p-5 text-center transition hover:-translate-y-0.5 hover:border-[var(--color-ember-400)]/60 hover:shadow"
               >
                 <p className="font-semibold text-ink-900">{c.name}</p>
-                <p className="mt-1 text-xs text-ink-800/60">
+                <p className="mt-1 text-xs text-ink-800/75">
                   {c.beaches.length} access{c.beaches.length === 1 ? "" : "es"}
                 </p>
               </Link>

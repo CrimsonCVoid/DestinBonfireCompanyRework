@@ -307,7 +307,7 @@ export default async function BeachPage({ params }: Props) {
 
       <section className="bg-[var(--color-sand-50)] py-12">
         <div className="container-x">
-          <p className="text-xs uppercase tracking-wider text-ink-800/60">Sources</p>
+          <p className="text-xs uppercase tracking-wider text-ink-800/75">Sources</p>
           <ul className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-800/70">
             {beach.sources.map((s) => (
               <li key={s.url}>
@@ -337,7 +337,7 @@ export default async function BeachPage({ params }: Props) {
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="grid grid-cols-[1fr_1.6fr] gap-4 py-3">
-      <dt className="text-xs font-semibold uppercase tracking-wider text-ink-800/60">{label}</dt>
+      <dt className="text-xs font-semibold uppercase tracking-wider text-ink-800/75">{label}</dt>
       <dd className="text-sm leading-relaxed text-ink-800/95">{value}</dd>
     </div>
   );

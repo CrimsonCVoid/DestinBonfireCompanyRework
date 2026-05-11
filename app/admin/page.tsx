@@ -1,8 +1,12 @@
+import fs from "node:fs/promises";
+import path from "node:path";
 import { redirect } from "next/navigation";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import { computeStats, readSubmissions } from "@/lib/form-submissions";
 import {
   getBookingFunnel,
+  getCityVisitors,
+  getCountryVisitors,
   getDailyTrend,
   getDeviceBreakdown,
   getKpis,
@@ -15,6 +19,7 @@ import {
 } from "@/lib/posthog";
 import { LogoutButton } from "./logout-button";
 import { SubmissionsTable } from "./submissions-table";
+import { VisitorsMap } from "@/components/visitors-map";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -32,7 +37,19 @@ export default async function AdminPage() {
 
   // Only hit PostHog if it's actually configured — otherwise show empty cards.
   const phReady = status.ok;
-  const [kpis, daily, topPages, referrers, devices, funnel, replays, errors, eventsFeed] = phReady
+  const [
+    kpis,
+    daily,
+    topPages,
+    referrers,
+    devices,
+    funnel,
+    replays,
+    errors,
+    eventsFeed,
+    countries,
+    cities,
+  ] = phReady
     ? await Promise.all([
         getKpis(WINDOW_DAYS),
         getDailyTrend(WINDOW_DAYS),
@@ -43,6 +60,8 @@ export default async function AdminPage() {
         getRecentReplays(7, 12),
         getRecentErrors(7, 10),
         getRecentEvents(40),
+        getCountryVisitors(WINDOW_DAYS),
+        getCityVisitors(WINDOW_DAYS, 12),
       ])
     : [
         { pageviews: 0, visitors: 0, sessions: 0, windowDays: WINDOW_DAYS },
@@ -54,7 +73,22 @@ export default async function AdminPage() {
         [],
         [],
         [],
+        [],
+        [],
       ];
+
+  // Load the world TopoJSON server-side (~100KB, parsed once per request,
+  // not bundled into the page chunk). Pass to the client map component.
+  let worldTopology: unknown = null;
+  try {
+    const raw = await fs.readFile(
+      path.join(process.cwd(), "public", "data", "countries-110m.json"),
+      "utf8",
+    );
+    worldTopology = JSON.parse(raw);
+  } catch {
+    worldTopology = null;
+  }
 
   const maxDaily = Math.max(1, ...daily.map((d) => d.pageviews));
   const totalDeviceVisits = Math.max(1, devices.reduce((a, d) => a + d.visits, 0));
@@ -247,6 +281,61 @@ export default async function AdminPage() {
             </div>
           )}
         </Card>
+      </section>
+
+      {/* Geo — where visitors come from */}
+      <section className="mt-8 rounded-3xl border border-white/10 bg-white/[0.03] p-6">
+        <div className="flex items-end justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Geo</p>
+            <h2 className="mt-1 text-xl font-semibold text-white">Where visitors come from</h2>
+            <p className="mt-1 text-xs text-white/50">
+              Country and city breakdown for the last {WINDOW_DAYS} days. Hover the map for details.
+            </p>
+          </div>
+        </div>
+        {worldTopology && countries.length > 0 ? (
+          <div className="mt-6">
+            <VisitorsMap
+              topology={worldTopology as Parameters<typeof VisitorsMap>[0]["topology"]}
+              countries={countries}
+              windowDays={WINDOW_DAYS}
+            />
+          </div>
+        ) : (
+          <Empty>
+            {worldTopology
+              ? "No geo-tagged pageviews yet. Once visitors land on the site, they'll appear here."
+              : "World map data failed to load (public/data/countries-110m.json missing)."}
+          </Empty>
+        )}
+
+        {/* Top cities row */}
+        {cities.length > 0 && (
+          <div className="mt-6">
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
+              Top cities
+            </p>
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {cities.map((c, i) => (
+                <li
+                  key={`${c.city}-${c.region}-${c.country}-${i}`}
+                  className="flex items-center justify-between gap-3 rounded-lg bg-white/[0.04] px-3 py-2 text-sm"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate font-medium text-white">{c.city}</p>
+                    <p className="truncate text-xs text-white/45">
+                      {[c.region, c.country].filter(Boolean).join(" · ") || "—"}
+                    </p>
+                  </div>
+                  <span className="flex-none whitespace-nowrap text-white/70">
+                    {c.visitors.toLocaleString()}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
 
       {/* Session replays */}

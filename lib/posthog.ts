@@ -365,6 +365,73 @@ export async function getRecentEvents(limit = 40): Promise<EventRow[]> {
     }));
 }
 
+// ----------------------- Geo (countries + cities) -----------------------
+
+export type CountryVisitors = {
+  code: string; // ISO 3166-1 alpha-2 (e.g. "US")
+  name: string;
+  visitors: number;
+  pageviews: number;
+};
+
+export async function getCountryVisitors(days = 30): Promise<CountryVisitors[]> {
+  const r = await hogql(`
+    SELECT
+      upper(coalesce(nullIf(properties.$geoip_country_code, ''), '')) AS code,
+      coalesce(nullIf(properties.$geoip_country_name, ''), 'Unknown') AS name,
+      uniq(person_id) AS visitors,
+      count() AS pageviews
+    FROM events
+    WHERE timestamp >= now() - INTERVAL ${days} DAY
+      AND event = '$pageview'
+    GROUP BY code, name
+    HAVING code != ''
+    ORDER BY visitors DESC
+  `);
+  if (!r?.results) return [];
+  return r.results
+    .filter((row): row is unknown[] => Array.isArray(row))
+    .map((row) => ({
+      code: String(row[0] ?? ""),
+      name: String(row[1] ?? "Unknown"),
+      visitors: Number(row[2] ?? 0),
+      pageviews: Number(row[3] ?? 0),
+    }));
+}
+
+export type CityVisitors = {
+  city: string;
+  region: string;
+  country: string;
+  visitors: number;
+};
+
+export async function getCityVisitors(days = 30, limit = 12): Promise<CityVisitors[]> {
+  const r = await hogql(`
+    SELECT
+      coalesce(nullIf(properties.$geoip_city_name, ''), 'Unknown') AS city,
+      coalesce(nullIf(properties.$geoip_subdivision_1_name, ''), '') AS region,
+      coalesce(nullIf(properties.$geoip_country_name, ''), '') AS country,
+      uniq(person_id) AS visitors
+    FROM events
+    WHERE timestamp >= now() - INTERVAL ${days} DAY
+      AND event = '$pageview'
+      AND properties.$geoip_city_name IS NOT NULL
+    GROUP BY city, region, country
+    ORDER BY visitors DESC
+    LIMIT ${limit}
+  `);
+  if (!r?.results) return [];
+  return r.results
+    .filter((row): row is unknown[] => Array.isArray(row))
+    .map((row) => ({
+      city: String(row[0] ?? "Unknown"),
+      region: String(row[1] ?? ""),
+      country: String(row[2] ?? ""),
+      visitors: Number(row[3] ?? 0),
+    }));
+}
+
 // ----------------------- Devices (existing) -----------------------
 
 export type DeviceSlice = { device: string; visits: number };

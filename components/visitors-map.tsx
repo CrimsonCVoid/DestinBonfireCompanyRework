@@ -122,19 +122,30 @@ export function VisitorsMap({
     [projection],
   );
 
+  // ----------------------- Cities in current US scope -------------
+  // The right panel reflects ALL cities in scope (state-filtered or all-US),
+  // even ones missing geo coords — those just don't get a dot on the map.
+  const scopedCities = useMemo(() => {
+    if (view !== "us") return [] as CityPoint[];
+    if (selectedState) {
+      return cityPoints.filter(
+        (c) => c.state.toLowerCase() === selectedState.toLowerCase(),
+      );
+    }
+    return cityPoints.filter((c) =>
+      c.country.toLowerCase().startsWith("united states"),
+    );
+  }, [view, selectedState, cityPoints]);
+
   // ----------------------- Dots (US view only) -------------------
   const dots = useMemo(() => {
     if (view !== "us") return [];
     if (!projection) return [];
-    const filtered = selectedState
-      ? cityPoints.filter(
-          (c) => c.state.toLowerCase() === selectedState.toLowerCase(),
-        )
-      : cityPoints.filter((c) =>
-          c.country.toLowerCase().startsWith("united states"),
-        );
-    const maxV = Math.max(1, ...filtered.map((c) => c.visitors));
-    return filtered
+    const plottable = scopedCities.filter(
+      (c) => Number.isFinite(c.lat) && Number.isFinite(c.lng),
+    );
+    const maxV = Math.max(1, ...plottable.map((c) => c.visitors));
+    return plottable
       .map((c) => {
         const xy = projection([c.lng, c.lat]);
         if (!xy) return null;
@@ -144,7 +155,8 @@ export function VisitorsMap({
       })
       .filter((d): d is NonNullable<typeof d> => d !== null)
       .sort((a, b) => b.r - a.r); // big dots painted first, small dots on top
-  }, [view, selectedState, cityPoints, projection]);
+  }, [view, scopedCities, projection]);
+  const missingCoords = scopedCities.length - dots.length;
 
   // ----------------------- Right-panel rows ----------------------
   const rightPanel = useMemo(() => {
@@ -166,9 +178,7 @@ export function VisitorsMap({
       };
     }
     if (selectedState) {
-      const stateCities = cityPoints
-        .filter((c) => c.state.toLowerCase() === selectedState.toLowerCase())
-        .sort((a, b) => b.visitors - a.visitors);
+      const stateCities = [...scopedCities].sort((a, b) => b.visitors - a.visitors);
       const maxCity = Math.max(1, ...stateCities.map((c) => c.visitors));
       return {
         title: `${selectedState} · top cities`,
@@ -178,7 +188,10 @@ export function VisitorsMap({
         rows: stateCities.slice(0, 10).map((c, i) => ({
           key: `${c.city}-${i}`,
           flag: "",
-          label: c.city,
+          label:
+            Number.isFinite(c.lat) && Number.isFinite(c.lng)
+              ? c.city
+              : `${c.city} (no map coords)`,
           value: c.visitors,
           max: maxCity,
           onClick: undefined,
@@ -206,7 +219,7 @@ export function VisitorsMap({
     selectedState,
     countries,
     states,
-    cityPoints,
+    scopedCities,
     maxCountry,
     maxState,
     windowDays,
@@ -373,8 +386,12 @@ export function VisitorsMap({
               <span>Click a state to see city-level dots</span>
             ) : view === "us" && selectedState ? (
               <span>
-                Showing{" "}
-                <span className="text-white/85">{dots.length}</span> cit{dots.length === 1 ? "y" : "ies"} in {selectedState}
+                Showing <span className="text-white/85">{dots.length}</span> of{" "}
+                <span className="text-white/85">{scopedCities.length}</span> cit
+                {scopedCities.length === 1 ? "y" : "ies"} in {selectedState}
+                {missingCoords > 0 && (
+                  <span className="text-white/45"> · {missingCoords} without map coords</span>
+                )}
               </span>
             ) : (
               <span>Hover any country for details</span>
@@ -393,16 +410,7 @@ export function VisitorsMap({
                 {(view === "world"
                   ? maxCountry
                   : selectedState
-                    ? Math.max(
-                        1,
-                        ...cityPoints
-                          .filter(
-                            (c) =>
-                              c.state.toLowerCase() ===
-                              selectedState.toLowerCase(),
-                          )
-                          .map((c) => c.visitors),
-                      )
+                    ? Math.max(1, ...scopedCities.map((c) => c.visitors))
                     : maxState
                 ).toLocaleString()}
               </span>

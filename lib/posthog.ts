@@ -451,6 +451,12 @@ export type CityPoint = {
  * per city).
  */
 export async function getCityPoints(days = 30, limit = 500): Promise<CityPoint[]> {
+  // NB: lat/lng deliberately NOT required in the WHERE clause. PostHog's
+  // GeoIP enricher doesn't always populate $geoip_latitude/longitude on
+  // every event (depends on the version that captured it) — but the
+  // city + state + country properties are reliably present. We return
+  // every city so the right-panel list is accurate, and let the client
+  // skip plotting dots for cities that happen to be missing coords.
   const r = await hogql(`
     SELECT
       coalesce(nullIf(properties.$geoip_city_name, ''), 'Unknown') AS city,
@@ -463,25 +469,27 @@ export async function getCityPoints(days = 30, limit = 500): Promise<CityPoint[]
     WHERE timestamp >= now() - INTERVAL ${days} DAY
       AND event = '$pageview'
       AND properties.$geoip_city_name IS NOT NULL
-      AND properties.$geoip_latitude IS NOT NULL
-      AND properties.$geoip_longitude IS NOT NULL
     GROUP BY city, state, country
-    HAVING lat IS NOT NULL AND lng IS NOT NULL
     ORDER BY visitors DESC
     LIMIT ${limit}
   `);
   if (!r?.results) return [];
   return r.results
     .filter((row): row is unknown[] => Array.isArray(row))
-    .map((row) => ({
-      city: String(row[0] ?? "Unknown"),
-      state: String(row[1] ?? ""),
-      country: String(row[2] ?? ""),
-      lat: Number(row[3] ?? 0),
-      lng: Number(row[4] ?? 0),
-      visitors: Number(row[5] ?? 0),
-    }))
-    .filter((c) => Number.isFinite(c.lat) && Number.isFinite(c.lng));
+    .map((row) => {
+      const lat = Number(row[3]);
+      const lng = Number(row[4]);
+      return {
+        city: String(row[0] ?? "Unknown"),
+        state: String(row[1] ?? ""),
+        country: String(row[2] ?? ""),
+        // 0/0 is the Gulf of Guinea — treat as "missing" since no real
+        // visitor session is plausibly originating from there.
+        lat: Number.isFinite(lat) && !(lat === 0) ? lat : Number.NaN,
+        lng: Number.isFinite(lng) && !(lng === 0) ? lng : Number.NaN,
+        visitors: Number(row[5] ?? 0),
+      };
+    });
 }
 
 export type CityVisitors = {

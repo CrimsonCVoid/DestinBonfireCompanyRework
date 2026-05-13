@@ -203,11 +203,13 @@ export default function PackagesPage() {
                       Book Now
                     </BookNowButton>
                   )}
-                  {p.slug === "bonfire-bash" && (
-                    <Link href="/add-ons" className="btn-ghost">
-                      Browse add-ons &amp; upgrades
-                    </Link>
-                  )}
+                  <Link
+                    href="/add-ons"
+                    className="btn-ghost"
+                    aria-label={`Browse add-ons and upgrades for ${p.name}`}
+                  >
+                    Add-ons
+                  </Link>
                 </div>
                 {p.callToBook && (
                   <p className="mt-3 text-sm text-ink-800/75">

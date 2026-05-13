@@ -264,7 +264,7 @@ export const SPECIALTY_PACKAGES: SpecialtyPackage[] = [
       "Contact for larger parties. Includes customizable event planning.",
     ctaLabel: "View Bachelorette Details",
     ctaHref: "/bachelorette-bonfire",
-    image: "/images/BatchloretteFirePristinePhoto.jpg",
+    image: "/images/BatchloretteLowTablePinkSunset.jpg",
   },
 ];
 

@@ -94,7 +94,12 @@ function PackageCard({ p }: { p: Package }) {
 
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-2xl font-semibold">{p.name}</h3>
-        <p className="mt-1 text-sm text-ink-800/70">{p.tagline}</p>
+        {/* Reserve 3 lines of tagline height so the price / See more /
+            CTA below stay vertically aligned across cards regardless of
+            how the individual tagline wraps. */}
+        <p className="mt-1 min-h-[3.75rem] text-sm leading-snug text-ink-800/70">
+          {p.tagline}
+        </p>
 
         <div className="mt-5 flex items-baseline gap-2">
           <span className="text-4xl font-bold tracking-tight text-[var(--color-ember-600)]">
@@ -126,15 +131,12 @@ function PackageCard({ p }: { p: Package }) {
         </Link>
 
         {p.callToBook ? (
-          <div className="mt-7">
-            <CallToBookButton
-              packageKey={p.slug}
-              variant={p.popular ? "primary" : "ghost"}
-              fullWidth
-            >
-              Call to Book
-            </CallToBookButton>
-            <p className="mt-2 text-center text-xs text-ink-800/70">
+          // CTA wrapper uses mt-auto so the actual button sits at the
+          // bottom of the card and aligns horizontally with the Book Now
+          // buttons on the other cards. The phone-number hint reads as a
+          // prelude to the button and sits ABOVE it for that reason.
+          <div className="mt-auto pt-7">
+            <p className="mb-2 text-center text-xs text-ink-800/70">
               Call{" "}
               <a
                 href={SITE.phoneHref}
@@ -144,13 +146,24 @@ function PackageCard({ p }: { p: Package }) {
               </a>{" "}
               to book {p.name}
             </p>
+            <CallToBookButton
+              packageKey={p.slug}
+              variant={p.popular ? "primary" : "ghost"}
+              fullWidth
+            >
+              Call to Book
+            </CallToBookButton>
           </div>
         ) : (
+          // mt-auto alone pushes the button to the bottom of the flex
+          // column. Do NOT add pt-0 here - Tailwind's utilities layer
+          // would override the .btn-* @layer components py-3.5 and push
+          // the label up against the top edge.
           <BookNowButton
             item={p.fareHarborKey}
             variant={p.popular ? "primary" : "ghost"}
             fullWidth
-            className="mt-7"
+            className="mt-auto"
           >
             Book Now
           </BookNowButton>

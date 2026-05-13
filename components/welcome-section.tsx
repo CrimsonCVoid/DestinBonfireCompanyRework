@@ -50,7 +50,9 @@ export function WelcomeSection() {
               <Link href="/locations/seaside-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Seaside</Link>,{" "}
               <Link href="/locations/rosemary-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Rosemary Beach</Link>,{" "}
               <Link href="/locations/santa-rosa-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Santa Rosa Beach</Link>,
-              Inlet Beach, Grayton Beach, and Blue Mountain Beach.
+              <Link href="/service-areas/inlet-beach" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Inlet Beach</Link>,{" "}
+              <Link href="/service-areas/grayton-dunes" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Grayton Beach</Link>, and{" "}
+              <Link href="/service-areas/blue-mountain" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">Blue Mountain Beach</Link>.
             </p>
             <p className="text-sm text-ink-800/75">
               Call or text{" "}

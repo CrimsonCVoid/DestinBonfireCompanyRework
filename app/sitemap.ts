@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const corePages = [
     { url: "/", priority: 1.0, changeFrequency: "weekly" as const },
     { url: "/destin", priority: 0.95, changeFrequency: "monthly" as const },
+    { url: "/locations", priority: 0.9, changeFrequency: "monthly" as const },
     { url: "/bonfire-packages", priority: 0.9, changeFrequency: "monthly" as const },
     { url: "/bachelorette-bonfire", priority: 0.9, changeFrequency: "monthly" as const },
     { url: "/bonfire-permit-process", priority: 0.8, changeFrequency: "monthly" as const },

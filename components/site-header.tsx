@@ -8,7 +8,7 @@ import { BookNowButton } from "./book-now-button";
 
 const NAV = [
   { href: "/bonfire-packages", label: "Packages" },
-  { href: "/#AREASWESERVE", label: "Locations We Serve" },
+  { href: "/locations", label: "Locations We Serve" },
   { href: "/bachelorette-bonfire", label: "Bachelorette" },
   { href: "/destin", label: "Destin" },
   { href: "/refund-policy", label: "Refund Policy" },

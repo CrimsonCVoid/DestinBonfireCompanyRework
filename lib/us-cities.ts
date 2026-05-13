@@ -2,7 +2,7 @@
  * Fallback lat/lng lookup for US cities. Used by the admin visitors
  * map when PostHog's $geoip_latitude / $geoip_longitude are absent on
  * a $pageview event (city/state are reliably present, lat/lng are not
- * — depends on the enricher version that captured each event).
+ * - depends on the enricher version that captured each event).
  *
  * ~270 entries: state capitals + top US cities by population + the
  * coastal Florida towns most relevant to a Destin/30A audience.
@@ -11,12 +11,12 @@
  * lookup against MaxMind's $geoip_city_name + $geoip_subdivision_1_name.
  *
  * Coords are city-hall / municipal-center coordinates to two decimals
- * of precision — plenty for a Natural Earth / Albers projection at
+ * of precision - plenty for a Natural Earth / Albers projection at
  * the resolution the admin map renders at.
  */
 
 const RAW: Array<[string, string, number, number]> = [
-  // -------- Florida (oversampled — primary market) --------
+  // -------- Florida (oversampled - primary market) --------
   ["Destin", "Florida", 30.39, -86.5],
   ["Miramar Beach", "Florida", 30.38, -86.36],
   ["Santa Rosa Beach", "Florida", 30.36, -86.21],

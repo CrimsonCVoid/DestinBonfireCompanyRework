@@ -33,7 +33,7 @@ type BookNowButtonProps = Omit<
  *   - data-fh-customer-id set to the shortname
  *   - data-fh-flow present (boolean presence attribute)
  *
- * Must NOT carry target="_blank" or rel="noopener" — those cause the
+ * Must NOT carry target="_blank" or rel="noopener" - those cause the
  * browser to open a new tab before the script's click handler runs.
  *
  * Without JavaScript this degrades to a plain link to the FareHarbor URL.
@@ -64,12 +64,12 @@ export function BookNowButton({
 
   // TODO post-launch: fire GA4/Meta conversion event on click (dataLayer push)
 
-  // Visible text is always the accessible name — never override with a
+  // Visible text is always the accessible name - never override with a
   // generic "Book a beach bonfire" label, which fails Lighthouse's
   // label-content-name-mismatch (the announced label differed from the
   // visible "BOOK THE COZY FIRE" / "BOOK THE SUNSET CIRCLE" copy).
   function onClick(e: MouseEvent<HTMLAnchorElement>) {
-    // Fire-and-forget event capture. Don't preventDefault — FareHarbor's
+    // Fire-and-forget event capture. Don't preventDefault - FareHarbor's
     // Lightframe script still owns the click and we never want to block it.
     captureEvent("book_button_clicked", {
       package_key: item ?? "generic",

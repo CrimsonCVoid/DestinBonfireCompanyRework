@@ -7,8 +7,8 @@
   --color-sand-300: #d8c49a;
 
   --color-ember-400: #f2a261;
-  --color-ember-500: #b85213; /* button bg — passes 4.5:1 on white text (~5.0:1) */
-  --color-ember-600: #a8430f; /* small text on sand-50 — passes 4.5:1 (~6.1:1) */
+  --color-ember-500: #b85213; /* button bg - passes 4.5:1 on white text (~5.0:1) */
+  --color-ember-600: #a8430f; /* small text on sand-50 - passes 4.5:1 (~6.1:1) */
   --color-ember-700: #832f08;
 
   --color-gulf-400: #6aa7c6;
@@ -79,7 +79,7 @@
 }
 
 /* ==========================================================================
-   Pink theme — scoped to subtrees marked [data-theme="pink"].
+   Pink theme - scoped to subtrees marked [data-theme="pink"].
    Used on the Bachelorette page so the entire pink remap (buttons, eyebrows,
    accent rings, FareHarbor button, etc.) flips at the wrapper level without
    editing every component. The site-wide ember palette is untouched.
@@ -100,10 +100,10 @@
 }
 
 /* ==========================================================================
-   FareHarbor Lightframe modal — visual overhaul
+   FareHarbor Lightframe modal - visual overhaul
 
    The booking UI itself renders inside FareHarbor's iframe (served from
-   fareharbor.com, outside our origin — we can't style its contents).
+   fareharbor.com, outside our origin - we can't style its contents).
    What we CAN restyle is the wrapper container, backdrop, iframe border,
    and close button that FareHarbor injects into our DOM when the modal
    opens. Targeting several class / id patterns because FareHarbor doesn't
@@ -123,7 +123,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Backdrop — darker, richer blur */
+/* Backdrop - darker, richer blur */
 html body #fh-lightframe-backdrop,
 html body [class*="fh-lightframe-backdrop"],
 html body [class*="fh-backdrop"],
@@ -140,7 +140,7 @@ html body #fh-simple-iframe-backdrop {
   animation: fh-fade-in 0.28s ease-out !important;
 }
 
-/* Modal wrapper — very rounded, floating, premium shadow */
+/* Modal wrapper - very rounded, floating, premium shadow */
 html body #fh-lightframe,
 html body [class*="fh-lightframe"]:not([class*="backdrop"]):not([class*="close"]):not([class*="loading"]),
 html body [id*="fh-lightframe"]:not([id*="backdrop"]):not([id*="close"]),
@@ -185,7 +185,7 @@ body:has(#fh-lightframe-backdrop) {
   touch-action: none !important;
 }
 
-/* The FareHarbor iframe — kill border, inherit big radius */
+/* The FareHarbor iframe - kill border, inherit big radius */
 html body iframe[src*="fareharbor.com"] {
   border: 0 !important;
   border-radius: 32px !important;
@@ -193,7 +193,7 @@ html body iframe[src*="fareharbor.com"] {
   background: #fff !important;
 }
 
-/* Close button — round pill, ember hover, generous tap target */
+/* Close button - round pill, ember hover, generous tap target */
 html body [class*="fh-lightframe-close"],
 html body [id*="fh-lightframe-close"],
 html body button[aria-label*="Close" i][data-fh-close],
@@ -237,7 +237,7 @@ html body div[class*="fh-close"]:hover {
     0 3px 8px rgba(224, 122, 58, 0.3) !important;
 }
 
-/* Loading state — brand spinner instead of generic */
+/* Loading state - brand spinner instead of generic */
 html body [class*="fh-lightframe-loading"] {
   background: var(--color-sand-50) !important;
 }
@@ -251,7 +251,7 @@ html body [class*="fh-lightframe-loading"] svg path {
   fill: var(--color-ember-500) !important;
 }
 
-/* Tablet — still floating, slightly tighter */
+/* Tablet - still floating, slightly tighter */
 @media (max-width: 900px) and (min-width: 641px) {
   html body #fh-lightframe,
   html body [class*="fh-lightframe"]:not([class*="backdrop"]):not([class*="close"]):not([class*="loading"]),
@@ -265,7 +265,7 @@ html body [class*="fh-lightframe-loading"] svg path {
   }
 }
 
-/* Mobile — bottom sheet pattern */
+/* Mobile - bottom sheet pattern */
 @media (max-width: 640px) {
   html body #fh-lightframe,
   html body [class*="fh-lightframe"]:not([class*="backdrop"]):not([class*="close"]):not([class*="loading"]),
@@ -314,7 +314,7 @@ html body [class*="fh-lightframe-loading"] svg path {
   }
 }
 
-/* Prefers-reduced-motion — kill entrance animations */
+/* Prefers-reduced-motion - kill entrance animations */
 @media (prefers-reduced-motion: reduce) {
   html body #fh-lightframe,
   html body [class*="fh-lightframe"]:not([class*="backdrop"]),

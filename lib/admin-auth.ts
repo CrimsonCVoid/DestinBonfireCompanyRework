@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { timingSafeEqual } from "node:crypto";
 
 /**
- * Admin auth — a single shared secret (ADMIN_TOKEN, 256-bit hex) gates the
+ * Admin auth - a single shared secret (ADMIN_TOKEN, 256-bit hex) gates the
  * /admin route. We never put it in localStorage or expose it client-side;
  * after the user pastes it into /admin/login, the API route sets an
  * HttpOnly Secure SameSite=Strict cookie holding the same token. Server

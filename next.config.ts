@@ -22,7 +22,7 @@ const config: NextConfig = {
       },
     ];
   },
-  // Old site sitemap had 5 URLs — all already exist on the new site at the
+  // Old site sitemap had 5 URLs - all already exist on the new site at the
   // same paths (/, /bonfire-packages, /bachelorette-bonfire,
   // /bonfire-permit-process, /refund-policy). The legacy anchor #AREASWESERVE
   // is preserved as a hidden anchor inside the service-areas component.

@@ -18,7 +18,7 @@ export function PackagesSection() {
           </h2>
           <p className="mt-5 text-base leading-relaxed text-ink-800/80">
             Every package is fully hosted and all-inclusive. Permit, setup,
-            chairs, tiki torches, s’mores, and cleanup — all handled by our
+            chairs, tiki torches, s’mores, and cleanup - all handled by our
             team so your group can relax from the first spark to the last ember.
           </p>
         </div>
@@ -58,7 +58,7 @@ function PackageCard({ p }: { p: Package }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-[var(--color-sand-200)]">
         <Image
           src={p.image}
-          alt={`${p.name} — beach bonfire package`}
+          alt={`${p.name} - beach bonfire package`}
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition duration-700 group-hover:scale-105"

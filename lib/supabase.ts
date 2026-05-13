@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 /**
- * Server-only Supabase client (service role). Bypasses RLS — never import
+ * Server-only Supabase client (service role). Bypasses RLS - never import
  * this in a "use client" file or expose the key to the browser. The key
  * lives in SUPABASE_SERVICE_ROLE_KEY in .env.local / Vercel encrypted env.
  *

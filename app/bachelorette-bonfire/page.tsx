@@ -61,7 +61,7 @@ const PHOTO_READY_EXTRAS = [
 ];
 
 const ADDONS = [
-  { name: "Themed décor", detail: "Custom themes beyond pink — coordinated to your party." },
+  { name: "Themed décor", detail: "Custom themes beyond pink - coordinated to your party." },
   { name: "Custom accessories", detail: "Personalized signs, sashes, and group merchandise." },
   { name: "Food add-ons", detail: "Curated spreads from our favorite local vendors." },
   { name: "Upgraded seating layouts", detail: "Lounge-style or extended seating for larger parties." },
@@ -87,7 +87,7 @@ export default function BachelorettePage() {
       <PageHeader
         eyebrow="Styled Bachelorette Beach Bonfire Experience"
         title="Bachelorette Bonfire"
-        subtitle="Planning a bachelorette trip to Destin or 30A? Celebrate with a styled beach bonfire experience that goes beyond the traditional setup — coordinated décor, thoughtful details, and a fun, memorable atmosphere for your bride tribe."
+        subtitle="Planning a bachelorette trip to Destin or 30A? Celebrate with a styled beach bonfire experience that goes beyond the traditional setup - coordinated décor, thoughtful details, and a fun, memorable atmosphere for your bride tribe."
         video="/videos/bachelorette-setup.mp4"
         image="/images/WideShotFarBatchlorettePhoto.jpg"
       />
@@ -116,7 +116,7 @@ export default function BachelorettePage() {
               detail is designed to feel effortless, unique, and truly special.
             </p>
             <p className="mt-4 text-sm font-semibold text-[var(--color-ember-700)]">
-              💍 Larger groups are <strong>ALWAYS</strong> welcome — call us
+              💍 Larger groups are <strong>ALWAYS</strong> welcome - call us
               for a custom quote.
             </p>
             <h3 className="mt-10 text-sm font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
@@ -144,7 +144,7 @@ export default function BachelorettePage() {
             Photo-ready for your bride tribe
           </h2>
           <p className="mt-5 text-center text-ink-800/80">
-            Beach permits, setup, cleanup, and hosting are all included —
+            Beach permits, setup, cleanup, and hosting are all included-
             your group simply arrives and enjoys the night.
           </p>
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
@@ -166,7 +166,7 @@ export default function BachelorettePage() {
           <div className="mx-auto max-w-2xl text-center">
             <p className="eyebrow">Bachelorette Bonfire Customization</p>
             <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Every bachelorette trip is different — yours should be too
+              Every bachelorette trip is different - yours should be too
             </h2>
             <p className="mt-5 text-ink-800/80">
               Sit back, relax, and let us turn the beach into your own private
@@ -207,14 +207,14 @@ export default function BachelorettePage() {
             </p>
             <p>
               Our bachelorette beach bonfires are hosted on permitted South
-              Walton beaches — Santa Rosa Beach, Rosemary Beach, Seaside, and
+              Walton beaches - Santa Rosa Beach, Rosemary Beach, Seaside, and
               along 30A. After a day exploring Rosemary Beach, Seaside, or
               Santa Rosa Beach, gathering around the fire for s’mores, music,
               and sunset views creates the perfect ending to the night.
             </p>
             <p>
-              Our team handles everything — permits, setup, styling, hosting,
-              and cleanup — so your group can simply arrive, relax, and enjoy
+              Our team handles everything - permits, setup, styling, hosting,
+              and cleanup - so your group can simply arrive, relax, and enjoy
               the night together. Spring and summer 30A bachelorette weekends
               book quickly, so we recommend reserving your date early.
             </p>

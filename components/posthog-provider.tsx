@@ -9,7 +9,7 @@ import posthog from "posthog-js";
  *
  * Initialized once on mount with autocapture, session replay, web vitals,
  * heatmaps, and exception tracking ON. Inputs and form data are masked by
- * default — replay won't capture what guests type into the contact form.
+ * default - replay won't capture what guests type into the contact form.
  *
  * Skipped entirely on /admin routes so the dashboard view of replays
  * doesn't pollute the recording stream with admin sessions.
@@ -41,7 +41,7 @@ function startPostHog() {
     person_profiles: "identified_only",
     loaded: () => {
       if (process.env.NODE_ENV === "development") {
-        // Helpful in dev — don't ship to console in prod.
+        // Helpful in dev - don't ship to console in prod.
         // eslint-disable-next-line no-console
         console.debug("[posthog] ready", HOST);
       }

@@ -8,7 +8,7 @@ export function BacheloretteCta() {
         <div className="relative order-last aspect-[5/6] overflow-hidden rounded-[2rem] shadow-xl lg:order-first">
           <Image
             src="/images/BatchloretteLandFacing.jpg"
-            alt="Bachelorette beach bonfire on 30A — bride and bridal party"
+            alt="Bachelorette beach bonfire on 30A - bride and bridal party"
             fill
             sizes="(min-width: 1024px) 45vw, 100vw"
             className="object-cover"

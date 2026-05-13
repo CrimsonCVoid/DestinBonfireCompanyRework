@@ -26,7 +26,7 @@ export function CommunitiesSection() {
             Beach bonfires near every 30A and Destin community
           </h2>
           <p className="mt-6 text-base leading-relaxed text-sand-100/90 sm:text-lg">
-            Pick the area you&rsquo;re staying in — we&rsquo;ll match you with
+            Pick the area you&rsquo;re staying in - we&rsquo;ll match you with
             the right permitted access, the right vibe, and the right parking
             for your group. Each guide is written from local experience, not
             scraped from somewhere else.

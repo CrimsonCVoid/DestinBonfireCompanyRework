@@ -4,7 +4,7 @@
  * Uses a Personal API key (POSTHOG_PERSONAL_API_KEY) to call the HogQL
  * query endpoint:  POST /api/projects/{id}/query
  *
- * All functions degrade gracefully — on error or missing config, they
+ * All functions degrade gracefully - on error or missing config, they
  * return an empty result so the UI can render a "No data yet" card
  * instead of throwing.
  */
@@ -445,7 +445,7 @@ export type CityPoint = {
 
 /**
  * Cities with geocoordinates for the dot map. Returns up to `limit`
- * cities globally — the client component filters down to whichever
+ * cities globally - the client component filters down to whichever
  * state/country is currently in focus. Lat/lng are averaged from
  * MaxMind's per-event geocode (stable enough to plot a single dot
  * per city).
@@ -453,7 +453,7 @@ export type CityPoint = {
 export async function getCityPoints(days = 30, limit = 500): Promise<CityPoint[]> {
   // NB: lat/lng deliberately NOT required in the WHERE clause. PostHog's
   // GeoIP enricher doesn't always populate $geoip_latitude/longitude on
-  // every event (depends on the version that captured it) — but the
+  // every event (depends on the version that captured it) - but the
   // city + state + country properties are reliably present. We return
   // every city so the right-panel list is accurate, and let the client
   // skip plotting dots for cities that happen to be missing coords.
@@ -483,7 +483,7 @@ export async function getCityPoints(days = 30, limit = 500): Promise<CityPoint[]
         city: String(row[0] ?? "Unknown"),
         state: String(row[1] ?? ""),
         country: String(row[2] ?? ""),
-        // 0/0 is the Gulf of Guinea — treat as "missing" since no real
+        // 0/0 is the Gulf of Guinea - treat as "missing" since no real
         // visitor session is plausibly originating from there.
         lat: Number.isFinite(lat) && !(lat === 0) ? lat : Number.NaN,
         lng: Number.isFinite(lng) && !(lng === 0) ? lng : Number.NaN,

@@ -38,15 +38,15 @@ export const BEACHES: BeachDetail[] = [
       "~40 on-site spaces. 393 Municipal Parking Facility (74+ spaces) connects via free beach tram, 4 blocks north on Hwy 393.",
     parkingCost:
       "On-site lot is free. The 393 overflow lot is paid ($5–$15/day non-residents; $5/yr Walton residents).",
-    restrooms: "Yes — permanent ADA-accessible restrooms with multiple stalls.",
+    restrooms: "Yes - permanent ADA-accessible restrooms with multiple stalls.",
     outdoorShowers: "Rinse showers available at the walkover.",
     lifeguards: "Seasonal · typically 10 AM – 6 PM in peak season.",
     accessibility:
-      "Fully ADA-accessible — boardwalk, parking, restrooms, and beach wheelchairs available on request.",
+      "Fully ADA-accessible - boardwalk, parking, restrooms, and beach wheelchairs available on request.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
-    crowdLevel: "Busy regional access — one of the most popular on 30A.",
-    distanceToWater: "Short — ADA walkway straight from lot to sand.",
+    crowdLevel: "Busy regional access - one of the most popular on 30A.",
+    distanceToWater: "Short - ADA walkway straight from lot to sand.",
     vibe: "The flagship Gulf Place access with a two-story viewing platform, two picnic shelters, and a community toy-share box. Social, family-friendly, and walkable to shops and dining.",
     bestFor: "Larger family bonfires that want dinner and drinks close by.",
     nearbyFood: [
@@ -72,17 +72,17 @@ export const BEACHES: BeachDetail[] = [
     parkingAddress: "186 Gulfview Heights Street, Santa Rosa Beach, FL 32459",
     lat: 30.34075,
     lng: -86.2102,
-    parkingSpots: "~22 spaces. Parking is tight — arrive early.",
+    parkingSpots: "~22 spaces. Parking is tight - arrive early.",
     parkingCost: "Free.",
-    restrooms: "Yes — ADA-accessible permanent restrooms.",
+    restrooms: "Yes - ADA-accessible permanent restrooms.",
     outdoorShowers: "Outdoor rinse showers confirmed.",
     lifeguards: "Seasonal.",
     accessibility:
-      "ADA restrooms and parking on-site. Beach approach may include stairs — confirm with our team if mobility is a concern.",
+      "ADA restrooms and parking on-site. Beach approach may include stairs - confirm with our team if mobility is a concern.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
-    crowdLevel: "Busy regional access — lot fills early on weekends.",
-    distanceToWater: "Short — ~1/4 mile path from the lot to the sand.",
+    crowdLevel: "Busy regional access - lot fills early on weekends.",
+    distanceToWater: "Short - ~1/4 mile path from the lot to the sand.",
     vibe: "Classic mid-30A regional access with a picnic pavilion and water fountain. Less flashy than Ed Walline, with strong local usage.",
     bestFor: "Small-to-medium groups who want amenities without Gulf Place crowds.",
     nearbyFood: [
@@ -110,15 +110,15 @@ export const BEACHES: BeachDetail[] = [
     parkingSpots:
       "~60 spaces split across both sides of 30A. Dedicated bike and golf-cart parking added in the recent renovation.",
     parkingCost: "Free.",
-    restrooms: "Yes — multi-stall, ADA-accessible, permanent facilities.",
+    restrooms: "Yes - multi-stall, ADA-accessible, permanent facilities.",
     outdoorShowers: "Outdoor rinse showers confirmed.",
     lifeguards: "Seasonal (access #17).",
     accessibility:
       "Rebuilt ADA boardwalk, ADA restrooms and parking, and beach wheelchairs available.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
-    crowdLevel: "Busy regional access — one of the more family-friendly stops on 30A.",
-    distanceToWater: "Medium — long ADA boardwalk and ramp.",
+    crowdLevel: "Busy regional access - one of the more family-friendly stops on 30A.",
+    distanceToWater: "Medium - long ADA boardwalk and ramp.",
     vibe: "Recently renovated family-oriented access with shade, water fountains, and one of the most polished boardwalks on 30A. Popular lunch stop for locals.",
     bestFor: "Larger family bonfires that need real amenities.",
     nearbyFood: [
@@ -145,13 +145,13 @@ export const BEACHES: BeachDetail[] = [
     lng: -86.25491,
     parkingSpots: "~23 spaces including ADA-accessible spots.",
     parkingCost: "Free.",
-    restrooms: "Yes — multi-stall ADA-accessible restroom pavilion.",
+    restrooms: "Yes - multi-stall ADA-accessible restroom pavilion.",
     outdoorShowers: "Two outdoor rinse showers.",
     lifeguards: "Seasonal.",
     accessibility: "ADA-accessible. Beach wheelchairs available on request.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
-    crowdLevel: "Moderate — a west-end locals' spot, less crowded than Gulf Place.",
+    crowdLevel: "Moderate - a west-end locals' spot, less crowded than Gulf Place.",
     distanceToWater: "Short boardwalk from the pavilion to the sand.",
     vibe: "Classic west-30A access on a narrow strip across from Stinky's Fish Camp. Pavilion gathering feel with quick parking turnover.",
     bestFor: "Small-to-medium bonfires with dinner at Stinky's beforehand.",
@@ -161,7 +161,7 @@ export const BEACHES: BeachDetail[] = [
       { name: "The Bay Restaurant", note: "Choctawhatchee Bay" },
     ],
     drivingNotes: [
-      "Small lot can fill at peak — the free West Route tram from the 393 MPF stops here every 15 minutes.",
+      "Small lot can fill at peak - the free West Route tram from the 393 MPF stops here every 15 minutes.",
       "Confirmed on the current permitted-bonfire list.",
     ],
     sources: [
@@ -179,14 +179,14 @@ export const BEACHES: BeachDetail[] = [
     lng: -86.25127,
     parkingSpots: "~28–34 spaces plus limited street parking.",
     parkingCost: "Free.",
-    restrooms: "Yes — ADA-accessible multi-stall restrooms with benches.",
+    restrooms: "Yes - ADA-accessible multi-stall restrooms with benches.",
     outdoorShowers: "Two outdoor shower areas.",
     lifeguards: "Seasonal (access #43).",
     accessibility: "ADA-accessible boardwalk, parking, and restrooms.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
     crowdLevel:
-      "Quiet — frequently called the least crowded regional access on 30A.",
+      "Quiet - frequently called the least crowded regional access on 30A.",
     distanceToWater: "Short boardwalk ramp lined with sea oats.",
     vibe: "Tucked-away peaceful regional access with full amenities but noticeably less foot traffic. Feels private even on busy days.",
     bestFor: "Smaller private-feel bonfires, couples, and sunset groups.",
@@ -214,16 +214,16 @@ export const BEACHES: BeachDetail[] = [
     lng: -86.2009,
     parkingSpots: "~20 spaces including two ADA spots. Bike rack on-site.",
     parkingCost: "Free.",
-    restrooms: "Yes — ADA-accessible permanent restrooms.",
-    outdoorShowers: "Call to confirm — not listed on our primary sources.",
+    restrooms: "Yes - ADA-accessible permanent restrooms.",
+    outdoorShowers: "Call to confirm - not listed on our primary sources.",
     lifeguards: "Seasonal (access #36).",
     accessibility: "ADA-accessible restrooms and parking.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
     crowdLevel:
-      "Moderate — active local crowd; the highest elevation on 30A gives it a reliable ocean breeze.",
-    distanceToWater: "Short — brief walkover from the lot to the sand.",
-    vibe: "The heart of Blue Mountain Beach — elevated, breezy, and walkable to restaurants. Social but not overwhelming.",
+      "Moderate - active local crowd; the highest elevation on 30A gives it a reliable ocean breeze.",
+    distanceToWater: "Short - brief walkover from the lot to the sand.",
+    vibe: "The heart of Blue Mountain Beach - elevated, breezy, and walkable to restaurants. Social but not overwhelming.",
     bestFor: "Medium groups pairing dinner at Redfish Village with a bonfire.",
     nearbyFood: [
       { name: "Basmati's Asian Cuisine", note: "3295 Scenic 30A" },
@@ -231,7 +231,7 @@ export const BEACHES: BeachDetail[] = [
       { name: "Blue Mountain Bakery" },
     ],
     drivingNotes: [
-      "Limited parking — arrive early on weekends.",
+      "Limited parking - arrive early on weekends.",
       "Confirmed on the current permitted-bonfire list.",
     ],
     sources: [
@@ -249,16 +249,16 @@ export const BEACHES: BeachDetail[] = [
     lng: -86.08731,
     parkingSpots: "Roughly 15 roadside spots at the end of Beachfront Trail.",
     parkingCost: "Free (where street spots are available).",
-    restrooms: "No on-site restrooms — plan a stop before arrival.",
+    restrooms: "No on-site restrooms - plan a stop before arrival.",
     outdoorShowers: "None.",
     lifeguards: "Not a permanently staffed tower. Confirm with our team seasonally.",
     accessibility:
-      "No dedicated ADA infrastructure reported — walk-on roadside access only.",
+      "No dedicated ADA infrastructure reported - walk-on roadside access only.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
-    crowdLevel: "Quiet local access — one of the most low-key spots on 30A.",
-    distanceToWater: "Short — direct walk-on at the end of Beachfront Trail.",
-    vibe: "A locals' secret. No facilities, wide beach, and minimal crowds — feels off-the-grid even in summer.",
+    crowdLevel: "Quiet local access - one of the most low-key spots on 30A.",
+    distanceToWater: "Short - direct walk-on at the end of Beachfront Trail.",
+    vibe: "A locals' secret. No facilities, wide beach, and minimal crowds - feels off-the-grid even in summer.",
     bestFor: "Small private-feel bonfires, couples, and sunrise gatherings.",
     nearbyFood: [
       { name: "Old Florida Fish House", note: "Eastern Lake, 2 minutes" },
@@ -266,8 +266,8 @@ export const BEACHES: BeachDetail[] = [
       { name: "The Local Market", note: "Seagrove" },
     ],
     drivingNotes: [
-      "Very limited parking — plan for street spots and be respectful of residents.",
-      "No restrooms on-site — use Santa Clara or Seagrove Regional beforehand.",
+      "Very limited parking - plan for street spots and be respectful of residents.",
+      "No restrooms on-site - use Santa Clara or Seagrove Regional beforehand.",
       "Confirmed on the current permitted-bonfire list.",
     ],
     sources: [
@@ -284,18 +284,18 @@ export const BEACHES: BeachDetail[] = [
     lat: 30.31025,
     lng: -86.10884,
     parkingSpots:
-      "No dedicated public lot — limited street parking. The adjacent condo lot is private and tows.",
+      "No dedicated public lot - limited street parking. The adjacent condo lot is private and tows.",
     parkingCost: "Free where street spots are available.",
     restrooms: "No on-site public restrooms.",
     outdoorShowers: "Rinse shower at the walkover.",
     lifeguards: "Not a staffed regional tower.",
     accessibility:
-      "Walkover was rebuilt and reopened after 2025 storm repairs. Full ADA features at the public walkover are not confirmed — call us if mobility is a concern.",
+      "Walkover was rebuilt and reopened after 2025 storm repairs. Full ADA features at the public walkover are not confirmed - call us if mobility is a concern.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
     crowdLevel: "Quiet, neighborhood-style access.",
     distanceToWater: "Short walkover directly to the sand.",
-    vibe: "A compact neighborhood-style access tucked next to the One Seagrove Place condos — one of only two high-rises on 30A. Private feel with a rinse shower and not much else.",
+    vibe: "A compact neighborhood-style access tucked next to the One Seagrove Place condos - one of only two high-rises on 30A. Private feel with a rinse shower and not much else.",
     bestFor: "Small private bonfires and couples' evenings.",
     nearbyFood: [
       { name: "Cafe Thirty-A" },
@@ -303,7 +303,7 @@ export const BEACHES: BeachDetail[] = [
       { name: "The Great Southern Cafe", note: "Seaside, 5 minutes west" },
     ],
     drivingNotes: [
-      "Do not park in the condo lot — it is private and will tow.",
+      "Do not park in the condo lot - it is private and will tow.",
       "Best reached by drop-off or walking from the Seagrove area.",
       "Confirmed on the current permitted-bonfire list.",
     ],
@@ -327,14 +327,14 @@ export const BEACHES: BeachDetail[] = [
     restrooms:
       "Limited on-site. Grayton Beach State Park nearby has full restrooms.",
     outdoorShowers: "Freshwater rinse showers at the boardwalk.",
-    lifeguards: "Seasonal presence reported — not a full staffed tower.",
+    lifeguards: "Seasonal presence reported - not a full staffed tower.",
     accessibility: "ADA-accessible boardwalk extending east to Banfill Street.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
     crowdLevel:
-      "Busy in season — the heart of the Grayton village, walkable to restaurants and bars.",
+      "Busy in season - the heart of the Grayton village, walkable to restaurants and bars.",
     distanceToWater: "Short boardwalk from the end of Garfield Street to the sand.",
-    vibe: "Old-Florida village charm — bohemian, walkable from The Red Bar and Chiringo, with classic 30A character and sunset energy.",
+    vibe: "Old-Florida village charm - bohemian, walkable from The Red Bar and Chiringo, with classic 30A character and sunset energy.",
     bestFor: "Medium groups pairing dinner in Grayton village with a bonfire.",
     nearbyFood: [
       { name: "The Red Bar", note: "Iconic, steps away" },
@@ -342,7 +342,7 @@ export const BEACHES: BeachDetail[] = [
       { name: "Hurricane Oyster Bar", note: "Grayton Central" },
     ],
     drivingNotes: [
-      "Parking is genuinely hard in the Grayton village — we steer guests to the MPL with the free tram.",
+      "Parking is genuinely hard in the Grayton village - we steer guests to the MPL with the free tram.",
       "Beach driving is restricted to permitted residents only.",
       "Confirmed on the current permitted-bonfire list.",
     ],
@@ -360,18 +360,18 @@ export const BEACHES: BeachDetail[] = [
     lat: 30.27401,
     lng: -86.00393,
     parkingSpots:
-      "117 spaces — the largest county beach access lot in Walton County.",
+      "117 spaces - the largest county beach access lot in Walton County.",
     parkingCost: "Free.",
-    restrooms: "Yes — permanent ADA-accessible restrooms.",
+    restrooms: "Yes - permanent ADA-accessible restrooms.",
     outdoorShowers: "Showers and rinse stations on-site.",
     lifeguards: "Seasonal.",
     accessibility:
-      "Fully ADA — three dune walkovers, ADA boardwalk, ADA restrooms and parking, plus beach wheelchairs.",
+      "Fully ADA - three dune walkovers, ADA boardwalk, ADA restrooms and parking, plus beach wheelchairs.",
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
     crowdLevel:
-      "Very busy regional access — the easternmost flagship lot in Walton County.",
-    distanceToWater: "Medium — boardwalks over a substantial dune system.",
+      "Very busy regional access - the easternmost flagship lot in Walton County.",
+    distanceToWater: "Medium - boardwalks over a substantial dune system.",
     vibe: "The big-lot east-end workhorse. Clean, spacious, and walkable to 30Avenue shopping and dining. Great for larger gatherings.",
     bestFor: "Large family and group bonfires (biggest lot means least parking stress).",
     nearbyFood: [
@@ -400,7 +400,7 @@ export const BEACHES: BeachDetail[] = [
     parkingSpots:
       "18 vehicle spaces + 9 golf-cart spaces + bike parking. Built new in 2022.",
     parkingCost: "Free.",
-    restrooms: "Yes — ADA-accessible restrooms in a coastal-cottage walkover pavilion.",
+    restrooms: "Yes - ADA-accessible restrooms in a coastal-cottage walkover pavilion.",
     outdoorShowers: "Rinse showers on-site.",
     lifeguards: "Seasonal lifeguard station.",
     accessibility:
@@ -408,9 +408,9 @@ export const BEACHES: BeachDetail[] = [
     petPolicy:
       "Leashed dogs allowed with a Walton County pet permit, 3:30 PM – 8:30 AM only.",
     crowdLevel:
-      "Moderate — quieter than 30A regional accesses, with a residential Miramar feel.",
+      "Moderate - quieter than 30A regional accesses, with a residential Miramar feel.",
     distanceToWater: "Short boardwalk across about 400 feet of beachfront.",
-    vibe: "The newest access of the group (opened 2022) — modern coastal-cottage design, large deck plaza, picnic pavilion, and a calm residential Miramar setting away from 30A traffic.",
+    vibe: "The newest access of the group (opened 2022) - modern coastal-cottage design, large deck plaza, picnic pavilion, and a calm residential Miramar setting away from 30A traffic.",
     bestFor: "Medium groups wanting a quieter Miramar bonfire with brand-new facilities.",
     nearbyFood: [
       { name: "Pompano Joe's", note: "2237 Scenic Gulf Hwy" },
@@ -418,8 +418,8 @@ export const BEACHES: BeachDetail[] = [
       { name: "Surfer Girl Pizza", note: "Scenic Gulf Dr" },
     ],
     drivingNotes: [
-      "Small vehicle lot (18 spaces) — arrive early on peak days.",
-      "This is the closest permitted beach to Destin — a short drive east on Highway 98 from Destin proper.",
+      "Small vehicle lot (18 spaces) - arrive early on peak days.",
+      "This is the closest permitted beach to Destin - a short drive east on Highway 98 from Destin proper.",
       "A small travel fee may apply for service at this location due to distance from 30A.",
       "Confirmed on the current permitted-bonfire list.",
     ],

@@ -11,7 +11,7 @@ export function Gallery() {
             Bonfire moments on 30A and Destin
           </h2>
           <p className="mt-5 text-ink-800/75">
-            A look at what your night could look like — sunset chairs, glowing
+            A look at what your night could look like - sunset chairs, glowing
             fires, and groups making memories.
           </p>
         </div>

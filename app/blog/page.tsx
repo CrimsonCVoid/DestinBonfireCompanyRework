@@ -8,7 +8,7 @@ import { SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Bonfire Blog: Permits, Beach Picks & Local Guides",
   description:
-    "Local guides on Destin and 30A beach bonfires — permitted accesses, parking tips, wedding ideas, and family-night plans. Written by people who host bonfires nightly.",
+    "Local guides on Destin and 30A beach bonfires - permitted accesses, parking tips, wedding ideas, and family-night plans. Written by people who host bonfires nightly.",
   alternates: { canonical: "/blog" },
   openGraph: {
     title: "Bonfire Blog: Permits, Beach Picks & Local Guides",
@@ -56,7 +56,7 @@ export default function BlogIndexPage() {
               Local guides for your Destin or 30A bonfire night
             </h1>
             <p className="mt-6 text-base leading-relaxed text-ink-800/80 sm:text-lg">
-              Written by the people who actually host the bonfires — not a
+              Written by the people who actually host the bonfires - not a
               content agency in a different state. Permits, beach picks,
               parking tips, wedding ideas, and the small stuff guests usually
               wish they&rsquo;d known before booking.

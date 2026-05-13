@@ -124,7 +124,7 @@ export function VisitorsMap({
 
   // ----------------------- Cities in current US scope -------------
   // The right panel reflects ALL cities in scope (state-filtered or all-US),
-  // even ones missing geo coords — those just don't get a dot on the map.
+  // even ones missing geo coords - those just don't get a dot on the map.
   const scopedCities = useMemo(() => {
     if (view !== "us") return [] as CityPoint[];
     if (selectedState) {
@@ -301,7 +301,7 @@ export function VisitorsMap({
                 );
               })}
 
-            {/* US view — state polygons */}
+            {/* US view - state polygons */}
             {view === "us" && usGeo &&
               usGeo.features.map((f, i) => {
                 const name =
@@ -344,7 +344,7 @@ export function VisitorsMap({
                 );
               })}
 
-            {/* City dots — only when a state is drilled into.
+            {/* City dots - only when a state is drilled into.
                 Three layers per dot give the "heatmap glow" feel:
                   - outer halo (~3.2x radius, very low alpha)
                   - mid halo (~1.8x radius, low alpha)
@@ -389,7 +389,7 @@ export function VisitorsMap({
               })}
           </svg>
 
-          {/* Tooltip — kept dark for maximum contrast against the
+          {/* Tooltip - kept dark for maximum contrast against the
               cream map canvas. White-on-dark reads instantly even when
               hovering over a brightly-colored state polygon. */}
           {hover && (

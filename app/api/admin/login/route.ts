@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ADMIN_COOKIE, adminCookieOptions, verifyToken } from "@/lib/admin-auth";
 
-// Force Node runtime — we rely on node:crypto's timingSafeEqual.
+// Force Node runtime - we rely on node:crypto's timingSafeEqual.
 export const runtime = "nodejs";
 
 // Block any caching of the login response.
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
   if (!verifyToken(candidate)) {
     // Same response shape + ~equal latency whether the token is wrong or
-    // ADMIN_TOKEN is unset — don't leak which case it is.
+    // ADMIN_TOKEN is unset - don't leak which case it is.
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 

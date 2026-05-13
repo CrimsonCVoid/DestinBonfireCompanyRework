@@ -89,7 +89,7 @@ export async function readSubmissions(): Promise<{
   if (isSupabaseConfigured()) {
     const rows = await readFromSupabase();
     if (rows) return { entries: rows, source: "supabase" };
-    // Configured but query failed — show JSON if we have it, but flag it.
+    // Configured but query failed - show JSON if we have it, but flag it.
     const fallback = await readJsonLog();
     return { entries: fallback.reverse(), source: "json" };
   }

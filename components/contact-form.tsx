@@ -27,7 +27,7 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
       });
       if (!res.ok) throw new Error("Failed");
-      // GTM dataLayer event — VDX uses the /contact/thank-you URL change as
+      // GTM dataLayer event - VDX uses the /contact/thank-you URL change as
       // the primary conversion trigger; this event is a belt-and-suspenders
       // signal in case they want to fire on the event instead.
       if (typeof window !== "undefined") {

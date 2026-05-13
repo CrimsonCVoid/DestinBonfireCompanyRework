@@ -15,7 +15,7 @@ import { FAQ, GOOGLE_REVIEWS, PACKAGES, SERVICE_AREAS, SITE } from "@/lib/site";
 // Title comes from layout metadata.title.default
 export const metadata: Metadata = {
   description:
-    "Luxury, fully-permitted private beach bonfires near Destin and along 30A. We handle the Walton County permit, premium seating, s'mores, and cleanup — you just show up. Packages from $429.",
+    "Luxury, fully-permitted private beach bonfires near Destin and along 30A. We handle the Walton County permit, premium seating, s'mores, and cleanup - you just show up. Packages from $429.",
   alternates: { canonical: "/" },
 };
 

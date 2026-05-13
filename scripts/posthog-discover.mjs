@@ -3,7 +3,7 @@
  * Discover the PostHog project's public api_token (phc_*) and numeric id
  * using the Personal API key (phx_*), and append them to .env.local.
  *
- * Idempotent — won't duplicate keys; skips lines already present.
+ * Idempotent - won't duplicate keys; skips lines already present.
  *
  * Usage:
  *   node scripts/posthog-discover.mjs

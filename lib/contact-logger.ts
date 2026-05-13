@@ -133,6 +133,6 @@ export async function logContactSubmission(
   const jsonResult = await writeToJson(entry);
   if (jsonResult.ok) return { ok: true };
 
-  // Both failed — surface the original Supabase error for visibility.
+  // Both failed - surface the original Supabase error for visibility.
   return { ok: false, error: `supabase: ${sbResult.error}; json: ${jsonResult.error}` };
 }

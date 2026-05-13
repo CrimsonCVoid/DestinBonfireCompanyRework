@@ -121,7 +121,7 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
                           {r.phone}
                         </a>
                       </td>
-                      <td className="px-4 py-3 align-top text-ink-800/80">{r.details || "—"}</td>
+                      <td className="px-4 py-3 align-top text-ink-800/80">{r.details || "-"}</td>
                       <td className="px-4 py-3 align-top">
                         <span className={pillClass(status)}>{status.label}</span>
                       </td>
@@ -140,8 +140,8 @@ export function SubmissionsTable({ rows }: { rows: ContactLogEntry[] }) {
                               <Row k="Mode" v={r.mode} />
                               <Row k="Email sent" v={String(r.email_sent)} />
                               {r.error_message && <Row k="Error" v={r.error_message} mono />}
-                              <Row k="IP" v={r.ip || "—"} mono />
-                              <Row k="User agent" v={r.user_agent || "—"} mono wrap />
+                              <Row k="IP" v={r.ip || "-"} mono />
+                              <Row k="User agent" v={r.user_agent || "-"} mono wrap />
                             </dl>
                           </div>
                         </td>

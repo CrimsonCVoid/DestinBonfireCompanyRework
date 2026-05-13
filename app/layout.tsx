@@ -8,9 +8,9 @@ import { PostHogProvider } from "@/components/posthog-provider";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
-// VDX Marketing — Google Tag Manager container.
+// VDX Marketing - Google Tag Manager container.
 // Per VDX brief: every page must include the head snippet + body noscript fallback.
-// All Google Ads / GA4 / Meta Pixel tags are deployed by VDX inside this container —
+// All Google Ads / GA4 / Meta Pixel tags are deployed by VDX inside this container-
 // do NOT add gtag.js, GA4, or Meta Pixel directly anywhere in this codebase.
 // Contact: ross@vdxmarketing.com
 const GTM_ID = "GTM-KRQ9ZJQ7";
@@ -165,7 +165,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <head>
-        {/* Google Tag Manager — VDX Marketing (head snippet, as high as possible). */}
+        {/* Google Tag Manager - VDX Marketing (head snippet, as high as possible). */}
         <Script
           id="gtm-head"
           strategy="afterInteractive"
@@ -179,7 +179,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body>
-        {/* Google Tag Manager (noscript) — must be immediately after opening <body>. */}
+        {/* Google Tag Manager (noscript) - must be immediately after opening <body>. */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -207,7 +207,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
         {/*
-          FareHarbor Lightframe — intercepts anchors with data-fh-customer-id
+          FareHarbor Lightframe - intercepts anchors with data-fh-customer-id
           and data-fh-flow matching the shortname, opens them in a modal.
 
           Loaded with strategy="lazyOnload" so it runs AFTER the window load

@@ -3,12 +3,12 @@ import Link from "next/link";
 import { BookNowButton } from "@/components/book-now-button";
 import { SITE } from "@/lib/site";
 
-// VDX Marketing — conversion thank-you page.
+// VDX Marketing - conversion thank-you page.
 // Per VDX brief: this page exists so GTM can fire a conversion when the URL
 // changes after a contact form submission. Must remain noindex to keep
 // organic traffic from inflating conversion counts.
 export const metadata: Metadata = {
-  title: "Thank You — We’ll Be In Touch",
+  title: "Thank You - We’ll Be In Touch",
   description:
     "Thanks for reaching out to Destin Bonfire Company. We’ll be in touch shortly to plan your beach bonfire.",
   alternates: { canonical: "/contact/thank-you" },
@@ -37,7 +37,7 @@ export default function ContactThankYouPage() {
           </div>
           <p className="eyebrow mt-8">Message Received</p>
           <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Thanks — we’ll be in touch shortly
+            Thanks - we’ll be in touch shortly
           </h1>
           <p className="mt-6 text-base leading-relaxed text-ink-800/80 sm:text-lg">
             We received your inquiry and a real person from our team will reply

@@ -3,10 +3,10 @@ import { PostHog } from "posthog-node";
 /**
  * Server-side PostHog client for capturing events from API routes.
  * Uses the same public api_token the browser uses (NEXT_PUBLIC_POSTHOG_KEY)
- * — this is intentional and correct; the Personal API key is reserved for
+ * - this is intentional and correct; the Personal API key is reserved for
  * the admin dashboard queries.
  *
- * Singleton — re-use the same client across requests. flushAt: 1 means we
+ * Singleton - re-use the same client across requests. flushAt: 1 means we
  * don't batch on a long-running server, which suits Vercel's short-lived
  * function lifecycle.
  */
@@ -29,7 +29,7 @@ function getClient(): PostHog | null {
 /**
  * Capture a server-side event. Fire-and-forget; never throws into the
  * caller. PII (email/phone/name/message text) MUST be stripped at the
- * call site — this helper does not sanitize.
+ * call site - this helper does not sanitize.
  */
 export async function captureServerEvent(
   distinctId: string,
@@ -42,6 +42,6 @@ export async function captureServerEvent(
     c.capture({ distinctId, event, properties });
     await c.flush();
   } catch {
-    // Swallow — analytics is never allowed to fail a customer submission.
+    // Swallow - analytics is never allowed to fail a customer submission.
   }
 }

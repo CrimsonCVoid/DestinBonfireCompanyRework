@@ -80,7 +80,7 @@ export default function PackagesPage() {
       <PageHeader
         eyebrow="All-Inclusive Packages"
         title="Bonfire Packages"
-        subtitle="Professionally hosted, all-inclusive beach bonfires near Destin and along 30A. Permits, setup, on-site hosting, and cleanup are included on every package — your group simply arrives and enjoys the night."
+        subtitle="Professionally hosted, all-inclusive beach bonfires near Destin and along 30A. Permits, setup, on-site hosting, and cleanup are included on every package - your group simply arrives and enjoys the night."
         video="/videos/fire-to-sea.mp4"
         image="/images/BigCircleBonfireSetupNight.jpg"
       />
@@ -107,7 +107,7 @@ export default function PackagesPage() {
               <p className="mt-3 font-semibold text-ink-900">Flexible rescheduling</p>
               <p className="mt-2 text-sm text-ink-800/85">
                 Plans change. Reschedule any time before your permit is
-                purchased — no fees, no hassle.
+                purchased - no fees, no hassle.
               </p>
             </li>
             <li className="rounded-2xl bg-[var(--color-sand-50)] p-6 shadow-sm ring-1 ring-ink-900/5">
@@ -217,7 +217,7 @@ export default function PackagesPage() {
                   <div className="relative aspect-[16/9] overflow-hidden">
                     <Image
                       src={sp.image}
-                      alt={`${sp.name} — beach bonfire`}
+                      alt={`${sp.name} - beach bonfire`}
                       fill
                       sizes="(min-width: 1024px) 50vw, 100vw"
                       className="object-cover"
@@ -259,7 +259,7 @@ export default function PackagesPage() {
             <p className="mt-4 text-ink-800/80">
               Looking for something special? We&rsquo;re happy to customize
               your setup. S&rsquo;mores are <strong>ALWAYS</strong> included
-              — and our coordinator can personalize details for birthdays,
+              - and our coordinator can personalize details for birthdays,
               anniversaries, girls&rsquo; trips, women&rsquo;s retreats, and
               more.
             </p>

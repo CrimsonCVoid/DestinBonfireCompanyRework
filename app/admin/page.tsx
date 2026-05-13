@@ -40,7 +40,7 @@ export default async function AdminPage() {
   const submissionsSource = submissionsResult.source;
   const stats = computeStats(submissions);
 
-  // Only hit PostHog if it's actually configured — otherwise show empty cards.
+  // Only hit PostHog if it's actually configured - otherwise show empty cards.
   const phReady = status.ok;
   const [
     kpis,
@@ -88,7 +88,7 @@ export default async function AdminPage() {
         [],
       ];
 
-  // Load both topologies server-side — parsed once per request, NOT shipped
+  // Load both topologies server-side - parsed once per request, NOT shipped
   // in the page chunk. The world atlas (~100KB) and the US states atlas
   // (~115KB) get passed as serialized JSON into the client map component.
   async function readJson(rel: string): Promise<unknown> {
@@ -104,7 +104,7 @@ export default async function AdminPage() {
     readJson("us-states-10m.json"),
   ]);
 
-  // Merge: cities (from getCityVisitors — reliable list of every city
+  // Merge: cities (from getCityVisitors - reliable list of every city
   // with traffic) enriched with lat/lng from cityPoints when available.
   // PostHog's GeoIP enricher doesn't always set lat/lng, but it does
   // always set city/state/country, so this guarantees the right panel
@@ -149,7 +149,7 @@ export default async function AdminPage() {
             Admin dashboard
           </h1>
           <p className="mt-1 text-sm text-ink-800/65">
-            Form submissions and website analytics — last {WINDOW_DAYS} days.
+            Form submissions and website analytics - last {WINDOW_DAYS} days.
           </p>
         </div>
         <LogoutButton />
@@ -159,7 +159,7 @@ export default async function AdminPage() {
       <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi label="Submissions (24h)" value={stats.last24h.toLocaleString()} sub={`${stats.last7d} this week · ${stats.total} all-time`} accent />
         <Kpi label="Pageviews" value={kpis.pageviews.toLocaleString()} sub={phReady ? `over ${WINDOW_DAYS} days` : "PostHog not connected"} />
-        <Kpi label="Unique visitors" value={kpis.visitors.toLocaleString()} sub={phReady ? `${kpis.sessions.toLocaleString()} sessions` : "—"} />
+        <Kpi label="Unique visitors" value={kpis.visitors.toLocaleString()} sub={phReady ? `${kpis.sessions.toLocaleString()} sessions` : "-"} />
         <Kpi
           label="Email delivery"
           value={`${stats.delivered}/${stats.total}`}
@@ -327,7 +327,7 @@ export default async function AdminPage() {
         </Card>
       </section>
 
-      {/* Geo — where visitors come from */}
+      {/* Geo - where visitors come from */}
       <section className="mt-8 rounded-3xl border border-ink-900/10 bg-white shadow-sm p-6">
         <div className="flex items-end justify-between">
           <div>
@@ -372,7 +372,7 @@ export default async function AdminPage() {
                   <div className="min-w-0">
                     <p className="truncate font-medium text-ink-900">{c.city}</p>
                     <p className="truncate text-xs text-ink-800/50">
-                      {[c.region, c.country].filter(Boolean).join(" · ") || "—"}
+                      {[c.region, c.country].filter(Boolean).join(" · ") || "-"}
                     </p>
                   </div>
                   <span className="flex-none whitespace-nowrap text-ink-800/75">
@@ -492,11 +492,11 @@ export default async function AdminPage() {
                 >
                   <div className="min-w-0">
                     <p className="truncate font-medium text-ink-900">
-                      <EventChip name={e.event} /> {e.pathname ? displayPath(e.pathname) : "—"}
+                      <EventChip name={e.event} /> {e.pathname ? displayPath(e.pathname) : "-"}
                     </p>
                     <p className="text-ink-800/50">{fmtDateTime(e.timestamp)}</p>
                   </div>
-                  <span className="flex-none text-ink-800/50">{e.device || "—"}</span>
+                  <span className="flex-none text-ink-800/50">{e.device || "-"}</span>
                 </li>
               ))}
             </ul>
@@ -668,7 +668,7 @@ function pathFromUrl(u: string): string {
 }
 
 /**
- * Cosmetic relabel — "/" is the actual route on the live site (we don't
+ * Cosmetic relabel - "/" is the actual route on the live site (we don't
  * want to rename or redirect it), but in lists like Top Pages and the
  * events feed the bare slash is visually ambiguous next to other paths
  * like "/bonfire-packages". Display "/" as "/home" everywhere paths are

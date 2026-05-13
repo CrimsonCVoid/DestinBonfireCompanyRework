@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 // We can't unmount the root layout, but we can completely re-skin the admin
-// surface — neutral dark background, no SiteHeader/SiteFooter visible behind.
+// surface - neutral dark background, no SiteHeader/SiteFooter visible behind.
 // (Site chrome still mounts; CSS below hides it within the admin route.)
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (

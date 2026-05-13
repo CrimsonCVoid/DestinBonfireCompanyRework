@@ -38,7 +38,7 @@ export function WelcomeSection() {
             </p>
             <p>
               Each bonfire includes comfortable seating, ambient lighting,
-              games like cornhole, and complimentary s&rsquo;mores — so you can
+              games like cornhole, and complimentary s&rsquo;mores - so you can
               relax and enjoy the evening with your group.
             </p>
             <p>

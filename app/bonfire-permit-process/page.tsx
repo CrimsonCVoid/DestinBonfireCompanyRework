@@ -8,7 +8,7 @@ import { COMMUNITIES, FAQ, SITE } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Bonfire Permit Process: Walton County, Destin & 30A",
   description:
-    "How beach bonfire permits work near Destin and along 30A — Walton County process, $157 fee, 2-week timing, second-choice beaches, special-event permits, and what the permit does and doesn’t cover.",
+    "How beach bonfire permits work near Destin and along 30A - Walton County process, $157 fee, 2-week timing, second-choice beaches, special-event permits, and what the permit does and doesn’t cover.",
   alternates: { canonical: "/bonfire-permit-process" },
   openGraph: {
     type: "website",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: `${SITE.domain}/bonfire-permit-process`,
     title: "Bonfire Permit Process | Destin Bonfire Company",
     description:
-      "Walton County beach bonfire permit process — timing, fees, second-choice beaches, special-event permits, and what’s included.",
+      "Walton County beach bonfire permit process - timing, fees, second-choice beaches, special-event permits, and what’s included.",
     images: [
       {
         url: "/images/BigCircleBonfireSetupNight.jpg",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bonfire Permit Process | Destin Bonfire Company",
     description:
-      "Walton County beach bonfire permit process — timing, fees, second-choice beaches, special-event permits, and what’s included.",
+      "Walton County beach bonfire permit process - timing, fees, second-choice beaches, special-event permits, and what’s included.",
     images: ["/images/BigCircleBonfireSetupNight.jpg"],
   },
 };
@@ -50,11 +50,11 @@ const STEPS = [
   {
     n: "3",
     title: "Beach is confirmed",
-    body: "Once the permit is issued, we lock in your specific beach access — first choice if available, second choice if not — and send you the address, parking notes, and arrival window.",
+    body: "Once the permit is issued, we lock in your specific beach access - first choice if available, second choice if not - and send you the address, parking notes, and arrival window.",
   },
   {
     n: "4",
-    title: "You show up — we’ve done everything else",
+    title: "You show up - we’ve done everything else",
     body: "Setup, fire, attendant, s’mores, cleanup. The permit is on file for any beach patrol or fire-rescue check. You just enjoy the night.",
   },
 ];
@@ -68,7 +68,7 @@ const COVERED = [
 ];
 
 const NOT_COVERED = [
-  "Bonfires inside Destin city limits (Okaloosa County) — not legal, period",
+  "Bonfires inside Destin city limits (Okaloosa County) - not legal, period",
   "Bonfires on private community beaches (Seaside, Rosemary, deeded condos)",
   "Personal alcohol or open-container violations on public beach",
   "Driving on the sand or unauthorized vehicle access",
@@ -106,7 +106,7 @@ export default function PermitPage() {
       <PageHeader
         eyebrow="How It Works"
         title="Bonfire Permit Process"
-        subtitle="How beach bonfire permits work near Destin and along 30A. Bonfires aren’t allowed inside Destin city limits, but they are permitted on select Walton County beaches including Miramar Beach, Santa Rosa Beach, and along 30A — and we handle the entire permit coordination for you."
+        subtitle="How beach bonfire permits work near Destin and along 30A. Bonfires aren’t allowed inside Destin city limits, but they are permitted on select Walton County beaches including Miramar Beach, Santa Rosa Beach, and along 30A - and we handle the entire permit coordination for you."
       />
 
       <section className="bg-[var(--color-sand-50)] py-20 sm:py-28">
@@ -126,7 +126,7 @@ export default function PermitPage() {
               Beach bonfires are{" "}
               <strong>not legal within Destin city limits (Okaloosa County)</strong>
               . Every legal bonfire near Destin actually takes place on a
-              permitted Walton County beach access — the closest of which is{" "}
+              permitted Walton County beach access - the closest of which is{" "}
               <Link href="/locations/miramar-beach-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">
                 Miramar Beach
               </Link>
@@ -135,7 +135,7 @@ export default function PermitPage() {
             <p>
               Walton County issues a fixed number of bonfire permits per beach
               per day, with a $157 permit fee. We host bonfires exclusively on
-              permitted accesses — including across{" "}
+              permitted accesses - including across{" "}
               <Link href="/locations/30a-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">
                 30A
               </Link>
@@ -204,7 +204,7 @@ export default function PermitPage() {
           <div className="rounded-3xl bg-white p-8 shadow-sm ring-1 ring-ink-900/5">
             <p className="eyebrow text-ink-800/75">What the permit does NOT cover</p>
             <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
-              The permit is for a bonfire — that’s it
+              The permit is for a bonfire - that’s it
             </h2>
             <ul className="mt-6 space-y-3">
               {NOT_COVERED.map((c) => (
@@ -230,7 +230,7 @@ export default function PermitPage() {
           <div className="mt-6 space-y-5 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
             <p>
               All permit fees are set by the county and paid directly to them
-              — we do not mark up or profit from permit costs in any way. The
+              - we do not mark up or profit from permit costs in any way. The
               current Walton County beach bonfire permit fee is{" "}
               <strong>$157</strong>, and it&rsquo;s built into every package
               price transparently.
@@ -297,7 +297,7 @@ export default function PermitPage() {
             Ready to plan your bonfire?
           </h2>
           <p className="mt-6 text-[15px] leading-relaxed text-ink-800/85 sm:text-base">
-            Book online or call us — we’ll handle the permit, the setup, and
+            Book online or call us - we’ll handle the permit, the setup, and
             every detail in between.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

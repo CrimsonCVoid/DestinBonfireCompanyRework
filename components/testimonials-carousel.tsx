@@ -76,9 +76,8 @@ export function TestimonialsCarousel() {
             What our guests say
           </h2>
           <p className="mt-5 text-sand-100/80">
-            {GOOGLE_REVIEWS.length}+ verified Google reviews from bachelorette
-            weekends, family reunions, proposals, and wedding receptions
-            across Destin and 30A.
+            Verified Google reviews from bachelorette weekends, family
+            reunions, proposals, and wedding receptions across Destin and 30A.
           </p>
         </div>
 

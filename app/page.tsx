@@ -4,7 +4,6 @@ import { TrustStrip } from "@/components/trust-strip";
 import { WelcomeSection } from "@/components/welcome-section";
 import { CommunitiesSection } from "@/components/communities-section";
 import { PackagesSection } from "@/components/packages-section";
-import { BacheloretteCta } from "@/components/bachelorette-cta";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { FaqAccordion } from "@/components/faq-accordion";
 import { Gallery } from "@/components/gallery";
@@ -69,7 +68,6 @@ export default function HomePage() {
       <PackagesSection />
       <TestimonialsCarousel />
       <CommunitiesSection />
-      <BacheloretteCta />
       <FaqAccordion />
       <Gallery />
       <ContactSection />

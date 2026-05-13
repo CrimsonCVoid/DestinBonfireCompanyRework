@@ -3,9 +3,13 @@ import Link from "next/link";
 import { PACKAGES, SPECIALTY_PACKAGES, type Package } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
 
-const VISIBLE = 6;
-
 export function PackagesSection() {
+  // Top row: the four "standard" packages (everything except the brand-new
+  // 2-person SKU). Sunset for Two gets the larger specialty treatment
+  // below alongside Bachelorette - they're both intimate / themed options
+  // that benefit from a roomier card.
+  const topRow = PACKAGES.filter((p) => p.slug !== "sunset-for-two");
+  const sunsetForTwo = PACKAGES.find((p) => p.slug === "sunset-for-two");
   const bachelorette = SPECIALTY_PACKAGES.find((s) => s.slug === "bachelorette-bash");
 
   return (
@@ -23,60 +27,18 @@ export function PackagesSection() {
           </p>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {PACKAGES.map((p) => (
+        {/* Top row - 4 standard packages */}
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {topRow.map((p) => (
             <PackageCard key={p.slug} p={p} />
           ))}
         </div>
 
-        {bachelorette && (
-          <div className="mt-16">
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="eyebrow">Specialty</p>
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
-                Hosting a bachelorette?
-              </h3>
-            </div>
-            <article
-              data-theme="pink"
-              className="mx-auto mt-8 grid max-w-5xl overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 md:grid-cols-[1.1fr_1.3fr]"
-            >
-              <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[280px]">
-                <Image
-                  src={bachelorette.image}
-                  alt={`${bachelorette.name} - styled bachelorette beach bonfire`}
-                  fill
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-col justify-center p-7 sm:p-9">
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
-                  Bachelorette Bonfire
-                </p>
-                <h4 className="mt-2 text-2xl font-semibold text-ink-900 sm:text-3xl">
-                  {bachelorette.name}
-                </h4>
-                <p className="mt-2 text-sm uppercase tracking-wider text-ink-800/70">
-                  {bachelorette.groupSize}
-                  {bachelorette.price ? ` · ${bachelorette.price}` : ""}
-                </p>
-                <p className="mt-4 text-[15px] leading-relaxed text-ink-800/85">
-                  Pink chairs, blankets, glow-in-the-dark rings, a styled
-                  selfie station, s’mores, and a dedicated fire attendant -
-                  built for the bride tribe and the photos that will outlive
-                  the trip.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link href={bachelorette.ctaHref} className="btn-primary">
-                    {bachelorette.ctaLabel}
-                  </Link>
-                  <BookNowButton item="bacheloretteBash" variant="ghost">
-                    Book Bachelorette
-                  </BookNowButton>
-                </div>
-              </div>
-            </article>
+        {/* Bottom row - 2 double-wide specialty cards */}
+        {(sunsetForTwo || bachelorette) && (
+          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+            {sunsetForTwo && <FeaturedPackageCard p={sunsetForTwo} />}
+            {bachelorette && <FeaturedBacheloretteCard sp={bachelorette} />}
           </div>
         )}
 
@@ -89,15 +51,14 @@ export function PackagesSection() {
   );
 }
 
+/**
+ * Top-row package card. Deliberately simple - image, name, tagline,
+ * price, capacity line, then a "See more" deep-link into the full
+ * package detail on /bonfire-packages#{slug}. No inclusion bullet
+ * list at this density; visitors who want every line item click
+ * through.
+ */
 function PackageCard({ p }: { p: Package }) {
-  // Home-page cards stay compact: always cap inclusions at VISIBLE so each
-  // card is the same height regardless of how loaded the package is. The
-  // "See more" link sends visitors to the full package detail on
-  // /bonfire-packages#{slug} - the article there has scroll-mt-24 set, so
-  // the browser lands flush below the sticky header.
-  const visible = p.includes.slice(0, VISIBLE);
-  const hasMore = p.includes.length > VISIBLE;
-
   return (
     <article
       className={`group relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 transition hover:-translate-y-1 hover:shadow-xl ${
@@ -114,7 +75,7 @@ function PackageCard({ p }: { p: Package }) {
           src={p.image}
           alt={`${p.name} - beach bonfire package`}
           fill
-          sizes="(min-width: 1280px) 20vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition duration-700 group-hover:scale-105"
         />
       </div>
@@ -132,22 +93,79 @@ function PackageCard({ p }: { p: Package }) {
           {p.groupSize} · {p.duration}
         </p>
 
-        <ul className="mt-6 flex-1 space-y-2.5 text-sm text-ink-800/90">
-          {visible.map((item) => (
-            <li key={item} className="flex gap-2.5">
-              <svg className="mt-0.5 h-4 w-4 flex-none text-[var(--color-ember-500)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+        <Link
+          href={`/bonfire-packages#${p.slug}`}
+          aria-label={`See more details for ${p.name} on the packages page`}
+          className="mt-6 inline-flex items-center justify-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:bg-[var(--color-ember-500)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ember-500)]"
+        >
+          See more
+          <svg
+            className="h-3.5 w-3.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </Link>
 
-        {hasMore && (
+        <BookNowButton
+          item={p.fareHarborKey}
+          variant={p.popular ? "primary" : "ghost"}
+          fullWidth
+          className="mt-auto pt-0 mt-7"
+        >
+          Book {p.name}
+        </BookNowButton>
+      </div>
+    </article>
+  );
+}
+
+/**
+ * Double-wide featured card for a Package (used by Sunset for Two).
+ * Horizontal image-left / content-right layout so the card visually
+ * earns its 2x footprint.
+ */
+function FeaturedPackageCard({ p }: { p: Package }) {
+  return (
+    <article className="group grid overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 md:grid-cols-[1fr_1.2fr]">
+      <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[280px]">
+        <Image
+          src={p.image}
+          alt={`${p.name} - intimate beach bonfire for two`}
+          fill
+          sizes="(min-width: 768px) 35vw, 100vw"
+          className="object-cover transition duration-700 group-hover:scale-105"
+        />
+      </div>
+      <div className="flex flex-col justify-center p-7 sm:p-9">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
+          Specialty
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold text-ink-900 sm:text-3xl">
+          {p.name}
+        </h3>
+        <p className="mt-2 text-sm text-ink-800/70">{p.tagline}</p>
+        <div className="mt-4 flex items-baseline gap-3">
+          <span className="text-4xl font-bold tracking-tight text-[var(--color-ember-600)]">
+            ${p.price}
+          </span>
+          <span className="text-xs uppercase tracking-wider text-ink-800/75">
+            {p.groupSize} · {p.duration}
+          </span>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <BookNowButton item={p.fareHarborKey}>
+            Book {p.name}
+          </BookNowButton>
           <Link
             href={`/bonfire-packages#${p.slug}`}
-            aria-label={`See more details for ${p.name} on the packages page`}
-            className="mt-3 inline-flex items-center justify-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:bg-[var(--color-ember-500)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ember-500)]"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:text-[var(--color-ember-700)]"
           >
             See more
             <svg
@@ -163,16 +181,77 @@ function PackageCard({ p }: { p: Package }) {
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
-        )}
+        </div>
+      </div>
+    </article>
+  );
+}
 
-        <BookNowButton
-          item={p.fareHarborKey}
-          variant={p.popular ? "primary" : "ghost"}
-          fullWidth
-          className="mt-7"
-        >
-          Book {p.name}
-        </BookNowButton>
+/**
+ * Double-wide featured card for the Bachelorette specialty package.
+ * data-theme="pink" wraps the card so the ember palette flips to
+ * pink inside the card while the rest of the page stays ember.
+ */
+function FeaturedBacheloretteCard({
+  sp,
+}: {
+  sp: (typeof SPECIALTY_PACKAGES)[number];
+}) {
+  return (
+    <article
+      data-theme="pink"
+      className="group grid overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 md:grid-cols-[1fr_1.2fr]"
+    >
+      <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[280px]">
+        <Image
+          src={sp.image}
+          alt={`${sp.name} - styled bachelorette beach bonfire`}
+          fill
+          sizes="(min-width: 768px) 35vw, 100vw"
+          className="object-cover transition duration-700 group-hover:scale-105"
+        />
+      </div>
+      <div className="flex flex-col justify-center p-7 sm:p-9">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
+          Specialty
+        </p>
+        <h3 className="mt-2 text-2xl font-semibold text-ink-900 sm:text-3xl">
+          {sp.name}
+        </h3>
+        <p className="mt-2 text-sm text-ink-800/70">
+          Pink chairs, glow rings, and a styled selfie station for the bride tribe.
+        </p>
+        <div className="mt-4 flex items-baseline gap-3">
+          <span className="text-4xl font-bold tracking-tight text-[var(--color-ember-600)]">
+            {sp.price ?? "From $595"}
+          </span>
+          <span className="text-xs uppercase tracking-wider text-ink-800/75">
+            {sp.groupSize}
+          </span>
+        </div>
+        <div className="mt-6 flex flex-wrap items-center gap-3">
+          <BookNowButton item="bacheloretteBash">
+            Book Bachelorette
+          </BookNowButton>
+          <Link
+            href={sp.ctaHref}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:text-[var(--color-ember-700)]"
+          >
+            See more
+            <svg
+              className="h-3.5 w-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </article>
   );

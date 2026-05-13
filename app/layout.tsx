@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { headers } from "next/headers";
 import { Fraunces, Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteHeader } from "@/components/site-header";
@@ -9,10 +10,15 @@ import { SITE } from "@/lib/site";
 import "./globals.css";
 
 // VDX Marketing - Google Tag Manager container.
-// Per VDX brief: every page must include the head snippet + body noscript fallback.
-// All Google Ads / GA4 / Meta Pixel tags are deployed by VDX inside this container-
-// do NOT add gtag.js, GA4, or Meta Pixel directly anywhere in this codebase.
-// Contact: ross@vdxmarketing.com
+// Per VDX brief: every public page must include the head snippet + body
+// noscript fallback. All Google Ads / GA4 / Meta Pixel tags are deployed
+// by VDX inside this container - do NOT add gtag.js, GA4, or Meta Pixel
+// directly anywhere in this codebase. Contact: ross@vdxmarketing.com.
+//
+// IMPORTANT: GTM is intentionally suppressed on /admin/* routes. Staff
+// pageviews would otherwise pollute Google Ads audiences / Smart Bidding
+// signals and inflate GA4 engagement metrics. Pathname comes from the
+// x-pathname header set by middleware.ts.
 const GTM_ID = "GTM-KRQ9ZJQ7";
 
 const fraunces = Fraunces({
@@ -157,37 +163,50 @@ const localBusinessJsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // Read the pathname header set by middleware.ts. Used solely to gate
+  // GTM off on /admin/* - all other behavior is unchanged.
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const gtmEnabled = !pathname.startsWith("/admin");
+
   return (
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <head>
-        {/* Google Tag Manager - VDX Marketing (head snippet, as high as possible). */}
-        <Script
-          id="gtm-head"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        {/* Google Tag Manager - VDX Marketing (head snippet, as high as
+            possible). Suppressed on /admin/* to keep staff pageviews out
+            of Google Ads audiences and GA4 engagement metrics. */}
+        {gtmEnabled && (
+          <Script
+            id="gtm-head"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${GTM_ID}');`,
-          }}
-        />
+            }}
+          />
+        )}
       </head>
       <body>
-        {/* Google Tag Manager (noscript) - must be immediately after opening <body>. */}
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
+        {/* Google Tag Manager (noscript) - must be immediately after the
+            opening <body>. Also suppressed on /admin/*. */}
+        {gtmEnabled && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:shadow-lg"

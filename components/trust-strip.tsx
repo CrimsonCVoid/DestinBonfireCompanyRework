@@ -30,7 +30,7 @@ export function TrustStrip() {
   return (
     <section className="border-y border-ink-900/10 bg-[var(--color-sand-50)] py-10">
       <div className="container-x">
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        <ul className="trust-row grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {BADGES.map((b) => (
             <li key={b.label} className="flex items-start gap-4">
               <BadgeIcon icon={b.icon} />

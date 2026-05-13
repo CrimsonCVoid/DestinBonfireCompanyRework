@@ -359,3 +359,43 @@ html body [class*="fh-lightframe-loading"] svg path {
     display: block;
   }
 }
+
+/* ==========================================================================
+   Trust strip dividers - thin vertical hairlines between adjacent badges.
+   The strip is 1 col on mobile, 2 on sm, 3 on lg, 5 on xl - each breakpoint
+   needs to hide the divider on whichever badge ends a row.
+   ========================================================================== */
+.trust-row > * {
+  position: relative;
+}
+.trust-row > *::after {
+  content: "";
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  right: -10px; /* half of the 20px (gap-5) column gap */
+  width: 1px;
+  background: rgba(26, 22, 20, 0.12);
+  pointer-events: none;
+  display: none;
+}
+/* Tablet (sm) - 2-col: divider after every odd badge that isn't the last. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .trust-row > *:nth-child(odd):not(:last-child)::after {
+    display: block;
+  }
+}
+/* Desktop (lg) - 3-col: divider after every badge EXCEPT every 3rd
+   (end of row) and the last badge overall. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .trust-row > *:not(:nth-child(3n)):not(:last-child)::after {
+    display: block;
+  }
+}
+/* Wide desktop (xl) - 5-col single row: divider after every badge
+   except the last. */
+@media (min-width: 1280px) {
+  .trust-row > *:not(:last-child)::after {
+    display: block;
+  }
+}

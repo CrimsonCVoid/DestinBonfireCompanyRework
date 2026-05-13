@@ -52,6 +52,13 @@ const REGIONS: Array<{
   sub: string;
   slugs: string[];
   anchor: string;
+  /**
+   * Optional explainer rendered between the region header and the access
+   * grid. Used where the served communities don't 1:1 map to permitted
+   * accesses (e.g. East 30A, where Rosemary and Seacrest are private
+   * communities and bonfires actually happen at Inlet Beach).
+   */
+  note?: string;
 }> = [
   {
     label: "Closest to Destin",
@@ -73,9 +80,10 @@ const REGIONS: Array<{
   },
   {
     label: "East 30A",
-    sub: "Inlet Beach, Rosemary, Seacrest",
+    sub: "Inlet Beach, Rosemary Beach, Seacrest",
     slugs: ["inlet-beach"],
     anchor: "east-30a",
+    note: "Rosemary Beach and Seacrest are private deed-restricted communities - their beach accesses aren't on the Walton County bonfire permit list. Guests staying in either community bonfire at Inlet Beach Regional Access, the closest permitted Walton County beach (about 5 minutes west of Rosemary's town center).",
   },
 ];
 
@@ -154,6 +162,12 @@ export default function LocationsPage() {
                 {r.slugs.length} permitted access{r.slugs.length === 1 ? "" : "es"}
               </p>
             </div>
+
+            {r.note && (
+              <p className="mt-6 rounded-2xl border border-ink-900/10 bg-white px-5 py-4 text-sm leading-relaxed text-ink-800/85 sm:text-[15px]">
+                {r.note}
+              </p>
+            )}
 
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {r.slugs.map((slug) => {

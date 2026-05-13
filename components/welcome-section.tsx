@@ -10,7 +10,7 @@ export function WelcomeSection() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Welcome to {SITE.name}</p>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Professionally managed beach bonfires along 30A and near Destin
+            Professionally managed beach bonfires on 30A beaches
           </h2>
           <p className="mt-6 text-base leading-relaxed text-ink-800/80 sm:text-lg">
             {SITE.name} believes in providing professionally managed,

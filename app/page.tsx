@@ -7,7 +7,6 @@ import { PackagesSection } from "@/components/packages-section";
 import { BacheloretteCta } from "@/components/bachelorette-cta";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { FaqAccordion } from "@/components/faq-accordion";
-import { ServiceAreas } from "@/components/service-areas";
 import { Gallery } from "@/components/gallery";
 import { ContactSection } from "@/components/contact-section";
 import { FAQ, GOOGLE_REVIEWS, PACKAGES, SERVICE_AREAS, SITE } from "@/lib/site";
@@ -72,7 +71,6 @@ export default function HomePage() {
       <CommunitiesSection />
       <BacheloretteCta />
       <FaqAccordion />
-      <ServiceAreas />
       <Gallery />
       <ContactSection />
 

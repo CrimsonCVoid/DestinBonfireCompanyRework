@@ -26,7 +26,7 @@ export function FaqAccordion() {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="eyebrow">Frequently Asked</p>
           <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Everything guests usually want to know
+            Everything guests want to know
           </h2>
           <p className="mt-6 max-w-md text-ink-800/75">
             Permit process, pricing, locations, and how the actual bonfire
@@ -36,9 +36,12 @@ export function FaqAccordion() {
             </a>{" "}
             and you’ll hear back from a real person.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/bonfire-permit-process" className="btn-ghost">
               Read the full permit process
+            </Link>
+            <Link href="/refund-policy" className="btn-ghost">
+              Read the refund policy
             </Link>
           </div>
         </div>

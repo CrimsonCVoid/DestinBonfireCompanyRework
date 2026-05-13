@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { SITE } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
 
@@ -50,19 +50,28 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-5 xl:gap-8 lg:flex" aria-label="Primary">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`text-[13px] font-semibold uppercase tracking-wider transition ${
-                scrolled
-                  ? "text-ink-900 hover:text-[var(--color-ember-600)]"
-                  : "text-white hover:text-[var(--color-sand-100)]"
-              }`}
-            >
-              {item.label}
-            </Link>
+        <nav className="hidden items-center gap-3 xl:gap-5 lg:flex" aria-label="Primary">
+          {NAV.map((item, idx) => (
+            <Fragment key={item.href}>
+              {idx > 0 && (
+                <span
+                  aria-hidden="true"
+                  className={`h-3 w-px ${
+                    scrolled ? "bg-ink-900/15" : "bg-white/30"
+                  }`}
+                />
+              )}
+              <Link
+                href={item.href}
+                className={`text-[13px] font-semibold uppercase tracking-wider transition ${
+                  scrolled
+                    ? "text-ink-900 hover:text-[var(--color-ember-600)]"
+                    : "text-white hover:text-[var(--color-sand-100)]"
+                }`}
+              >
+                {item.label}
+              </Link>
+            </Fragment>
           ))}
         </nav>
 

@@ -69,7 +69,9 @@ export default function PackagesPage() {
           price: p.price.toString(),
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
-          url: `${FAREHARBOR.fallbackUrl}items/${FAREHARBOR.items[p.fareHarborKey]}/`,
+          url: p.fareHarborKey
+            ? `${FAREHARBOR.fallbackUrl}items/${FAREHARBOR.items[p.fareHarborKey]}/`
+            : FAREHARBOR.fallbackUrl,
         },
       },
     })),

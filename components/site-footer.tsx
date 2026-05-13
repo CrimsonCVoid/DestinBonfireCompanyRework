@@ -86,9 +86,7 @@ export function SiteFooter() {
               </a>
             </li>
             <li className="text-sand-200/80">
-              {SITE.address.street}
-              <br />
-              {SITE.address.city}, {SITE.address.region} {SITE.address.postal}
+              {SITE.address.city}, {SITE.address.region}
             </li>
             <li className="text-sand-200/60">
               Mon–Fri · 9:00 AM – 6:00 PM

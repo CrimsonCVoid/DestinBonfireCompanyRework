@@ -94,10 +94,38 @@ export type Package = {
   popular?: boolean;
   image: string;
   includes: string[];
-  fareHarborKey: FareHarborItemKey;
+  // Optional: when omitted, the BookNowButton opens the generic FareHarbor
+  // picker. Use this for packages whose FareHarbor item ID isn't wired yet
+  // (e.g. brand-new SKUs awaiting an owner to publish in FareHarbor).
+  fareHarborKey?: FareHarborItemKey;
 };
 
 export const PACKAGES: Package[] = [
+  {
+    slug: "sunset-for-two",
+    name: "The Sunset for Two",
+    price: 329,
+    groupSize: "Up to 2 guests",
+    duration: "1.5 hours",
+    tagline: "An intimate, romantic beach bonfire for two",
+    // Placeholder image — swap for a proper "couple by the fire" shot when
+    // the owner sends one. fareHarborKey intentionally omitted until the
+    // 2-person SKU is published in FareHarbor; until then the Book CTA opens
+    // the generic picker and the booker selects the right item there.
+    image: "/images/MarryMeProposalCouple.jpg",
+    includes: [
+      "S’mores for two",
+      "Bluetooth speaker",
+      "Two beach chairs with blanket",
+      "Private beach bonfire setup",
+      "1.5 hour fire",
+      "Tiki torches",
+      "On-site bonfire attendant",
+      "Welcome sign",
+      "Full setup & cleanup",
+      "$157 Walton County permit",
+    ],
+  },
   {
     slug: "cozy-fire",
     name: "The Cozy Fire",

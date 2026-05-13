@@ -113,10 +113,11 @@ export const PACKAGES: Package[] = [
     groupSize: "Up to 2 guests",
     duration: "1.5 hours",
     tagline: "An intimate, romantic beach bonfire for two",
-    // Placeholder image — swap for a proper "couple by the fire" shot when
-    // the owner sends one. fareHarborKey intentionally omitted: per owner
-    // direction this package is booked by phone, not via FareHarbor.
-    image: "/images/MarryMeProposalCouple.jpg",
+    // Intimate 2-person setup at dusk: pair of chairs flanking a small
+    // fire bowl on a wooden tripod, peach roses + lanterns in front,
+    // distant condos lit up behind. fareHarborKey intentionally omitted -
+    // per owner direction this package is booked by phone, not FareHarbor.
+    image: "/images/SunsetForTwoFlowers.jpg",
     callToBook: true,
     includes: [
       "S’mores for two",
@@ -163,7 +164,7 @@ export const PACKAGES: Package[] = [
     duration: "2 hours",
     tagline: "Our most popular option for families and small groups",
     popular: true,
-    image: "/images/Wideshot12ChairsBeach.jpeg",
+    image: "/images/SunsetCircle12Chairs.jpg",
     fareHarborKey: "sunsetCircle",
     includes: [
       "S’mores",
@@ -253,7 +254,7 @@ export const SPECIALTY_PACKAGES: SpecialtyPackage[] = [
       "Perfect for wedding welcome parties, family reunions, corporate events, and large group celebrations. Contact event planner for customization.",
     ctaLabel: "Contact Event Planner",
     ctaHref: "tel:+18507061325",
-    image: "/images/WideshotTruckBeachFire.jpg",
+    image: "/images/UltimateBonfireBigU.jpg",
   },
   {
     slug: "bachelorette-bash",

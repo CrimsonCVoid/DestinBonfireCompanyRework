@@ -11,7 +11,7 @@ const BADGES = [
   },
   {
     label: "Verified guest reviews",
-    sub: "5★ across Google, FareHarbor & The Knot",
+    sub: "5★ across Google & Tripadvisor",
     icon: "star" as const,
   },
   {

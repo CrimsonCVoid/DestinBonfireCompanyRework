@@ -126,7 +126,7 @@ function PackageCard({ p }: { p: Package }) {
         </Link>
 
         {p.callToBook ? (
-          <div className="mt-auto pt-0 mt-7">
+          <div className="mt-7">
             <CallToBookButton
               packageKey={p.slug}
               variant={p.popular ? "primary" : "ghost"}
@@ -150,7 +150,7 @@ function PackageCard({ p }: { p: Package }) {
             item={p.fareHarborKey}
             variant={p.popular ? "primary" : "ghost"}
             fullWidth
-            className="mt-auto pt-0 mt-7"
+            className="mt-7"
           >
             Book Now
           </BookNowButton>

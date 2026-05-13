@@ -338,7 +338,18 @@ export const SERVICE_AREAS: ServiceArea[] = [
   },
 ];
 
-export type FaqItem = { q: string; a: string; topic?: string };
+export type FaqItem = {
+  q: string;
+  a: string;
+  topic?: string;
+  /**
+   * Optional follow-up links rendered as small button pills under the
+   * answer in the FAQ accordion. Use for questions where the natural
+   * next step is jumping to another page (locations, refund policy,
+   * permit process, packages, etc.).
+   */
+  links?: Array<{ label: string; href: string }>;
+};
 
 export const FAQ: FaqItem[] = [
   // Pricing & packages
@@ -385,21 +396,28 @@ export const FAQ: FaqItem[] = [
     topic: "Locations",
     q: "Can I have a bonfire directly in Destin?",
     a: "No. Beach bonfires are not permitted within Destin city limits (Okaloosa County). The closest legal bonfire beach is Miramar Beach in unincorporated Walton County, about 10–15 minutes east of most Destin condos.",
+    links: [
+      { label: "See the Destin guide", href: "/destin" },
+      { label: "Closest beach details", href: "/service-areas/scenic-gulf-drive" },
+    ],
   },
   {
     topic: "Locations",
     q: "Where can I have a beach bonfire on 30A?",
     a: "We host on every permitted regional access along 30A - including Ed Walline, Gulfview Heights, Santa Clara, Dune Allen, Fort Panic, Blue Mountain, Walton Dunes, One Seagrove, Grayton Dunes, and Inlet Beach. Browse our locations to see which is closest to where you’re staying.",
+    links: [
+      { label: "See every beach we serve", href: "/locations" },
+      { label: "30A community guide", href: "/locations/30a-bonfires" },
+    ],
   },
   {
     topic: "Locations",
     q: "Can I have a bonfire on Seaside or Rosemary Beach?",
     a: "Not directly on the private community beaches. We host Seaside guests at One Seagrove, Grayton Dunes, or Santa Clara (all permitted Walton County accesses), and Rosemary Beach guests at the adjacent Inlet Beach Regional Access.",
-  },
-  {
-    topic: "Locations",
-    q: "Which beach is best for a bonfire?",
-    a: "It depends on your group. Larger families often prefer Ed Walline (lots of amenities) or Inlet Beach (biggest lot). Couples and bachelorettes often prefer Blue Mountain or Walton Dunes (quieter, more photogenic). Tell us where you’re staying and we’ll match you with the right access.",
+    links: [
+      { label: "Seaside guide", href: "/locations/seaside-bonfires" },
+      { label: "Rosemary Beach guide", href: "/locations/rosemary-beach-bonfires" },
+    ],
   },
 
   // Booking
@@ -407,16 +425,34 @@ export const FAQ: FaqItem[] = [
     topic: "Booking",
     q: "How early should I book my bonfire?",
     a: "As early as possible - especially during peak season (May–August, holiday weekends). Booking early secures your date in our schedule. The exact beach is locked in ~2 weeks out when permits are issued.",
+    links: [{ label: "See all packages", href: "/bonfire-packages" }],
   },
   {
     topic: "Booking",
     q: "What happens if it rains?",
     a: "Walton County bonfire permits are subject to weather and fire-safety conditions. If your bonfire is unsafe to hold (heavy rain, lightning, red-flag fire conditions), we’ll work with you to reschedule for another available date during your stay. Read our refund policy for full details.",
+    links: [{ label: "Read the refund policy", href: "/refund-policy" }],
+  },
+  {
+    topic: "Booking",
+    q: "What's the maximum group size you can accommodate?",
+    a: "There's no hard maximum - we've hosted everything from couples to 100+ guest corporate retreats and large wedding receptions. Anything over 29 guests runs as our Ultimate Bonfire package with custom planning, additional staffing, and (often) a special-event permit. Call us with your group size and we'll build the night around it.",
+    links: [{ label: "See all packages", href: "/bonfire-packages" }],
   },
   {
     topic: "Booking",
     q: "Can I book for a group larger than 29?",
-    a: "Yes. Our Ultimate Bonfire package handles 30+ guests with custom planning, additional staffing, and (often) a special-event permit. Call us at (850) 706-1325 for a custom quote.",
+    a: "Yes. Our Ultimate Bonfire package handles 30+ guests with custom planning, additional staffing, and (often) a special-event permit. Call us at (850) 706-1325 for a custom quote. There's no upper limit - we've done groups of 100+ for corporate trips and wedding parties.",
+    links: [{ label: "Browse add-ons & upgrades", href: "/add-ons" }],
+  },
+  {
+    topic: "Booking",
+    q: "Can you add bistro / market lights to my bonfire?",
+    a: "Yes - bistro and market lights are one of our most-requested upgrades and a beautiful add to any evening setup, especially proposals, weddings, and bachelorette photos. Lighting that draws additional power, expanded lit areas, or amplified sound generally requires Walton County's special-event permit. We coordinate the special-event paperwork on top of the standard bonfire permit; the additional county fee is quoted separately when we book. Browse the full lighting menu and the rest of our add-ons on the add-ons page.",
+    links: [
+      { label: "See lighting add-ons", href: "/add-ons#lighting-ambiance" },
+      { label: "Read the permit process", href: "/bonfire-permit-process" },
+    ],
   },
 
   // The night itself

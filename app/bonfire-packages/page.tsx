@@ -190,9 +190,16 @@ export default function PackagesPage() {
                     </li>
                   ))}
                 </ul>
-                <BookNowButton item={p.fareHarborKey} className="mt-10">
-                  Book {p.name}
-                </BookNowButton>
+                <div className="mt-10 flex flex-wrap items-center gap-3">
+                  <BookNowButton item={p.fareHarborKey}>
+                    Book {p.name}
+                  </BookNowButton>
+                  {p.slug === "bonfire-bash" && (
+                    <Link href="/add-ons" className="btn-ghost">
+                      Browse add-ons &amp; upgrades
+                    </Link>
+                  )}
+                </div>
               </div>
             </article>
           ))}

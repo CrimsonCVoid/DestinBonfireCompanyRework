@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: "/destin", priority: 0.95, changeFrequency: "monthly" as const },
     { url: "/locations", priority: 0.9, changeFrequency: "monthly" as const },
     { url: "/bonfire-packages", priority: 0.9, changeFrequency: "monthly" as const },
+    { url: "/add-ons", priority: 0.75, changeFrequency: "monthly" as const },
     { url: "/bachelorette-bonfire", priority: 0.9, changeFrequency: "monthly" as const },
     { url: "/bonfire-permit-process", priority: 0.8, changeFrequency: "monthly" as const },
     { url: "/blog", priority: 0.7, changeFrequency: "weekly" as const },

@@ -88,9 +88,28 @@ export function FaqAccordion() {
                           }`}
                         >
                           <div className="overflow-hidden">
-                            <p className="px-5 pb-6 text-[15px] leading-relaxed text-ink-800/85">
-                              {item.a}
-                            </p>
+                            <div className="px-5 pb-6">
+                              <p className="text-[15px] leading-relaxed text-ink-800/85">
+                                {item.a}
+                              </p>
+                              {item.links && item.links.length > 0 && (
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                  {item.links.map((l) => (
+                                    <Link
+                                      key={l.href}
+                                      href={l.href}
+                                      className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-ember-500)]/30 bg-white px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-700)] transition hover:border-[var(--color-ember-500)] hover:bg-[var(--color-ember-500)] hover:text-white"
+                                    >
+                                      {l.label}
+                                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12" />
+                                        <polyline points="12 5 19 12 12 19" />
+                                      </svg>
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>

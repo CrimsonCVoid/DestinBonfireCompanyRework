@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/hero";
 import { TrustStrip } from "@/components/trust-strip";
 import { WelcomeSection } from "@/components/welcome-section";
-import { WhyChooseUs } from "@/components/why-choose-us";
 import { CommunitiesSection } from "@/components/communities-section";
 import { PackagesSection } from "@/components/packages-section";
 import { BacheloretteCta } from "@/components/bachelorette-cta";
@@ -70,7 +69,6 @@ export default function HomePage() {
       <WelcomeSection />
       <PackagesSection />
       <TestimonialsCarousel />
-      <WhyChooseUs />
       <CommunitiesSection />
       <BacheloretteCta />
       <FaqAccordion />

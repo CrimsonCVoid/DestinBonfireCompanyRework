@@ -1,7 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { PACKAGES, type Package } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
 
@@ -39,10 +37,13 @@ export function PackagesSection() {
 }
 
 function PackageCard({ p }: { p: Package }) {
-  const [expanded, setExpanded] = useState(false);
-  const overflow = p.includes.length - VISIBLE;
-  const visible = expanded ? p.includes : p.includes.slice(0, VISIBLE);
-  const panelId = `pkg-${p.slug}-extras`;
+  // Home-page cards stay compact: always cap inclusions at VISIBLE so each
+  // card is the same height regardless of how loaded the package is. The
+  // "See more" link sends visitors to the full package detail on
+  // /bonfire-packages#{slug} — the article there has scroll-mt-24 set, so
+  // the browser lands flush below the sticky header.
+  const visible = p.includes.slice(0, VISIBLE);
+  const hasMore = p.includes.length > VISIBLE;
 
   return (
     <article
@@ -78,10 +79,7 @@ function PackageCard({ p }: { p: Package }) {
           {p.groupSize} · {p.duration}
         </p>
 
-        <ul
-          id={panelId}
-          className="mt-6 flex-1 space-y-2.5 text-sm text-ink-800/90"
-        >
+        <ul className="mt-6 flex-1 space-y-2.5 text-sm text-ink-800/90">
           {visible.map((item) => (
             <li key={item} className="flex gap-2.5">
               <svg className="mt-0.5 h-4 w-4 flex-none text-[var(--color-ember-500)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -92,17 +90,15 @@ function PackageCard({ p }: { p: Package }) {
           ))}
         </ul>
 
-        {overflow > 0 && (
-          <button
-            type="button"
-            onClick={() => setExpanded((e) => !e)}
-            aria-expanded={expanded}
-            aria-controls={panelId}
+        {hasMore && (
+          <Link
+            href={`/bonfire-packages#${p.slug}`}
+            aria-label={`See more details for ${p.name} on the packages page`}
             className="mt-3 inline-flex items-center justify-center gap-1.5 self-start rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:bg-[var(--color-ember-500)]/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ember-500)]"
           >
-            {expanded ? "Show less" : `+ ${overflow} more included`}
+            See more
             <svg
-              className={`h-3.5 w-3.5 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+              className="h-3.5 w-3.5"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -110,9 +106,10 @@ function PackageCard({ p }: { p: Package }) {
               strokeLinecap="round"
               strokeLinejoin="round"
             >
-              <polyline points="6 9 12 15 18 9" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
             </svg>
-          </button>
+          </Link>
         )}
 
         <BookNowButton

@@ -10,7 +10,7 @@ const NAV = [
   { href: "/bonfire-packages", label: "Packages" },
   { href: "/#AREASWESERVE", label: "Locations We Serve" },
   { href: "/bachelorette-bonfire", label: "Bachelorette" },
-  { href: "/bonfire-permit-process", label: "Permits" },
+  { href: "/destin", label: "Destin" },
   { href: "/refund-policy", label: "Refund Policy" },
   { href: "/blog", label: "Blog" },
 ];

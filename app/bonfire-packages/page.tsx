@@ -3,6 +3,7 @@ import Image from "next/image";
 import { PageHeader } from "@/components/page-header";
 import { ContactSection } from "@/components/contact-section";
 import { BookNowButton } from "@/components/book-now-button";
+import { CallToBookButton } from "@/components/call-to-book-button";
 import Link from "next/link";
 import { FAREHARBOR, PACKAGES, SITE, SPECIALTY_PACKAGES } from "@/lib/site";
 
@@ -69,9 +70,11 @@ export default function PackagesPage() {
           price: p.price.toString(),
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
-          url: p.fareHarborKey
-            ? `${FAREHARBOR.fallbackUrl}items/${FAREHARBOR.items[p.fareHarborKey]}/`
-            : FAREHARBOR.fallbackUrl,
+          url: p.callToBook
+            ? `${SITE.domain}/bonfire-packages#${p.slug}`
+            : p.fareHarborKey
+              ? `${FAREHARBOR.fallbackUrl}items/${FAREHARBOR.items[p.fareHarborKey]}/`
+              : FAREHARBOR.fallbackUrl,
         },
       },
     })),
@@ -191,15 +194,33 @@ export default function PackagesPage() {
                   ))}
                 </ul>
                 <div className="mt-10 flex flex-wrap items-center gap-3">
-                  <BookNowButton item={p.fareHarborKey}>
-                    Book {p.name}
-                  </BookNowButton>
+                  {p.callToBook ? (
+                    <CallToBookButton packageKey={p.slug}>
+                      Call to Book
+                    </CallToBookButton>
+                  ) : (
+                    <BookNowButton item={p.fareHarborKey}>
+                      Book Now
+                    </BookNowButton>
+                  )}
                   {p.slug === "bonfire-bash" && (
                     <Link href="/add-ons" className="btn-ghost">
                       Browse add-ons &amp; upgrades
                     </Link>
                   )}
                 </div>
+                {p.callToBook && (
+                  <p className="mt-3 text-sm text-ink-800/75">
+                    Call{" "}
+                    <a
+                      href={SITE.phoneHref}
+                      className="font-semibold text-[var(--color-ember-600)] underline-offset-2 hover:underline"
+                    >
+                      {SITE.phone}
+                    </a>{" "}
+                    to book {p.name}. Our team handles the date, beach, and details on the call.
+                  </p>
+                )}
               </div>
             </article>
           ))}

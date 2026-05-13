@@ -323,3 +323,39 @@ html body [class*="fh-lightframe-loading"] svg path {
     animation: none !important;
   }
 }
+
+/* ==========================================================================
+   Package row dividers - thin vertical hairlines in the gutters between
+   adjacent package cards on the home page. Pseudo-element approach sits
+   the line inside the column gap so cards keep their rounded white tile
+   look without any visible border on the edge itself.
+   ========================================================================== */
+.package-row > * {
+  position: relative;
+}
+.package-row > *::after {
+  content: "";
+  position: absolute;
+  top: 14%;
+  bottom: 14%;
+  right: -12px; /* half of the 24px (gap-6) column gap */
+  width: 1px;
+  background: rgba(26, 22, 20, 0.10);
+  pointer-events: none;
+  display: none;
+}
+/* Tablet (sm to lg) - 2-up grid: line only after odd-indexed cards
+   (the first card of each row), since even-indexed cards are at the
+   rightmost edge of their row. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .package-row > *:nth-child(odd):not(:last-child)::after {
+    display: block;
+  }
+}
+/* Desktop (lg+) - 4-up grid (or 2-up specialty row): line after every
+   card except the last. */
+@media (min-width: 1024px) {
+  .package-row > *:not(:last-child)::after {
+    display: block;
+  }
+}

@@ -10,8 +10,8 @@ const BADGES = [
     icon: "pin" as const,
   },
   {
-    label: "Proud military family",
-    sub: "Veteran-owned, family-operated",
+    label: "Proudly a military family",
+    sub: "Family-owned and family-operated",
     icon: "flag" as const,
   },
   {
@@ -87,12 +87,49 @@ function BadgeIcon({ icon }: { icon: "shield" | "pin" | "star" | "check" | "flag
         </svg>
       );
     case "flag":
-      // Waving flagpole — pole on the left, flag waving to the right.
-      // Matches the stroke weight of the rest of the badge icon set.
+      // Stars and Stripes badge — full-color American flag rendered at
+      // the same vertical footprint as the other badge icons. Uses the
+      // canonical USFA proportions (1.9:1) so it reads as a flag at a
+      // glance rather than a generic rectangle.
       return (
-        <svg {...props}>
-          <line x1="5" y1="22" x2="5" y2="3" />
-          <path d="M5 4 C 9 2 13 6 17 4 C 19 3 20 3 20 3 V 12 C 20 12 19 12 17 13 C 13 15 9 11 5 13 Z" />
+        <svg
+          role="img"
+          aria-label="American flag"
+          width={36}
+          height={20}
+          viewBox="0 0 38 20"
+          className="mt-1.5 flex-none rounded-[2px] shadow-sm ring-1 ring-ink-900/10"
+        >
+          {/* 13 horizontal stripes (7 red, 6 white) */}
+          {Array.from({ length: 13 }).map((_, i) => (
+            <rect
+              key={i}
+              x={0}
+              y={(i * 20) / 13}
+              width={38}
+              height={20 / 13}
+              fill={i % 2 === 0 ? "#B22234" : "#FFFFFF"}
+            />
+          ))}
+          {/* Blue canton, 7/13 height × 0.76 / 1.9 width per spec */}
+          <rect x={0} y={0} width={15.2} height={(20 * 7) / 13} fill="#3C3B6E" />
+          {/* Simplified star field — five small white stars on the canton.
+              The real flag has 50; we render a tasteful subset for legibility
+              at 36×20 instead of a muddy dot grid. */}
+          {[
+            [3, 1.5],
+            [8, 1.5],
+            [13, 1.5],
+            [5.5, 4],
+            [10.5, 4],
+            [3, 6.5],
+            [8, 6.5],
+            [13, 6.5],
+            [5.5, 9],
+            [10.5, 9],
+          ].map(([cx, cy], i) => (
+            <circle key={i} cx={cx} cy={cy} r={0.55} fill="#FFFFFF" />
+          ))}
         </svg>
       );
   }

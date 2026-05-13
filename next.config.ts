@@ -33,7 +33,10 @@ const config: NextConfig = {
       // Legacy / variant slugs
       { source: "/areas-we-serve", destination: "/#service-areas", permanent: true },
       { source: "/service-areas", destination: "/#service-areas", permanent: true },
-      { source: "/locations", destination: "/#locations", permanent: true },
+      // NOTE: /locations is a real page now (app/locations/page.tsx) - do
+      // NOT redirect it. Same goes for /locations/[community] community
+      // hubs. The legacy redirect to /#locations was removed once the
+      // dedicated index shipped.
       { source: "/packages", destination: "/bonfire-packages", permanent: true },
       { source: "/bonfire-package", destination: "/bonfire-packages", permanent: true },
       { source: "/permits", destination: "/bonfire-permit-process", permanent: true },

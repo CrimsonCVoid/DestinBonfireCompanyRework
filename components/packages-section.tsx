@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PACKAGES, SPECIALTY_PACKAGES, type Package } from "@/lib/site";
+import { PACKAGES, SITE, SPECIALTY_PACKAGES, type Package } from "@/lib/site";
 import { BookNowButton } from "./book-now-button";
+import { CallToBookButton } from "./call-to-book-button";
 
 export function PackagesSection() {
   // Top row: the four "standard" packages (everything except the brand-new
@@ -27,24 +28,35 @@ export function PackagesSection() {
           </p>
         </div>
 
-        {/* Top row - 4 standard packages */}
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Top row - 4 standard packages.
+            The `package-row` class adds thin vertical hairlines in the
+            gutters between adjacent cards (lg 4-up + sm/md 2-up) via the
+            ::after pseudo-element rule in globals.css. */}
+        <div className="package-row mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {topRow.map((p) => (
             <PackageCard key={p.slug} p={p} />
           ))}
         </div>
 
+        {/* Horizontal hairline between the standard row and the featured
+            specialty row. */}
+        {(sunsetForTwo || bachelorette) && (
+          <div
+            className="mx-auto mt-10 h-px max-w-5xl bg-ink-900/10"
+            aria-hidden="true"
+          />
+        )}
+
         {/* Bottom row - 2 double-wide specialty cards */}
         {(sunsetForTwo || bachelorette) && (
-          <div className="mt-6 grid gap-6 lg:grid-cols-2">
+          <div className="package-row mt-10 grid gap-6 lg:grid-cols-2">
             {sunsetForTwo && <FeaturedPackageCard p={sunsetForTwo} />}
             {bachelorette && <FeaturedBacheloretteCard sp={bachelorette} />}
           </div>
         )}
 
         <p className="mt-12 text-center text-sm text-ink-800/75">
-          Pricing includes the $157 Walton County permit fee. 18% gratuity
-          applies to The Bonfire Bash.
+          Pricing includes the $157 Walton County permit fee.
         </p>
       </div>
     </section>
@@ -113,14 +125,36 @@ function PackageCard({ p }: { p: Package }) {
           </svg>
         </Link>
 
-        <BookNowButton
-          item={p.fareHarborKey}
-          variant={p.popular ? "primary" : "ghost"}
-          fullWidth
-          className="mt-auto pt-0 mt-7"
-        >
-          Book {p.name}
-        </BookNowButton>
+        {p.callToBook ? (
+          <div className="mt-auto pt-0 mt-7">
+            <CallToBookButton
+              packageKey={p.slug}
+              variant={p.popular ? "primary" : "ghost"}
+              fullWidth
+            >
+              Call to Book
+            </CallToBookButton>
+            <p className="mt-2 text-center text-xs text-ink-800/70">
+              Call{" "}
+              <a
+                href={SITE.phoneHref}
+                className="font-semibold text-[var(--color-ember-600)] underline-offset-2 hover:underline"
+              >
+                {SITE.phone}
+              </a>{" "}
+              to book {p.name}
+            </p>
+          </div>
+        ) : (
+          <BookNowButton
+            item={p.fareHarborKey}
+            variant={p.popular ? "primary" : "ghost"}
+            fullWidth
+            className="mt-auto pt-0 mt-7"
+          >
+            Book Now
+          </BookNowButton>
+        )}
       </div>
     </article>
   );
@@ -160,9 +194,15 @@ function FeaturedPackageCard({ p }: { p: Package }) {
           </span>
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <BookNowButton item={p.fareHarborKey}>
-            Book {p.name}
-          </BookNowButton>
+          {p.callToBook ? (
+            <CallToBookButton packageKey={p.slug}>
+              Call to Book
+            </CallToBookButton>
+          ) : (
+            <BookNowButton item={p.fareHarborKey}>
+              Book Now
+            </BookNowButton>
+          )}
           <Link
             href={`/bonfire-packages#${p.slug}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-ember-600)] transition hover:text-[var(--color-ember-700)]"
@@ -231,7 +271,7 @@ function FeaturedBacheloretteCard({
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <BookNowButton item="bacheloretteBash">
-            Book Bachelorette
+            Book Now
           </BookNowButton>
           <Link
             href={sp.ctaHref}

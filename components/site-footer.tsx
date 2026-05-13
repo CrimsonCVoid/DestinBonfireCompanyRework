@@ -39,6 +39,18 @@ export function SiteFooter() {
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
             </a>
+            <a
+              href={SITE.social.tiktok}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="TikTok"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition hover:border-[var(--color-ember-500)] hover:text-[var(--color-ember-500)]"
+            >
+              {/* Stylized TikTok glyph - the iconic music-note curl */}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.6 7.7a6 6 0 0 1-3.6-1.2v8.3a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.9a2.8 2.8 0 1 0 1.9 2.7V2h2.8a4 4 0 0 0 3.7 3.7v2z" />
+              </svg>
+            </a>
           </div>
         </div>
 
@@ -65,7 +77,7 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
-              <Link className="text-sand-200/60 hover:text-[var(--color-ember-400)]" href="/#service-areas">
+              <Link className="text-sand-200/60 hover:text-[var(--color-ember-400)]" href="/locations">
                 All 11 beach accesses →
               </Link>
             </li>

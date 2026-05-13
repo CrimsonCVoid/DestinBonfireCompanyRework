@@ -20,6 +20,7 @@ export const SITE = {
   social: {
     facebook: "https://facebook.com/Destin-Bonfire-Company-100088117208761",
     instagram: "https://instagram.com/destin_bonfire_company",
+    tiktok: "https://www.tiktok.com/@destinbonfire",
   },
   hours: {
     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -98,6 +99,10 @@ export type Package = {
   // picker. Use this for packages whose FareHarbor item ID isn't wired yet
   // (e.g. brand-new SKUs awaiting an owner to publish in FareHarbor).
   fareHarborKey?: FareHarborItemKey;
+  // When true, the package's primary CTA is a "Call to Book" tel: link
+  // instead of a FareHarbor Lightframe trigger. Use for packages the owner
+  // wants to qualify by phone (custom dates, group logistics, deposits, etc.).
+  callToBook?: boolean;
 };
 
 export const PACKAGES: Package[] = [
@@ -109,10 +114,10 @@ export const PACKAGES: Package[] = [
     duration: "1.5 hours",
     tagline: "An intimate, romantic beach bonfire for two",
     // Placeholder image — swap for a proper "couple by the fire" shot when
-    // the owner sends one. fareHarborKey intentionally omitted until the
-    // 2-person SKU is published in FareHarbor; until then the Book CTA opens
-    // the generic picker and the booker selects the right item there.
+    // the owner sends one. fareHarborKey intentionally omitted: per owner
+    // direction this package is booked by phone, not via FareHarbor.
     image: "/images/MarryMeProposalCouple.jpg",
+    callToBook: true,
     includes: [
       "S’mores for two",
       "Bluetooth speaker",
@@ -208,6 +213,7 @@ export const PACKAGES: Package[] = [
     tagline: "Ideal for big events and unforgettable group nights",
     image: "/images/BigCircleBonfireSetupNight.jpg",
     fareHarborKey: "bonfireBash",
+    callToBook: true,
     includes: [
       "S’mores",
       "TWO On-site bonfire attendants",

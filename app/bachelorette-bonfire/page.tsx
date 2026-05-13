@@ -63,7 +63,7 @@ const PHOTO_READY_EXTRAS = [
 const ADDONS = [
   { name: "Themed décor", detail: "Custom themes beyond pink - coordinated to your party." },
   { name: "Custom accessories", detail: "Personalized signs, sashes, and group merchandise." },
-  { name: "Food add-ons", detail: "Curated spreads from our favorite local vendors." },
+  { name: "Food coordination", detail: "We connect you with our favorite local caterers and vendors and coordinate timing so dinner arrives ready." },
   { name: "Upgraded seating layouts", detail: "Lounge-style or extended seating for larger parties." },
 ];
 
@@ -85,7 +85,7 @@ export default function BachelorettePage() {
   return (
     <div data-theme="pink">
       <PageHeader
-        eyebrow="Styled Bachelorette Beach Bonfire Experience"
+        eyebrow="Styled Beach Bonfires"
         title="Bachelorette Bonfire"
         subtitle="Planning a bachelorette trip to Destin or 30A? Celebrate with a styled beach bonfire experience that goes beyond the traditional setup - coordinated décor, thoughtful details, and a fun, memorable atmosphere for your bride tribe."
         video="/videos/bachelorette-setup.mp4"

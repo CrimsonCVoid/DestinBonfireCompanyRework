@@ -373,12 +373,12 @@ html body [class*="fh-lightframe-loading"] svg path {
   position: absolute;
   /* Line sits centered on the badge label/sub-label text, which lives
      in the upper portion of the li (icon + text are flex items-start).
-     The asymmetric top/bottom values shift the midpoint up to ~38%
+     The asymmetric top/bottom values shift the midpoint up to ~40%
      of the cell height so the hairline visually centers on the copy
      rather than the full li bounding box. */
-  top: 8%;
-  bottom: 32%;
-  right: -10px; /* half of the 20px (gap-5) column gap */
+  top: 2%;
+  bottom: 22%;
+  right: -14px; /* half of the 28px (gap-7) column gap */
   width: 1px;
   background: rgba(26, 22, 20, 0.12);
   pointer-events: none;

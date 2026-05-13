@@ -24,10 +24,10 @@ export function Hero() {
       />
 
       <div className="container-x relative flex min-h-[92vh] flex-col items-center justify-center py-32 text-center text-white">
-        <p className="eyebrow text-[var(--color-ember-400)]">Destin · 30A · Walton County</p>
+        <p className="eyebrow text-[var(--color-ember-400)]">30A · Destin · Walton County</p>
         <h1 className="mt-5 text-5xl font-semibold leading-[1.04] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem]">
           All-Inclusive Beach Bonfire Experiences
-          <span className="block text-[var(--color-ember-400)]">Near Destin &amp; 30A</span>
+          <span className="block text-[var(--color-ember-400)]">Serving 30A &amp; Destin</span>
         </h1>
         <p className="mt-8 max-w-2xl text-balance text-lg leading-relaxed text-sand-100 sm:text-xl">
           Private, professionally hosted bonfires on permitted Walton County beaches.

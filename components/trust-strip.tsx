@@ -1,13 +1,18 @@
 const BADGES = [
   {
     label: "Fully Walton County permitted",
-    sub: "Walton County permit handled on every booking",
+    sub: "Walton County permitting on every booking",
     icon: "shield" as const,
   },
   {
     label: "Locally owned & operated",
     sub: "Built and run from 30A",
     icon: "pin" as const,
+  },
+  {
+    label: "Proud military family",
+    sub: "Veteran-owned, family-operated",
+    icon: "flag" as const,
   },
   {
     label: "Verified guest reviews",
@@ -25,7 +30,7 @@ export function TrustStrip() {
   return (
     <section className="border-y border-ink-900/10 bg-[var(--color-sand-50)] py-10">
       <div className="container-x">
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {BADGES.map((b) => (
             <li key={b.label} className="flex items-start gap-4">
               <BadgeIcon icon={b.icon} />
@@ -41,7 +46,7 @@ export function TrustStrip() {
   );
 }
 
-function BadgeIcon({ icon }: { icon: "shield" | "pin" | "star" | "check" }) {
+function BadgeIcon({ icon }: { icon: "shield" | "pin" | "star" | "check" | "flag" }) {
   const props = {
     width: 28,
     height: 28,
@@ -79,6 +84,15 @@ function BadgeIcon({ icon }: { icon: "shield" | "pin" | "star" | "check" }) {
         <svg {...props}>
           <circle cx="12" cy="12" r="10" />
           <polyline points="16 9 11 14 8 11" />
+        </svg>
+      );
+    case "flag":
+      // Waving flagpole — pole on the left, flag waving to the right.
+      // Matches the stroke weight of the rest of the badge icon set.
+      return (
+        <svg {...props}>
+          <line x1="5" y1="22" x2="5" y2="3" />
+          <path d="M5 4 C 9 2 13 6 17 4 C 19 3 20 3 20 3 V 12 C 20 12 19 12 17 13 C 13 15 9 11 5 13 Z" />
         </svg>
       );
   }

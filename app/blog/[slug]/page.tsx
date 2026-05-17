@@ -104,7 +104,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <Link href="/blog" className="hover:text-[var(--color-ember-400)]">Blog</Link>
               </nav>
               <p className="eyebrow text-[var(--color-ember-400)]">
-                {formatDate(post.date)} · {post.readingTime}
+                {formatDate(post.date)}
               </p>
               <h1 className="mt-4 text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
                 {post.title}
@@ -267,7 +267,7 @@ export default async function BlogPostPage({ params }: Props) {
                     </div>
                     <div className="flex flex-1 flex-col p-6">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
-                        {formatDate(p.date)} · {p.readingTime}
+                        {formatDate(p.date)}
                       </p>
                       <h3 className="mt-3 text-lg font-semibold leading-snug tracking-tight text-ink-900">
                         {p.title}

@@ -174,14 +174,13 @@ export default function PackagesPage() {
                 )}
               </div>
               <div>
-                <p className="eyebrow">Package {i + 1} of {PACKAGES.length}</p>
-                <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+                <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">
                   {p.name}
                 </h2>
                 <p className="mt-3 text-lg text-ink-800/80">{p.tagline}</p>
                 <div className="mt-6 flex flex-wrap items-baseline gap-x-6 gap-y-2">
                   <span className="text-5xl font-bold text-[var(--color-ember-600)]">${p.price}</span>
-                  <span className="text-sm uppercase tracking-wider text-ink-800/70">
+                  <span className="text-sm font-bold uppercase tracking-wider text-ink-900">
                     {p.groupSize} · {p.duration}
                   </span>
                 </div>

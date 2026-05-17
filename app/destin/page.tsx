@@ -193,12 +193,12 @@ export default function DestinPage() {
               permit.
             </p>
             <p>
-              We&rsquo;re a locally owned, veteran-led team that&rsquo;s been
-              running permitted beach bonfires for Destin and{" "}
+              We&rsquo;re a locally owned team that&rsquo;s been running
+              permitted beach bonfires for Destin and{" "}
               <Link href="/locations/30a-bonfires" className="font-semibold text-[var(--color-ember-700)] underline-offset-4 hover:underline">
                 30A
               </Link>{" "}
-              visitors for over five years. Every package includes the $157
+              visitors for almost five years. Every package includes the $157
               Walton County permit, full setup with premium seating and tiki
               torches, complimentary s&rsquo;mores, cornhole, a Bluetooth
               speaker, an on-site attendant, and complete cleanup. No

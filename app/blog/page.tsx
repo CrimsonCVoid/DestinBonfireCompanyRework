@@ -83,7 +83,7 @@ export default function BlogIndexPage() {
             </div>
             <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-14">
               <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
-                Featured · {formatDate(feature.date)} · {feature.readingTime}
+                Featured · {formatDate(feature.date)}
               </p>
               <h2 className="mt-4 text-3xl font-semibold leading-tight tracking-tight text-ink-900 sm:text-4xl">
                 {feature.title}
@@ -119,7 +119,7 @@ export default function BlogIndexPage() {
                 </div>
                 <div className="flex flex-1 flex-col p-7">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
-                    {formatDate(p.date)} · {p.readingTime}
+                    {formatDate(p.date)}
                   </p>
                   <h3 className="mt-3 text-xl font-semibold leading-snug tracking-tight text-ink-900">
                     {p.title}

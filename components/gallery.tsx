@@ -20,7 +20,13 @@ export function Gallery() {
           {GALLERY.map((item, i) => (
             <div
               key={item.src}
-              className="relative break-inside-avoid overflow-hidden rounded-2xl bg-[var(--color-sand-200)]"
+              // Cap mobile (single-column) view to the first 6 images so the
+              // gallery isn't a 12-photo scroll marathon on phones. Tablets
+              // and up show all 12 since the multi-column layout balances
+              // the height naturally.
+              className={`relative break-inside-avoid overflow-hidden rounded-2xl bg-[var(--color-sand-200)] ${
+                i >= 6 ? "max-sm:hidden" : ""
+              }`}
             >
               <Image
                 src={item.src}

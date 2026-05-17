@@ -30,9 +30,8 @@ export function Hero() {
           <span className="block text-[var(--color-ember-400)]">Serving 30A &amp; Destin</span>
         </h1>
         <p className="mt-8 max-w-2xl text-balance text-lg leading-relaxed text-sand-100 sm:text-xl">
-          Private, professionally hosted bonfires on permitted Walton County beaches.
-          We handle permits, setup, cleanup, and hosting - so you can simply
-          show up and enjoy the night.
+          Fully hosted beach bonfires near Destin &amp; across 30A. Permits,
+          setup, cleanup, seating, and s&rsquo;mores included.
         </p>
 
         <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">

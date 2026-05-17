@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { ContactSection } from "@/components/contact-section";
+import { Gallery } from "@/components/gallery";
 import { BookNowButton } from "@/components/book-now-button";
 import { BEACHES, getBeach } from "@/lib/beaches";
 import { COMMUNITIES, SITE } from "@/lib/site";
@@ -118,6 +119,7 @@ export default function LocationsPage() {
         title="Permitted Beach Bonfire Locations"
         subtitle="Every Walton County permitted beach we host beach bonfires on - organized west to east from Destin out to Inlet Beach. Tap any access for parking, restrooms, satellite map, and the local notes that don't live anywhere else online."
         image="/images/edwallenbeach.jpg"
+        video="/videos/flyover-water.mp4"
       />
 
       {/* Quick jump nav - sticky-ish anchor pills */}
@@ -280,6 +282,8 @@ export default function LocationsPage() {
           </div>
         </div>
       </section>
+
+      <Gallery />
 
       <ContactSection />
 

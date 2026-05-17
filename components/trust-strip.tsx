@@ -20,7 +20,7 @@ const BADGES = [
     icon: "star" as const,
   },
   {
-    label: "Fully insured & professional",
+    label: "Fully insured & professionally hosted",
     sub: "Trained on-site attendant on every fire",
     icon: "check" as const,
   },

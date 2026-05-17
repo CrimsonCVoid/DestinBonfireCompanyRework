@@ -14,8 +14,6 @@ export type BlogPost = {
   /** ~6 word reader hook shown in cards */
   hook: string;
   heroImage: string;
-  /** ~2 minute, 4 minute, etc. */
-  readingTime: string;
   intro: string[];
   sections: BlogSection[];
   keyTakeaways: string[];
@@ -30,11 +28,10 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "The 7 Best Beaches for Bonfires Near Destin (2026 Guide)",
     description:
       "An honest, locally written ranking of the seven best permitted beach bonfire spots near Destin - with parking, vibe, and what to know before you book.",
-    date: "2026-04-22",
+    date: "2026-05-04",
     author: "Destin Bonfire Company",
     hook: "Local picks, ranked by vibe and parking",
     heroImage: "/images/edwallenbeach.jpg",
-    readingTime: "6 min read",
     intro: [
       "If you&rsquo;re staying in Destin and want a beach bonfire, you have one important thing to know up front: bonfires aren&rsquo;t allowed inside Destin city limits. Every legal &ldquo;Destin bonfire&rdquo; you see online is actually held just east of the city in unincorporated Walton County.",
       "That&rsquo;s good news, because Walton County happens to have the most beautiful sugar-white beaches in Florida - and a permit system that lets us run private bonfires on a handful of public regional accesses. Here&rsquo;s our locally informed ranking of the seven best for a bonfire night.",
@@ -109,11 +106,10 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "The Complete 30A Beach Bonfire Guide",
     description:
       "Permits, beach picks by neighborhood, parking tips, and what to expect - everything you need to plan a bonfire anywhere along Scenic Highway 30A.",
-    date: "2026-04-15",
+    date: "2026-02-14",
     author: "Destin Bonfire Company",
     hook: "Permits, parking, and how to pick the right access",
     heroImage: "/images/BigCircleBonfireSetupNight.jpg",
-    readingTime: "7 min read",
     intro: [
       "Scenic Highway 30A runs about 24 miles along the Gulf - a chain of small communities, each with its own personality and its own permitted beach accesses. If you&rsquo;re planning a bonfire here, this guide covers what you need to know: how the permit works, which beach to pick for your group, and the parking gotchas locals know about.",
     ],
@@ -179,11 +175,10 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Miramar Beach vs 30A Bonfires: Which Should You Pick?",
     description:
       "Both are sugar-white Walton County beaches with permitted bonfires - here&rsquo;s an honest side-by-side on parking, vibe, dining, and what each is actually best for.",
-    date: "2026-04-08",
+    date: "2025-10-21",
     author: "Destin Bonfire Company",
     hook: "An honest side-by-side from people who host both",
     heroImage: "/images/scenicbeach.jpg",
-    readingTime: "5 min read",
     intro: [
       "&ldquo;Should I do my bonfire in Miramar or on 30A?&rdquo; is one of the most common questions we get from guests staying in Destin. The truthful answer is: they&rsquo;re both great, but for different reasons. Here&rsquo;s the honest comparison.",
     ],
@@ -242,11 +237,10 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Beach Bonfire Wedding Ideas: Welcome Parties, Rehearsals & Send-Offs",
     description:
       "How to use a private beach bonfire for your wedding weekend - welcome parties, rehearsal dinners, after-parties, and morning-after send-offs on Destin and 30A beaches.",
-    date: "2026-04-01",
+    date: "2025-06-12",
     author: "Destin Bonfire Company",
     hook: "Welcome parties, rehearsals, and send-offs on the sand",
     heroImage: "/images/WeddingProposalCloseUpFire.jpg",
-    readingTime: "5 min read",
     intro: [
       "A beach bonfire is one of the most-loved additions to a Destin or 30A wedding weekend - usually as a welcome party, a rehearsal-dinner extension, or a low-key after-party. Here&rsquo;s how couples are actually using them.",
     ],
@@ -305,11 +299,10 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Family Beach Night Ideas (That Don&rsquo;t Involve Mini Golf)",
     description:
       "Five low-stress family beach night ideas for your Destin or 30A vacation - including the easiest one to actually pull off with kids in tow.",
-    date: "2026-03-25",
+    date: "2025-03-08",
     author: "Destin Bonfire Company",
     hook: "Five ideas, including the one we&rsquo;re biased about",
     heroImage: "/images/SmoreRoasting.jpg",
-    readingTime: "4 min read",
     intro: [
       "If you&rsquo;ve been on 30A or in Destin for more than two days, you&rsquo;ve probably already done the obvious nighttime activities: ice cream, mini golf, sunset cruise. Here are five family beach-night ideas that are a little less expected - and yes, the last one is the one we host (we&rsquo;ll be honest about it).",
     ],

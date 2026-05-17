@@ -106,7 +106,7 @@ function PackageCard({ p }: { p: Package }) {
             ${p.price}
           </span>
         </div>
-        <p className="text-xs uppercase tracking-wider text-ink-800/75">
+        <p className="text-xs font-bold uppercase tracking-wider text-ink-900">
           {p.groupSize} · {p.duration}
         </p>
 
@@ -202,7 +202,7 @@ function FeaturedPackageCard({ p }: { p: Package }) {
           <span className="text-4xl font-bold tracking-tight text-[var(--color-ember-600)]">
             ${p.price}
           </span>
-          <span className="text-xs uppercase tracking-wider text-ink-800/75">
+          <span className="text-xs font-bold uppercase tracking-wider text-ink-900">
             {p.groupSize} · {p.duration}
           </span>
         </div>

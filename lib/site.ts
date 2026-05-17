@@ -212,9 +212,8 @@ export const PACKAGES: Package[] = [
     groupSize: "Up to 29 guests",
     duration: "3 hours",
     tagline: "Ideal for big events and unforgettable group nights",
-    image: "/images/BigCircleBonfireSetupNight.jpg",
+    image: "/images/BonfireBashBigU.jpg",
     fareHarborKey: "bonfireBash",
-    callToBook: true,
     includes: [
       "S’mores",
       "TWO On-site bonfire attendants",
@@ -254,7 +253,7 @@ export const SPECIALTY_PACKAGES: SpecialtyPackage[] = [
       "Perfect for wedding welcome parties, family reunions, corporate events, and large group celebrations. Contact event planner for customization.",
     ctaLabel: "Contact Event Planner",
     ctaHref: "tel:+18507061325",
-    image: "/images/UltimateBonfireBigU.jpg",
+    image: "/images/WideshotTruckBeachFire.jpg",
   },
   {
     slug: "bachelorette-bash",

@@ -3,7 +3,6 @@ import { Hero } from "@/components/hero";
 import { TrustStrip } from "@/components/trust-strip";
 import { WelcomeSection } from "@/components/welcome-section";
 import { CommunitiesSection } from "@/components/communities-section";
-import { ServiceAreas } from "@/components/service-areas";
 import { PackagesSection } from "@/components/packages-section";
 import { TestimonialsCarousel } from "@/components/testimonials-carousel";
 import { FaqAccordion } from "@/components/faq-accordion";
@@ -68,7 +67,6 @@ export default function HomePage() {
       <PackagesSection />
       <TestimonialsCarousel />
       <CommunitiesSection />
-      <ServiceAreas />
       <FaqAccordion />
       <ContactSection />
 

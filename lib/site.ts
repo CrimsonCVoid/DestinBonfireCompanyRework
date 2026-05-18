@@ -129,7 +129,7 @@ export const PACKAGES: Package[] = [
       "On-site bonfire attendant",
       "Welcome sign",
       "Full setup & cleanup",
-      "$157 Walton County permit",
+      "$157 County permit",
     ],
   },
   {
@@ -153,7 +153,7 @@ export const PACKAGES: Package[] = [
       "On-site bonfire attendant",
       "Welcome sign",
       "Full setup & cleanup",
-      "$157 Walton County permit",
+      "$157 County permit",
     ],
   },
   {
@@ -178,7 +178,7 @@ export const PACKAGES: Package[] = [
       "On-site bonfire attendant",
       "Welcome sign",
       "Full setup & cleanup",
-      "$157 Walton County permit",
+      "$157 County permit",
     ],
   },
   {
@@ -202,7 +202,7 @@ export const PACKAGES: Package[] = [
       "On-site bonfire attendant",
       "Welcome sign",
       "Full setup & cleanup",
-      "$157 Walton County permit fee",
+      "$157 County permit fee",
     ],
   },
   {
@@ -227,7 +227,7 @@ export const PACKAGES: Package[] = [
       "Tiki torches",
       "Welcome sign",
       "Full setup & cleanup",
-      "$157 Walton County permit fee",
+      "$157 County permit fee",
       "18% gratuity added",
     ],
   },
@@ -367,7 +367,7 @@ export const FAQ: FaqItem[] = [
   {
     topic: "Pricing",
     q: "Is the permit fee included in the package price?",
-    a: "Yes. The $157 Walton County beach bonfire permit fee is included in every package we sell. You are never charged extra for the permit at the beach.",
+    a: "Yes. The $157 County beach bonfire permit fee is included in every package we sell. You are never charged extra for the permit at the beach.",
   },
   {
     topic: "Pricing",

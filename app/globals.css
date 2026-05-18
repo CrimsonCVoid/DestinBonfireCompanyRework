@@ -361,6 +361,33 @@ html body [class*="fh-lightframe-loading"] svg path {
 }
 
 /* ==========================================================================
+   Always-visible page scrollbar on routes that opt in via <html class=
+   "force-scrollbar"> (toggled by the ForceVisibleScrollbar component).
+   Overrides macOS / iOS overlay scrollbars so guests deep-linked to a
+   package anchor on /bonfire-packages can see where they are in the page.
+   ========================================================================== */
+html.force-scrollbar {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ember-500) rgba(26, 22, 20, 0.08);
+}
+html.force-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html.force-scrollbar::-webkit-scrollbar-track {
+  background: rgba(26, 22, 20, 0.06);
+}
+html.force-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-ember-500);
+  border-radius: 5px;
+  border: 2px solid var(--color-sand-50);
+}
+html.force-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ember-600);
+}
+
+/* ==========================================================================
    Trust strip dividers - thin vertical hairlines between adjacent badges.
    The strip is 1 col on mobile, 2 on sm, 3 on lg, 5 on xl - each breakpoint
    needs to hide the divider on whichever badge ends a row.

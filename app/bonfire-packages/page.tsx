@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { ContactSection } from "@/components/contact-section";
 import { BookNowButton } from "@/components/book-now-button";
 import { CallToBookButton } from "@/components/call-to-book-button";
+import { ForceVisibleScrollbar } from "@/components/force-visible-scrollbar";
 import Link from "next/link";
 import { FAREHARBOR, PACKAGES, SITE, SPECIALTY_PACKAGES } from "@/lib/site";
 
@@ -82,6 +83,7 @@ export default function PackagesPage() {
 
   return (
     <>
+      <ForceVisibleScrollbar />
       <PageHeader
         eyebrow="All-Inclusive Packages"
         title="Bonfire Packages"

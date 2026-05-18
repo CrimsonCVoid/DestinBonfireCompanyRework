@@ -63,7 +63,7 @@ export function PackagesSection() {
         {ultimate && <UltimateBonfireCard sp={ultimate} />}
 
         <p className="mt-10 text-center text-sm text-ink-800/75">
-          Pricing includes the $157 Walton County permit fee.
+          Pricing includes the $157 County permit fee.
         </p>
       </div>
     </section>

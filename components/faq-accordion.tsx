@@ -8,6 +8,10 @@ const TOPICS = ["Pricing", "Permits", "Locations", "Booking", "The Night"] as co
 
 export function FaqAccordion() {
   const [open, setOpen] = useState<string | null>(FAQ[0]?.q ?? null);
+  // Mobile-only reveal toggle. FAQ list is a lot of vertical real estate
+  // on a phone; default it collapsed behind a "See FAQs" button so guests
+  // can scroll past the home page without thumb fatigue.
+  const [mobileFaqOpen, setMobileFaqOpen] = useState(false);
 
   const grouped = useMemo(() => {
     const m = new Map<string, typeof FAQ>();
@@ -46,7 +50,25 @@ export function FaqAccordion() {
           </div>
         </div>
 
-        <div className="space-y-10">
+        {/* Mobile-only "See FAQs" reveal. Hides itself once tapped; the
+            FAQ list below then becomes visible. Tablet+ skips this
+            (sm:hidden) since the side-by-side layout has room. */}
+        {!mobileFaqOpen && (
+          <button
+            type="button"
+            onClick={() => setMobileFaqOpen(true)}
+            className="btn-primary w-full sm:hidden"
+            aria-controls="faq-list"
+            aria-expanded={false}
+          >
+            See FAQs
+          </button>
+        )}
+
+        <div
+          id="faq-list"
+          className={`space-y-10 ${mobileFaqOpen ? "" : "max-sm:hidden"}`}
+        >
           {Array.from(grouped.entries())
             .filter(([, items]) => items.length > 0)
             .map(([topic, items]) => (

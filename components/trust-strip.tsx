@@ -1,7 +1,7 @@
 const BADGES = [
   {
     label: "Fully Walton County permitted",
-    sub: "Walton County permitting on every booking",
+    sub: "We take care of all required county permits",
     icon: "shield" as const,
   },
   {
@@ -21,7 +21,7 @@ const BADGES = [
   },
   {
     label: "Fully insured & professionally hosted",
-    sub: "Trained on-site attendant on every fire",
+    sub: "Trained on-site attendant at every fire",
     icon: "check" as const,
   },
 ];

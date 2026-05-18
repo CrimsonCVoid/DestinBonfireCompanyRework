@@ -135,10 +135,28 @@ export function TestimonialsCarousel() {
 
         {/* Arrow controls */}
         <div className="mt-12 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-sand-100/70">
+          <a
+            href={GOOGLE_REVIEWS_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open the Destin Bonfire Company review feed on Google"
+            className="group inline-flex items-center gap-2 rounded-full text-xs uppercase tracking-[0.25em] text-sand-100/70 transition hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ember-400)] focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900"
+          >
             <GoogleGlyph />
-            <span>Live from Google</span>
-          </div>
+            <span className="underline-offset-4 group-hover:underline">Live from Google</span>
+            <svg
+              className="h-3 w-3 opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17L17 7M17 7H9M17 7v8" />
+            </svg>
+          </a>
           <div className="flex items-center gap-2">
             <ArrowButton direction="prev" disabled={!canPrev} onClick={() => step(-1)} />
             <ArrowButton direction="next" disabled={!canNext} onClick={() => step(1)} />

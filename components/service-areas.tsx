@@ -4,22 +4,15 @@ import { SERVICE_AREAS } from "@/lib/site";
 
 export function ServiceAreas() {
   return (
-    <section id="service-areas" className="bg-[var(--color-sand-100)] py-24 sm:py-32">
+    <section id="service-areas" className="bg-[var(--color-sand-100)] py-16 sm:py-20">
       <span id="AREASWESERVE" className="sr-only" aria-hidden="true" />
+      {/* Hidden h2 for SEO + a11y - the visible section above
+          (CommunitiesSection) already provides the "Where We Host"
+          framing, so a second visible heading reads as redundant. The
+          h2 stays in the DOM so the page still has proper sectioning. */}
+      <h2 className="sr-only">Permitted beaches across South Walton</h2>
       <div className="container-x">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">Areas We Serve</p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            Permitted beaches across South Walton
-          </h2>
-          <p className="mt-5 text-ink-800/80">
-            Tap any beach to see its parking lot satellite view, restroom and
-            shower info, accessibility, nearby restaurants, and what locals
-            know before they arrive.
-          </p>
-        </div>
-
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICE_AREAS.map((area) => (
             <Link
               key={area.slug}

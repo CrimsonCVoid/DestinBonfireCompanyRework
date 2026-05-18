@@ -12,6 +12,7 @@ export function PackagesSection() {
   const topRow = PACKAGES.filter((p) => p.slug !== "sunset-for-two");
   const sunsetForTwo = PACKAGES.find((p) => p.slug === "sunset-for-two");
   const bachelorette = SPECIALTY_PACKAGES.find((s) => s.slug === "bachelorette-bash");
+  const ultimate = SPECIALTY_PACKAGES.find((s) => s.slug === "ultimate-bonfire");
 
   return (
     <section id="packages" className="relative bg-[var(--color-sand-50)] py-24 sm:py-32">
@@ -55,7 +56,13 @@ export function PackagesSection() {
           </div>
         )}
 
-        <p className="mt-12 text-center text-sm text-ink-800/75">
+        {/* Full-width Ultimate Bonfire cell - 30+ guest custom package.
+            Landscape layout (image left, content right) on lg+; stacks
+            on smaller widths. Deliberately shorter than the cards above
+            so it reads as a "bonus option" footnote, not a fifth tile. */}
+        {ultimate && <UltimateBonfireCard sp={ultimate} />}
+
+        <p className="mt-10 text-center text-sm text-ink-800/75">
           Pricing includes the $157 Walton County permit fee.
         </p>
       </div>
@@ -137,7 +144,7 @@ function PackageCard({ p }: { p: Package }) {
           // prelude to the button and sits ABOVE it for that reason.
           <div className="mt-auto pt-7">
             <p className="mb-2 text-center text-xs text-ink-800/70">
-              Call{" "}
+              Call or text{" "}
               <a
                 href={SITE.phoneHref}
                 className="font-semibold text-[var(--color-ember-600)] underline-offset-2 hover:underline"
@@ -151,7 +158,7 @@ function PackageCard({ p }: { p: Package }) {
               variant={p.popular ? "primary" : "ghost"}
               fullWidth
             >
-              Call to Book
+              Call or Text to Book
             </CallToBookButton>
           </div>
         ) : (
@@ -209,7 +216,7 @@ function FeaturedPackageCard({ p }: { p: Package }) {
         <div className="mt-6 flex flex-wrap items-center gap-3">
           {p.callToBook ? (
             <CallToBookButton packageKey={p.slug}>
-              Call to Book
+              Call or Text to Book
             </CallToBookButton>
           ) : (
             <BookNowButton item={p.fareHarborKey}>
@@ -304,6 +311,71 @@ function FeaturedBacheloretteCard({
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+/**
+ * Full-width Ultimate Bonfire cell. Landscape image-left / content-right
+ * layout on lg+; stacks on small. Kept intentionally shorter than the
+ * standard package cards above so it sits as a "for larger events"
+ * bonus row, not a fifth tile. CTA is a phone link captured via
+ * CallToBookButton so the click flows into the same PostHog funnel as
+ * the other call-to-book SKUs.
+ */
+function UltimateBonfireCard({
+  sp,
+}: {
+  sp: (typeof SPECIALTY_PACKAGES)[number];
+}) {
+  return (
+    <article className="group mt-10 grid overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-ink-900/5 lg:grid-cols-[1.1fr_1fr]">
+      <div className="relative aspect-[16/9] lg:aspect-auto lg:min-h-[240px]">
+        <Image
+          src={sp.image}
+          alt={`${sp.name} - large group beach bonfire setup`}
+          fill
+          sizes="(min-width: 1024px) 52vw, 100vw"
+          className="object-cover transition duration-700 group-hover:scale-[1.03]"
+        />
+      </div>
+      <div className="flex flex-col justify-center gap-3 p-7 sm:p-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-ember-600)]">
+          For Larger Events
+        </p>
+        <h3 className="text-2xl font-semibold tracking-tight text-ink-900 sm:text-3xl">
+          {sp.name}
+        </h3>
+        <p className="text-sm leading-relaxed text-ink-800/80 sm:text-base">
+          {sp.description}
+        </p>
+        <p className="text-xs font-bold uppercase tracking-wider text-ink-900">
+          {sp.groupSize}
+        </p>
+        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+          <CallToBookButton packageKey={sp.slug} variant="primary">
+            <svg
+              className="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.98.37 1.94.71 2.86a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.22-1.22a2 2 0 0 1 2.11-.45c.92.34 1.88.58 2.86.71A2 2 0 0 1 22 16.92z" />
+            </svg>
+            Call or Text to Book
+          </CallToBookButton>
+          <a
+            href={SITE.phoneHref}
+            className="text-sm font-semibold text-[var(--color-ember-600)] underline-offset-4 hover:underline"
+          >
+            {SITE.phone}
+          </a>
         </div>
       </div>
     </article>

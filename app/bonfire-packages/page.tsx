@@ -195,7 +195,7 @@ export default function PackagesPage() {
                 <div className="mt-10 flex flex-wrap items-center gap-3">
                   {p.callToBook ? (
                     <CallToBookButton packageKey={p.slug}>
-                      Call to Book
+                      Call or Text to Book
                     </CallToBookButton>
                   ) : (
                     <BookNowButton item={p.fareHarborKey}>
@@ -212,14 +212,14 @@ export default function PackagesPage() {
                 </div>
                 {p.callToBook && (
                   <p className="mt-3 text-sm text-ink-800/75">
-                    Call{" "}
+                    Call or text{" "}
                     <a
                       href={SITE.phoneHref}
                       className="font-semibold text-[var(--color-ember-600)] underline-offset-2 hover:underline"
                     >
                       {SITE.phone}
                     </a>{" "}
-                    to book {p.name}. Our team handles the date, beach, and details on the call.
+                    to book {p.name}. Our team handles the date, beach, and details over the phone.
                   </p>
                 )}
               </div>

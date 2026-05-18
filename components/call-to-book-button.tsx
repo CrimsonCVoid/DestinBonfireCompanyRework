@@ -28,7 +28,7 @@ export function CallToBookButton({
   variant = "primary",
   fullWidth = false,
   className = "",
-  children = "Call to Book",
+  children = "Call or Text to Book",
   "aria-label": ariaLabel,
   ...rest
 }: CallToBookButtonProps) {

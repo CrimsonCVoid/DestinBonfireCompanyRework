@@ -7,6 +7,11 @@ import { GOOGLE_REVIEWS, GOOGLE_REVIEWS_URL, type GoogleReview } from "@/lib/sit
  * Horizontal scroll-snap carousel of live Google reviews.
  *
  * - Single row, snap-mandatory so each card aligns to the start.
+ * - Auto-advances every 6 seconds, looping back to the start when it
+ *   reaches the end. Paused while the section is hovered or focused
+ *   (desktop) and for 12s after any manual scroll, wheel, touch, or
+ *   arrow-button interaction (so guests can actually finish reading
+ *   a review). Honors prefers-reduced-motion - completely opts out.
  * - Arrow buttons scroll by one card width at a time (rounded down so the
  *   next card is fully revealed, never half-clipped).
  * - The native scrollbar is hidden visually; users can still scroll with
@@ -17,10 +22,18 @@ import { GOOGLE_REVIEWS, GOOGLE_REVIEWS_URL, type GoogleReview } from "@/lib/sit
  *   who wants the unfiltered set (including critical reviews) can read
  *   them on Google.
  */
+const AUTO_ADVANCE_MS = 6000;
+const USER_PAUSE_MS = 12000;
+
 export function TestimonialsCarousel() {
   const trackRef = useRef<HTMLOListElement | null>(null);
   const [canPrev, setCanPrev] = useState(false);
   const [canNext, setCanNext] = useState(true);
+  // Hover / focus pause - controlled by the section-level handlers.
+  const [isPaused, setIsPaused] = useState(false);
+  // Set on every user-initiated scroll/touch/wheel/click so the auto
+  // advancer holds off for USER_PAUSE_MS, giving readers time to finish.
+  const userInteractedAtRef = useRef(0);
 
   const updateBoundaries = useCallback(() => {
     const el = trackRef.current;
@@ -41,7 +54,40 @@ export function TestimonialsCarousel() {
     };
   }, [updateBoundaries]);
 
+  // Auto-advance loop. Skips when the section is hovered/focused, when
+  // the user just interacted, when the tab isn't visible, or when the
+  // user prefers reduced motion.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) return;
+
+    const id = window.setInterval(() => {
+      if (isPaused) return;
+      if (document.hidden) return;
+      if (Date.now() - userInteractedAtRef.current < USER_PAUSE_MS) return;
+
+      const el = trackRef.current;
+      if (!el) return;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 4;
+      if (atEnd) {
+        // Loop back to the first card.
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        const distance = Math.floor(el.clientWidth * 0.9);
+        el.scrollBy({ left: distance, behavior: "smooth" });
+      }
+    }, AUTO_ADVANCE_MS);
+
+    return () => window.clearInterval(id);
+  }, [isPaused]);
+
+  function markUserInteraction() {
+    userInteractedAtRef.current = Date.now();
+  }
+
   function step(direction: 1 | -1) {
+    markUserInteraction();
     const el = trackRef.current;
     if (!el) return;
     // Scroll by ~90% of viewport so a partially-visible card slides fully
@@ -51,7 +97,13 @@ export function TestimonialsCarousel() {
   }
 
   return (
-    <section className="relative isolate overflow-hidden bg-ink-900 py-24 text-white sm:py-32">
+    <section
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={() => setIsPaused(false)}
+      className="relative isolate overflow-hidden bg-ink-900 py-24 text-white sm:py-32"
+    >
       <video
         autoPlay
         muted
@@ -93,10 +145,15 @@ export function TestimonialsCarousel() {
           </div>
         </div>
 
-        {/* Carousel track */}
+        {/* Carousel track. The pointer/wheel/touch handlers defer the
+            auto-advance for USER_PAUSE_MS so a guest mid-swipe doesn't
+            get yanked to the next card. */}
         <ol
           ref={trackRef}
           aria-label="Guest reviews from Google"
+          onPointerDown={markUserInteraction}
+          onWheel={markUserInteraction}
+          onTouchStart={markUserInteraction}
           className="testimonials-track mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-5"
         >
           {GOOGLE_REVIEWS.map((r, i) => (
